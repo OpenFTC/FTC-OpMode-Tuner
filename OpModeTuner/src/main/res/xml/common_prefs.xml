@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="Network"
+        android:layout="@layout/preference_layout">
+
+        <net.frogbots.ftcopmodetuner.prefs.IpAddrPref
+            android:defaultValue="192.168.49.1"
+            android:key="ipAddrPref"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="Server IP address"/>
+
+        <PreferenceScreen
+            android:title="Advanced network"
+            android:summary="Change advanced settings for the connection to the server">
+
+            <intent
+                android:targetClass="net.frogbots.ftcopmodetuner.ui.activity.settings.AdvancedNetworkSettingsActivity"
+                android:targetPackage="net.frogbots.ftcopmodetuner"/>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="User Experience"
+        android:layout="@layout/preference_layout">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="connectionSounds"
+            android:summary="Play a sound when the connection is established or lost"
+            android:title="Connection sounds"/>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="showIntro"
+            android:summary="Show the intro slides next time the app is cold-launched"
+            android:title="Show intro on next app launch"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

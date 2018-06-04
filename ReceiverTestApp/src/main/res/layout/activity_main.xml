@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:id="@+id/myIp"
+         android:text="This devices IP is:"
+         android:textSize="20sp"
+         android:layout_height="wrap_content"/>
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:id="@+id/connection"
+         android:text="Disconnected from Tuner app"
+         android:textSize="20sp"
+         android:layout_height="wrap_content"/>
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:id="@+id/textView"
+         android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Do not change any of these unless you know what you're doing; otherwise you could break things!"
+        android:layout="@layout/preference_layout">
+
+        <net.frogbots.ftcopmodetuner.prefs.PortNumberPref
+            android:defaultValue="8081"
+            android:key="portPref"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="Server port"/>
+
+        <net.frogbots.ftcopmodetuner.prefs.NumberPref
+            android:defaultValue="50"
+            android:key="transmissionInterval"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="Transmission interval (ms)"/>
+
+        <net.frogbots.ftcopmodetuner.prefs.NumberPref
+            android:defaultValue="100"
+            android:key="serverHeartbeatInterval"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="Connection heartbeat (ms)"/>
+
+        <net.frogbots.ftcopmodetuner.prefs.NumberPref
+            android:defaultValue="1000"
+            android:key="noResponseFromServerTimeoutMs"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:title="No response from server timeout (ms)"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

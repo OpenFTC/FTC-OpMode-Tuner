@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="Common"
+        android:layout="@layout/preference_layout">
+
+        <PreferenceScreen
+            android:title="Common preferences"
+            android:summary="Change preferences common to the entire app">
+
+            <intent
+                android:targetClass="net.frogbots.ftcopmodetuner.ui.activity.settings.CommonSettingsActivity"
+                android:targetPackage="net.frogbots.ftcopmodetuner"/>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="User Experience"
+        android:layout="@layout/preference_layout">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="loadLastConfigOnStartup"
+            android:summary="When cold-launching the app, load the last configuration used"
+            android:title="Load last config on startup"/>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="deleteFieldOnLongPress"
+            android:summary="Show the 'delete?' dialog when a field is long-pressed"
+            android:title="Delete field on long press"/>
+
+        <PreferenceScreen
+            android:title="Advanced UI"
+            android:summary="Change advanced settings for the UI">
+
+            <intent
+                android:targetClass="net.frogbots.ftcopmodetuner.ui.activity.settings.AdvancedUiSettingsActivity"
+                android:targetPackage="net.frogbots.ftcopmodetuner"/>
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

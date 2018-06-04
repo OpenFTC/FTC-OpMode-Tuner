@@ -1,0 +1,180 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">FTC OpMode Tuner</string>
+
+    <string name="app_license" tools:ignore="TypographyOther">
+        The MIT License (MIT)
+
+        \n\nCopyright (c) 2018 FTC Team 4634, FROGbots
+
+        \n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this
+        software and associated documentation files (the "Software"), to deal in the Software
+        without restriction, including without limitation the rights to use, copy, modify, merge,
+        publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+        to whom the Software is furnished to do so, subject to the following conditions:
+
+        \n\nThe above copyright notice and this permission notice shall be included in all copies or
+        substantial portions of the Software.
+
+        \n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+        BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+        DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </string>
+
+    <string name="license_material_intro" tools:ignore="TypographyOther">
+        The MIT License (MIT)
+
+        \n\nCopyright (c) 2017 Jan Heinrich Reimer
+
+        \n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this
+        software and associated documentation files (the "Software"), to deal in the Software
+        without restriction, including without limitation the rights to use, copy, modify, merge,
+        publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+        to whom the Software is furnished to do so, subject to the following conditions:
+
+        \n\nThe above copyright notice and this permission notice shall be included in all copies or
+        substantial portions of the Software.
+
+        \n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+        BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+        DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </string>
+
+    <string name="robotcore_license">
+        Copyright © 2014-2016 Qualcomm Technologies Inc
+
+        \n\nAll rights reserved.
+
+         \n\nRedistribution and use in source and binary forms, with or without modification,
+        are permitted (subject to the limitations in the disclaimer below) provided that
+        the following conditions are met:
+
+        \n\nRedistributions of source code must retain the above copyright notice, this list
+        of conditions and the following disclaimer.
+
+        \n\nRedistributions in binary form must reproduce the above copyright notice, this
+        list of conditions and the following disclaimer in the documentation and/or
+        other materials provided with the distribution.
+
+        \n\nNeither the name of Qualcomm Technologies Inc nor the names of its contributors
+        may be used to endorse or promote products derived from this software without
+        specific prior written permission.
+
+        \n\nQualcomm Technologies Inc., will periodically collect anonymous information
+        about the device this software is installed on such as the make, model, and
+        software versions, but no information that identifies you.
+
+        \n\nNO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
+        LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS
+        IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+        ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+        (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+        LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+        ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+        (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+        SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    </string>
+
+    <string name="apache_license_aosp" tools:ignore="TypographyOther">
+        Copyright (C) 2014 The Android Open Source Project
+
+        \n\nLicensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+             \n\nhttp://www.apache.org/licenses/LICENSE-2.0
+
+        \n\nUnless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    </string>
+
+    <string name="xstream_license" tools:ignore="TypographyOther">
+        Copyright (c) 2003-2006, Joe Walnes
+        \nCopyright (c) 2006-2015 XStream Committers
+        \nAll rights reserved.
+
+        \n\nRedistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+
+        \n\n1. Redistributions of source code must retain the above copyright notice, this list of
+        conditions and the following disclaimer.
+
+        \n\n2. Redistributions in binary form must reproduce the above copyright notice, this list of
+        conditions and the following disclaimer in the documentation and/or other materials provided
+        with the distribution.
+
+        \n\n3. Neither the name of XStream nor the names of its contributors may be used to endorse
+        or promote products derived from this software without specific prior written
+        permission.
+
+        \n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
+        EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+        OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+        SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+        INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+        TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+        BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+        CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+        WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+        DAMAGE.
+    </string>
+
+    <string name="openftc_project">"FTC OpMode Tuner is an OpenFTC project. Check out the OpenFTC organization on GitHub for more cool projects like this one!"</string>
+    <string name="intro_slide_hello_title">Hello!</string>
+    <string name="intro_slide_hello_msg">Thanks for downloading FTC OpMode Tuner!\n\nFTC OpMode Tuner allows you to tune parameters in your OpModes (such as PID coefficients or servo positions) in REAL TIME.</string>
+    <string name="intro_slide_how_does_it_work_title">How does it work?</string>
+    <string name="intro_slide_how_does_it_work_msg">You add fields (variables) to the UI in this app. Those fields are then sent over the network to the RobotController, where a network receiver is listening for them. Each field is identified with a tag, similar to the HardwareMap.</string>
+    <string name="intro_slide_open_source_title">This app is open source!</string>
+    <string name="intro_slide_open_source_msg">For more details, please see the About screen.</string>
+
+    <string name="advanced_network_settings_activity_title">Advanced Network</string>
+    <string name="settings_activity_title">Preferences</string>
+    <string name="intro_slide_setup_title">Setup Instructions</string>
+    <string name="intro_slide_setup_msg">Please visit openftc.org/opmodetuner on your computer for setup instructions.</string>
+    <string name="ds_app_detected_dialog_title">DS app detected</string>
+    <string name="ds_app_detected_dialog_text">Looks like this phone is a Driver Station. This app won\'t work properly if the DS app is connected to the RC in background.\n\nAlso, please note that DS app must be open in the foreground to keep an OpMode running, so you will need a third phone in order to use this tuner.</string>
+    <string name="clear_all_fields_dialog_title">Clear all fields?</string>
+    <string name="clear_all_fields_dialog_text">Are you sure you want to clear all fields?</string>
+    <string name="dialog_remove_field_title">Remove this field?</string>
+    <string name="dialog_remove_field_msg">Are you sure you want to remove field \'%s\' ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="wifi_off_or_not_connected">Wi-Fi radio off or not connected to an infrastructure mode network</string>
+    <string name="connection_refused">CONNECTION REFUSED</string>
+    <string name="ok">OK</string>
+    <string name="driverstation_pkg_name">com.qualcomm.ftcdriverstation</string>
+    <string name="connection_status_connected">"Connected to %s : %d UDP,  OK"</string>
+    <string name="connection_status_disconnected">"Disconnected from %s : %d UDP,  ERR"</string>
+    <string name="dialog_field_settings_title">Field settings</string>
+    <string name="tag_in_use">Tag already in use!</string>
+    <string name="tag_is_empty">Tag cannot be empty!</string>
+    <string name="not_a_valid_xyz">Not a valid %s!</string>
+    <string name="min_greater_than_max">Min cannot be greater than max!</string>
+    <string name="add_new_field">Add New Field</string>
+    <string name="var_double">double</string>
+    <string name="var_boolean">boolean</string>
+    <string name="var_int">int</string>
+    <string name="var_string">string</string>
+    <string name="var_byte">byte</string>
+    <string name="var_button">button</string>
+    <string name="leading_space">Leading space!</string>
+    <string name="trailing_space">Trailing space!</string>
+    <string name="double_space">Contains double-space!</string>
+    <string name="dialog_manual_key_in_title">Manual key-in</string>
+    <string name="activity_about_title">About</string>
+    <string name="activity_oss_licenses_title">Open Source Licenses</string>
+    <string name="not_valid_ip_addr">Not a valid IP address!</string>
+    <string name="not_valid_port">Not a valid port!</string>
+    <string name="not_valid_interval">Not a valid interval</string>
+    <string name="dont_want_interval_this_high">You probably don\'t want the interval this high...</string>
+    <string name="must_be_at_least_10ms">Must be at least 10ms</string>
+    <string name="add_new_config">Add new config</string>
+</resources>

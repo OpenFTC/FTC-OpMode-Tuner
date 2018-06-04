@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fieldTypeOptions">
+        <item>int</item>
+        <item>double</item>
+        <item>byte</item>
+        <item>string</item>
+        <item>boolean</item>
+    </string-array>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Extra Datatypes"
+        android:layout="@layout/preference_layout">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="enableByteDatatype"
+            android:title="Enable byte datatype"
+            android:summary="Enables the ability to send byte variables"/>
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="enableButtonDatatype"
+            android:title="Enable button datatype"
+            android:summary="Enables the ability to send button press events"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Datatype Display"
+        android:layout="@layout/preference_layout">
+
+        <CheckBoxPreference
+            android:title="Display datatype"
+            android:defaultValue="true"
+            android:summary="Show the datatype in the upper right corner of each field"
+            android:key="displayDatatype" />
+
+        <CheckBoxPreference
+            android:title="Enable color coding of datatypes"
+            android:summary="Show a thin color strip at the top of each field indicating the datatype"
+            android:key="colorCodeDatatypes"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

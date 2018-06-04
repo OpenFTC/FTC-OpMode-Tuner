@@ -1,0 +1,22 @@
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/sendEventBtn"
+        android:text="Send Event"
+        android:textAllCaps="false"
+        android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:id="@+id/fieldSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_settings"/>
+
+</LinearLayout>

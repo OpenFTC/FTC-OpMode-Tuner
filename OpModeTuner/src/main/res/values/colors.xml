@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0993d9</color>
+    <color name="colorPrimaryDark">#076da1</color>
+    <color name="colorAccent">#20b37b</color>
+    <color name="mainBgColor">#e2e2e2</color>
+    <color name="connected">#076da1</color>
+    <color name="disconnected">#d2201d</color>
+    <color name="wifi_off">#924bef</color>
+    <color name="white">#ffffff</color>
+    <color name="integer_color">#1a80c4</color>
+    <color name="byte_color">#ec9005</color>
+    <color name="string_color">#1fca01</color>
+    <color name="boolean_color">#ca01c0</color>
+    <color name="double_color">#de0004</color>
+    <color name="btn_color">#666666</color>
+    <color name="light_grey">#dedede</color>
+    <color name="black">#000000</color>
+    <color name="info_shadow">#A8A8A8</color>
+</resources>

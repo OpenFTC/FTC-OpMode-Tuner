@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "net.frogbots.ftcopmodetuner"
+        minSdkVersion 19
+        targetSdkVersion 21
+        versionCode 1
+        versionName "0.22"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    compile 'com.heinrichreimersoftware:material-intro:1.6.2'
+    compile 'android.arch.lifecycle:extensions:1.1.1'
+    implementation project(':Common')
+    compile('com.thoughtworks.xstream:xstream:1.4.8') {
+        exclude group: 'xmlpull', module: 'xmlpull'
+    }
+}
