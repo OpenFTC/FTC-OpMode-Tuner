@@ -142,6 +142,22 @@ This is 100% legal for use in competition. In fact, it falls under essentially t
     ![img-her](doc/images/adjust-var1.png)
 
     If all goes well, you should see the number in the Telemetry Area of the DS changing as you move the slider
+    
+## Setting up this project in AS for develeopment:
+
+If you'd like to contribute to this project, then you will need to setup this repository locally as an Android Studio project. You can do this as follows:
+
+ 1. In a directory of your choosing, run:
+ 
+         git clone https://github.com/OpenFTC/FTC-OpMode-Tuner.git
+         
+ 2. On the AS "Welcome" screen, choose *Import project (Gradle, Eclipse ADT, etc.)*
+ 
+ 3. Navigate to the directory where you cloned this repository to, and select the root *(FTC-OpMode-Tuner)* folder.
+ 
+ 4. Wait for Gradle to finish gradling.
+ 
+ 5. You're now all set up!
 
 ## Release Notes
 
