@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.network.NetworkEventsListener;
+import net.frogbots.ftcopmodetuner.network.NetworkedApplication;
 import net.frogbots.ftcopmodetuner.network.NetworkingManager;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
@@ -50,6 +51,7 @@ public abstract class UdpConnectionActivity extends AppCompatActivity implements
     private String addr;
     private GlobalPrefs globalPrefs;
     private WifiManager.WifiLock wifiLock;
+    private NetworkedApplication networkedApplication;
 
     //--------------------------------------------------------------------------------------------------
     // Android Lifecycle
@@ -60,6 +62,9 @@ public abstract class UdpConnectionActivity extends AppCompatActivity implements
     {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_udp_connection);
+
+        networkedApplication = (NetworkedApplication) getApplication();
+
         globalPrefs = GlobalPrefs.getInstance();
 
         showIntroIfRequested();
@@ -187,7 +192,7 @@ public abstract class UdpConnectionActivity extends AppCompatActivity implements
 
     private void updatePrefVals()
     {
-        addr = networkingManager.getIpAddr();
-        port = networkingManager.getPort();
+        addr = networkedApplication.getAddr();
+        port = networkedApplication.getPort();
     }
 }

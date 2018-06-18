@@ -60,6 +60,7 @@ public class NetworkedApplication extends Application implements LifecycleObserv
         };
 
         loadSoundpoolThings();
+        updateThings();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -83,7 +84,16 @@ public class NetworkedApplication extends Application implements LifecycleObserv
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
     {
         updateThings();
-        networkingManager.reloadIfNecessary(addr, port, serverHeartbeatInterval, noResponseFromServerTimeoutMs);
+
+        /*
+         * If we're not connected to a network, then we don't want to load the networking
+         * manager even though the parameters have changed. They'll get loaded when we
+         * connect to a network again, anyway.
+         */
+        if(isWifiRadioConnectedToANetwork())
+        {
+            networkingManager.reloadIfNecessary(addr, port, serverHeartbeatInterval, noResponseFromServerTimeoutMs);
+        }
     }
 
     @Override
@@ -171,5 +181,15 @@ public class NetworkedApplication extends Application implements LifecycleObserv
         {
             e.printStackTrace();
         }
+    }
+
+    public int getPort()
+    {
+        return port;
+    }
+
+    public String getAddr()
+    {
+        return addr;
     }
 }
