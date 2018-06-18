@@ -31,6 +31,8 @@ FTC-OpMode-Tuner is an Android app that is installed on a 3rd (DS + RC + Other) 
  - Booleans
  - Bytes *(advanced)*
  - Button presses *(advanced)*
+ 
+ Note: the *"advanced"* data types can be enabled by going to Settings --> Advanced UI
 
 ## Info on *Fields*
 
