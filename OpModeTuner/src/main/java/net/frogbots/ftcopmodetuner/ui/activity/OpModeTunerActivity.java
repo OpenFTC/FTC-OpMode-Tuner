@@ -44,6 +44,7 @@ import net.frogbots.ftcopmodetuner.ui.field.ButtonFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.ByteFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.DoubleFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.FieldUiFactory;
 import net.frogbots.ftcopmodetuner.ui.field.IntFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.StringFieldUi;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
@@ -296,94 +297,20 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     @Override
     public void addNewField(FieldType fieldType, String tag)
     {
-        View view = null;
-        FieldUi fieldUi = null;
-
-        if (fieldType == FieldType.INT)
-        {
-            fieldUi = new IntFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(new IntFieldData(tag));
-        }
-
-        else if(fieldType == FieldType.STRING)
-        {
-            fieldUi = new StringFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(new StringFieldData(tag));
-        }
-
-        else if(fieldType == FieldType.BOOLEAN)
-        {
-            fieldUi = new BooleanFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(new BooleanFieldData(tag));
-        }
-
-        else if(fieldType == FieldType.DOUBLE)
-        {
-            fieldUi = new DoubleFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(new DoubleFieldData(tag));
-        }
-
-        else if(fieldType == FieldType.BYTE)
-        {
-            fieldUi = new ByteFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(new ByteFieldData(tag));
-        }
-
-        else if(fieldType == FieldType.BUTTON)
-        {
-            fieldUi = new ButtonFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(new ButtonFieldData(tag));
-        }
-
-        view = fieldUi.createView();
+        FieldUi fieldUi = FieldUiFactory.create(fieldType, tag, this);
+        View view = fieldUi.createView(getLayoutInflater(), mainLinearLayout);
         fieldUi.setColorCodingAndDatatypeDisplay(colorCoding, displayDatatype);
+
         mainLinearLayout.addView(view);
         fields.add(fieldUi);
     }
 
     public void addFieldFromSavedBundle(FieldData data)
     {
+        FieldUi fieldUi = FieldUiFactory.create(data, this);
+        fieldUi.attachFieldDataClass(data);
+        View view = fieldUi.createView(getLayoutInflater(), mainLinearLayout);
 
-        View view = null;
-        FieldUi fieldUi = null;
-
-        if(data instanceof IntFieldData)
-        {
-            fieldUi = new IntFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(data);
-        }
-
-        else if(data instanceof StringFieldData)
-        {
-            fieldUi = new StringFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(data);
-        }
-
-        else if(data instanceof BooleanFieldData)
-        {
-            fieldUi = new BooleanFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(data);
-        }
-
-        else if(data instanceof ByteFieldData)
-        {
-            fieldUi = new ByteFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(data);
-        }
-
-        else if(data instanceof DoubleFieldData)
-        {
-            fieldUi = new DoubleFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(data);
-        }
-
-        else if(data instanceof ButtonFieldData)
-        {
-            fieldUi = new ButtonFieldUi(getLayoutInflater(), this, mainLinearLayout);
-            fieldUi.attachFieldDataClass(data);
-        }
-
-        view = fieldUi.createView();
         mainLinearLayout.addView(view);
         fields.add(fieldUi);
     }

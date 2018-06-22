@@ -27,6 +27,7 @@ import android.os.Parcelable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+import net.frogbots.ftcopmodetunercommon.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 
@@ -85,6 +86,12 @@ public class IntFieldData extends FieldData
     public Datagram toDatagram()
     {
         return new IntegerDatagram(curValue, tag);
+    }
+
+    @Override
+    public FieldType getType()
+    {
+        return FieldType.INT;
     }
 
     public static final Parcelable.Creator<IntFieldData> CREATOR = new Parcelable.Creator<IntFieldData>()

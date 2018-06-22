@@ -26,7 +26,9 @@ import android.os.Parcelable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import net.frogbots.ftcopmodetunercommon.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 
 /**
@@ -46,8 +48,8 @@ public abstract class FieldData implements Parcelable
         this.tag = tag;
     }
 
-
     public abstract Datagram toDatagram();
+    public abstract FieldType getType();
 
     @Override
     public int describeContents()

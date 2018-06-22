@@ -43,9 +43,9 @@ public class BooleanFieldUi extends FieldUi
     private TextView textView;
     private ImageButton settingsBtn;
 
-    public BooleanFieldUi(LayoutInflater layoutInflater, FieldInterface fieldInterface, ViewGroup parent)
+    public BooleanFieldUi(FieldInterface fieldInterface)
     {
-        super(layoutInflater, fieldInterface, parent, R.layout.boolean_layout);
+        super(fieldInterface, R.layout.boolean_layout);
     }
 
     private void setCurValue(boolean b)
@@ -54,9 +54,9 @@ public class BooleanFieldUi extends FieldUi
     }
 
     @Override
-    public void setupUi()
+    public void setupUi(LayoutInflater inflater)
     {
-        super.setupUi();
+        super.setupUi(inflater);
 
         switchBtn = findViewById(R.id.switchBtn);
         textView = findViewById(R.id.value);

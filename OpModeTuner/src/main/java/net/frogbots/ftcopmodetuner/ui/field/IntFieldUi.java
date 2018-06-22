@@ -44,9 +44,9 @@ public class IntFieldUi extends FieldUi
     private SeekBar seekBar;
     private TextView value;
 
-    public IntFieldUi(LayoutInflater layoutInflater, FieldInterface fieldInterface, ViewGroup parent)
+    public IntFieldUi(FieldInterface fieldInterface)
     {
-        super(layoutInflater, fieldInterface, parent, R.layout.number_layout);
+        super(fieldInterface, R.layout.number_layout);
     }
 
     private int getProgress()
@@ -91,9 +91,9 @@ public class IntFieldUi extends FieldUi
     }
 
     @Override
-    public void setupUi()
+    public void setupUi(LayoutInflater inflater)
     {
-        super.setupUi();
+        super.setupUi(inflater);
 
         settingsBtn = findViewById(R.id.fieldSettings);
         btnKeyIn = findViewById(R.id.btnKeyIn);

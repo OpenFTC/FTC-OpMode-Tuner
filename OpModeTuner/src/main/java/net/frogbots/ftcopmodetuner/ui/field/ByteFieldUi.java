@@ -43,15 +43,15 @@ public class ByteFieldUi extends FieldUi
     private ImageButton settingsBtn;
     private EditText textView;
 
-    public ByteFieldUi(LayoutInflater layoutInflater, FieldInterface fieldInterface, ViewGroup parent)
+    public ByteFieldUi(FieldInterface fieldInterface)
     {
-        super(layoutInflater, fieldInterface, parent, R.layout.byte_layout);
+        super(fieldInterface, R.layout.byte_layout);
     }
 
     @Override
-    public void setupUi()
+    public void setupUi(LayoutInflater inflater)
     {
-        super.setupUi();
+        super.setupUi(inflater);
 
         textView = findViewById(R.id.byteField);
         btnKeyIn = findViewById(R.id.btnKeyIn);

@@ -42,21 +42,17 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressData
 abstract public class FieldUi
 {
     private TextView fieldKeyTxtView;
-    private ViewGroup parent;
     private CardView cardView;
     private TextView typeTxtView;
     private int layoutId;
     private FieldInterface fieldInterface;
     public View view;
-    private LayoutInflater layoutInflater;
     public FieldData data;
 
-    protected FieldUi(LayoutInflater layoutInflater, FieldInterface fieldInterface, ViewGroup parent, int layoutId)
+    protected FieldUi(FieldInterface fieldInterface, int layoutId)
     {
         this.fieldInterface = fieldInterface;
-        this.layoutInflater = layoutInflater;
         this.layoutId = layoutId;
-        this.parent = parent;
     }
 
     public void attachFieldDataClass(FieldData data)
@@ -64,11 +60,11 @@ abstract public class FieldUi
         this.data = data;
     }
 
-    public View createView()
+    public View createView(LayoutInflater inflater, ViewGroup parent)
     {
-        view = layoutInflater.inflate(R.layout.field_layout, parent, false);
+        view = inflater.inflate(R.layout.field_layout, parent, false);
 
-        setupUi();
+        setupUi(inflater);
 
         return view;
     }
@@ -97,10 +93,10 @@ abstract public class FieldUi
         }
     }
 
-    public void setupUi()
+    public void setupUi(LayoutInflater inflater)
     {
         LinearLayout layout = view.findViewById(R.id.fieldCardMainLayout);
-        layoutInflater.inflate(layoutId, layout, true);
+        inflater.inflate(layoutId, layout, true);
 
         cardView = view.findViewById(R.id.card);
 

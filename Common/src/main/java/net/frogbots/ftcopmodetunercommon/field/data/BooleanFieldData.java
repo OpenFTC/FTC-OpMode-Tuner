@@ -27,6 +27,7 @@ import android.os.Parcelable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+import net.frogbots.ftcopmodetunercommon.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.BooleanDatagram;
 
@@ -54,6 +55,12 @@ public class BooleanFieldData extends FieldData
     public Datagram toDatagram()
     {
         return new BooleanDatagram(value, tag);
+    }
+
+    @Override
+    public FieldType getType()
+    {
+        return FieldType.BOOLEAN;
     }
 
     @Override

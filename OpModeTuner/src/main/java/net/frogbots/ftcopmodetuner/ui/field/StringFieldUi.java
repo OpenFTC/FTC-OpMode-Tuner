@@ -42,15 +42,15 @@ public class StringFieldUi extends FieldUi
     private ImageButton settingsBtn;
     private EditText editText;
 
-    public StringFieldUi(LayoutInflater layoutInflater, FieldInterface fieldInterface, ViewGroup parent)
+    public StringFieldUi(FieldInterface fieldInterface)
     {
-        super(layoutInflater, fieldInterface, parent, R.layout.string_layout);
+        super(fieldInterface, R.layout.string_layout);
     }
 
     @Override
-    public void setupUi()
+    public void setupUi(LayoutInflater inflater)
     {
-        super.setupUi();
+        super.setupUi(inflater);
 
         editText = findViewById(R.id.stringField);
         settingsBtn = findViewById(R.id.fieldSettings);

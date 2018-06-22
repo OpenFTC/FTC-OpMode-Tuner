@@ -40,15 +40,15 @@ public class ButtonFieldUi extends FieldUi
     private ImageButton settingsBtn;
     private Button sendEventBtn;
 
-    public ButtonFieldUi(LayoutInflater layoutInflater, FieldInterface fieldInterface, ViewGroup parent)
+    public ButtonFieldUi(FieldInterface fieldInterface)
     {
-        super(layoutInflater, fieldInterface, parent, R.layout.button_field_layout);
+        super(fieldInterface, R.layout.button_field_layout);
     }
 
     @Override
-    public void setupUi()
+    public void setupUi(LayoutInflater inflater)
     {
-        super.setupUi();
+        super.setupUi(inflater);
 
         settingsBtn = findViewById(R.id.fieldSettings);
         sendEventBtn = findViewById(R.id.sendEventBtn);

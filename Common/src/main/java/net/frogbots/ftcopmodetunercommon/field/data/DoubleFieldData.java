@@ -27,6 +27,7 @@ import android.os.Parcelable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
+import net.frogbots.ftcopmodetunercommon.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
 
@@ -85,6 +86,12 @@ public class DoubleFieldData extends FieldData
     public Datagram toDatagram()
     {
         return new DoubleDatagram(curValue, tag);
+    }
+
+    @Override
+    public FieldType getType()
+    {
+        return FieldType.DOUBLE;
     }
 
     public static final Parcelable.Creator<DoubleFieldData> CREATOR = new Parcelable.Creator<DoubleFieldData>()

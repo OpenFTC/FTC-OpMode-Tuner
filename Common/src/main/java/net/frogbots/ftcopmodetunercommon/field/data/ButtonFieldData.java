@@ -25,6 +25,7 @@ import android.os.Parcel;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+import net.frogbots.ftcopmodetunercommon.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 
 /**
@@ -47,6 +48,12 @@ public class ButtonFieldData extends FieldData
     public Datagram toDatagram()
     {
         return null;
+    }
+
+    @Override
+    public FieldType getType()
+    {
+        return FieldType.BUTTON;
     }
 
     @Override
