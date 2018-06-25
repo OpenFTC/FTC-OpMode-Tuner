@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetuner.ui.field;
+package net.frogbots.ftcopmodetuner.ui.field.base;
 
 import android.support.annotation.IdRes;
 import android.support.v7.widget.CardView;
@@ -30,7 +30,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetuner.ui.field.FieldInterface;
 import net.frogbots.ftcopmodetunercommon.field.data.ButtonFieldData;
 import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressDatagram;
@@ -39,7 +38,7 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressData
  * This class handles the UI events of a Field
  */
 
-abstract public class FieldUi
+abstract public class FieldUi implements FieldUiInterfaceBase
 {
     private TextView fieldKeyTxtView;
     private CardView cardView;
@@ -47,7 +46,7 @@ abstract public class FieldUi
     private int layoutId;
     private FieldInterface fieldInterface;
     public View view;
-    public FieldData data;
+    private FieldData data;
 
     protected FieldUi(FieldInterface fieldInterface, int layoutId)
     {
@@ -55,9 +54,14 @@ abstract public class FieldUi
         this.layoutId = layoutId;
     }
 
-    public void attachFieldDataClass(FieldData data)
+    protected void internalAttachFieldDataClass(FieldData data)
     {
         this.data = data;
+    }
+
+    public FieldData getData()
+    {
+        return data;
     }
 
     public View createView(LayoutInflater inflater, ViewGroup parent)
@@ -165,8 +169,4 @@ abstract public class FieldUi
     {
         fieldInterface.addBtnPressEventToQueue(datagram);
     }
-
-    public abstract int getHeaderColorResId();
-    public abstract String getTypeString();
-    public abstract void onManualInputReceived(String str);
 }

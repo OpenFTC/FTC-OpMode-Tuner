@@ -24,9 +24,9 @@ package net.frogbots.ftcopmodetuner.ui.dialogs.fieldsettings;
 import android.content.Context;
 import android.text.InputType;
 
-import net.frogbots.ftcopmodetuner.ui.field.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.DoubleFieldUi;
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
 
 /**
@@ -45,8 +45,8 @@ public class DoubleFieldSettingsDialog extends NumberFieldSettingsDialog
     {
         super.setupUi();
 
-        max.setText(String.valueOf(((DoubleFieldData) field.data).max));
-        min.setText(String.valueOf(((DoubleFieldData) field.data).min));
+        max.setText(String.valueOf(((DoubleFieldData) field.getData()).max));
+        min.setText(String.valueOf(((DoubleFieldData) field.getData()).min));
 
         max.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         min.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);

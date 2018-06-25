@@ -23,7 +23,7 @@ package net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog;
 
 import android.content.Context;
 
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
 
 /**
@@ -43,9 +43,9 @@ public class IntKeyInDialog extends ManualKeyInDialog
     @Override
     protected void setup()
     {
-        input.setText(String.valueOf(((IntFieldData) fieldUi.data).curValue));
-        max = ((IntFieldData) fieldUi.data).max;
-        min = ((IntFieldData) fieldUi.data).min;
+        input.setText(String.valueOf(((IntFieldData) fieldUi.getData()).curValue));
+        max = ((IntFieldData) fieldUi.getData()).max;
+        min = ((IntFieldData) fieldUi.getData()).min;
     }
 
     @Override

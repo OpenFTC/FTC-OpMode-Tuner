@@ -19,8 +19,16 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetuner.ui.field;
+package net.frogbots.ftcopmodetuner.ui.field.util;
 
+import net.frogbots.ftcopmodetuner.ui.field.BooleanFieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.ButtonFieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.ByteFieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.DoubleFieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.IntFieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.StringFieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetunercommon.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.field.data.BooleanFieldData;
 import net.frogbots.ftcopmodetunercommon.field.data.ButtonFieldData;
@@ -44,92 +52,102 @@ public class FieldUiFactory
 
     private static FieldUi create(FieldType type, FieldData data, String tag, FieldInterface callback)
     {
-        FieldUi fieldUi = null;
-
         if (type == FieldType.INT)
         {
-            fieldUi = new IntFieldUi(callback);
+            IntFieldUi fieldUi = new IntFieldUi(callback);
 
             if(data != null)
             {
-                fieldUi.attachFieldDataClass(data);
+                fieldUi.attachFieldDataClass((IntFieldData) data);
             }
             else
             {
                 fieldUi.attachFieldDataClass(new IntFieldData(tag));
             }
+
+            return fieldUi;
         }
 
         else if(type == FieldType.STRING)
         {
-            fieldUi = new StringFieldUi(callback);
+            StringFieldUi fieldUi = new StringFieldUi(callback);
 
             if(data != null)
             {
-                fieldUi.attachFieldDataClass(data);
+                fieldUi.attachFieldDataClass((StringFieldData) data);
             }
             else
             {
                 fieldUi.attachFieldDataClass(new StringFieldData(tag));
             }
+
+            return fieldUi;
         }
 
         else if(type == FieldType.BOOLEAN)
         {
-            fieldUi = new BooleanFieldUi(callback);
+            BooleanFieldUi fieldUi = new BooleanFieldUi(callback);
 
             if(data != null)
             {
-                fieldUi.attachFieldDataClass(data);
+                fieldUi.attachFieldDataClass((BooleanFieldData) data);
             }
             else
             {
                 fieldUi.attachFieldDataClass(new BooleanFieldData(tag));
             }
+
+            return fieldUi;
         }
 
         else if(type == FieldType.DOUBLE)
         {
-            fieldUi = new DoubleFieldUi(callback);
+            DoubleFieldUi fieldUi = new DoubleFieldUi(callback);
 
             if(data != null)
             {
-                fieldUi.attachFieldDataClass(data);
+                fieldUi.attachFieldDataClass((DoubleFieldData) data);
             }
             else
             {
                 fieldUi.attachFieldDataClass(new DoubleFieldData(tag));
             }
+
+            return fieldUi;
         }
 
         else if(type == FieldType.BYTE)
         {
-            fieldUi = new ByteFieldUi(callback);
+            ByteFieldUi fieldUi = new ByteFieldUi(callback);
 
             if(data != null)
             {
-                fieldUi.attachFieldDataClass(data);
+                fieldUi.attachFieldDataClass((ByteFieldData) data);
             }
             else
             {
                 fieldUi.attachFieldDataClass(new ByteFieldData(tag));
             }
+
+            return fieldUi;
         }
 
         else if(type == FieldType.BUTTON)
         {
-            fieldUi = new ButtonFieldUi(callback);
+            ButtonFieldUi fieldUi = new ButtonFieldUi(callback);
 
             if(data != null)
             {
-                fieldUi.attachFieldDataClass(data);
+                fieldUi.attachFieldDataClass((ButtonFieldData) data);
             }
             else
             {
                 fieldUi.attachFieldDataClass(new ButtonFieldData(tag));
             }
+
+            return fieldUi;
         }
 
-        return fieldUi;
+        throw new RuntimeException();
     }
 }

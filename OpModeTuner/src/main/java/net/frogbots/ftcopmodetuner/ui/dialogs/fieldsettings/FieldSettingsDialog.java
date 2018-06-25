@@ -31,8 +31,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetuner.ui.field.FieldInterface;
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 
 /**
  * Dialog shown for the Settings of a Field
@@ -60,13 +60,13 @@ public class FieldSettingsDialog extends AlertDialog.Builder
     {
         viewInflated = create().getLayoutInflater().inflate(R.layout.field_settings_dialog, null, false);
         key = viewInflated.findViewById(R.id.fieldKey);
-        key.setText(field.data.tag);
+        key.setText(field.getData().tag);
         deleteButton = viewInflated.findViewById(R.id.deleteButton);
     }
 
     protected void onDialogPositiveBtnPressed()
     {
-        fieldInterface.onRenameField(field.data.tag, key.getText().toString());
+        fieldInterface.onRenameField(field.getData().tag, key.getText().toString());
     }
 
     protected void registerTextWatcherForEditTexts(TextWatcher watcher)
@@ -136,7 +136,7 @@ public class FieldSettingsDialog extends AlertDialog.Builder
             public void onClick(View v)
             {
                 dialog.dismiss();
-                fieldInterface.removeField(field.data.tag, false);
+                fieldInterface.removeField(field.getData().tag, false);
             }
         });
 

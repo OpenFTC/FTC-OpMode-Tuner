@@ -23,25 +23,27 @@ package net.frogbots.ftcopmodetuner.ui.field;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
 import net.frogbots.ftcopmodetunercommon.field.data.BooleanFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
 
 /**
  * This class handles the UI events of a BooleanField
  */
 
-public class BooleanFieldUi extends FieldUi
+public class BooleanFieldUi extends FieldUi implements FieldUiInterface<BooleanFieldData>
 {
     private Switch switchBtn;
     private TextView textView;
     private ImageButton settingsBtn;
+    private BooleanFieldData data;
 
     public BooleanFieldUi(FieldInterface fieldInterface)
     {
@@ -50,7 +52,7 @@ public class BooleanFieldUi extends FieldUi
 
     private void setCurValue(boolean b)
     {
-        ((BooleanFieldData)data).value = b;
+        data.value = b;
     }
 
     @Override
@@ -84,7 +86,7 @@ public class BooleanFieldUi extends FieldUi
          * To ensure the UI gets restored properly
          * when loading from XML
          */
-        updateState(((BooleanFieldData)data).value, true);
+        updateState(data.value, true);
     }
 
     private void updateState(boolean b)
@@ -124,16 +126,9 @@ public class BooleanFieldUi extends FieldUi
 
     }
 
-    @Override
-    public void attachFieldDataClass(FieldData data)
+    public void attachFieldDataClass(BooleanFieldData data)
     {
-        if(data instanceof BooleanFieldData)
-        {
-            super.attachFieldDataClass(data);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Can't a attach a non-BooleanFieldData class to a BooleanFieldUi!");
-        }
+        this.data = data;
+        internalAttachFieldDataClass(data);
     }
 }

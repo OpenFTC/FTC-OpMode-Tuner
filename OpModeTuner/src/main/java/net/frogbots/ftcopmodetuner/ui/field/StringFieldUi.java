@@ -25,22 +25,24 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
 import net.frogbots.ftcopmodetunercommon.field.data.StringFieldData;
 
 /**
  * This class handles the UI events of a StringField
  */
 
-public class StringFieldUi extends FieldUi
+public class StringFieldUi extends FieldUi implements FieldUiInterface<StringFieldData>
 {
     private ImageButton settingsBtn;
     private EditText editText;
+    private StringFieldData data;
 
     public StringFieldUi(FieldInterface fieldInterface)
     {
@@ -89,7 +91,7 @@ public class StringFieldUi extends FieldUi
          * To ensure the UI gets restored properly
          * when loading from XML
          */
-        onManualInputReceived(((StringFieldData)data).string);
+        onManualInputReceived(data.string);
     }
 
     @Override
@@ -106,7 +108,7 @@ public class StringFieldUi extends FieldUi
 
     private void setCurValue(String string)
     {
-        ((StringFieldData)data).string = string;
+        data.string = string;
     }
 
     @Override
@@ -116,16 +118,9 @@ public class StringFieldUi extends FieldUi
         editText.setText(str);
     }
 
-    @Override
-    public void attachFieldDataClass(FieldData data)
+    public void attachFieldDataClass(StringFieldData data)
     {
-        if(data instanceof StringFieldData)
-        {
-            super.attachFieldDataClass(data);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Can't a attach a non-StringFieldData class to a StringFieldUi!");
-        }
+        this.data = data;
+        internalAttachFieldDataClass(data);
     }
 }

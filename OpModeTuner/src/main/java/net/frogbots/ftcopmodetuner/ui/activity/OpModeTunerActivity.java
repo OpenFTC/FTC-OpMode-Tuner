@@ -38,15 +38,13 @@ import android.widget.Toast;
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.config.ConfigUtils;
 import net.frogbots.ftcopmodetuner.config.FileNotReadableException;
-import net.frogbots.ftcopmodetuner.ui.field.FieldInterface;
-import net.frogbots.ftcopmodetuner.ui.field.BooleanFieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.ButtonFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.ByteFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.DoubleFieldUi;
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
-import net.frogbots.ftcopmodetuner.ui.field.FieldUiFactory;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.util.FieldUiFactory;
 import net.frogbots.ftcopmodetuner.ui.field.IntFieldUi;
-import net.frogbots.ftcopmodetuner.ui.field.StringFieldUi;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetuner.ui.activity.settings.OpModeTunerSettingsActivity;
@@ -58,13 +56,7 @@ import net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog.ByteKeyInDialog;
 import net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog.DoubleKeyInDialog;
 import net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog.IntKeyInDialog;
 import net.frogbots.ftcopmodetunercommon.field.FieldType;
-import net.frogbots.ftcopmodetunercommon.field.data.BooleanFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.ButtonFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.ByteFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
 import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.StringFieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.array.DatagramArrayEncoder;
@@ -169,7 +161,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
         for (FieldUi f : fields)
         {
-            dataArray.add(f.data);
+            dataArray.add(f.getData());
         }
 
         bundle.putParcelableArray("dataArray", dataArray.toArray(new FieldData[dataArray.size()]));
@@ -308,7 +300,6 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     public void addFieldFromSavedBundle(FieldData data)
     {
         FieldUi fieldUi = FieldUiFactory.create(data, this);
-        fieldUi.attachFieldDataClass(data);
         View view = fieldUi.createView(getLayoutInflater(), mainLinearLayout);
 
         mainLinearLayout.addView(view);
@@ -409,7 +400,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     {
         for (FieldUi f : fields)
         {
-            if(f.data.tag.equals(tag) && !f.equals(field))
+            if(f.getData().tag.equals(tag) && !f.equals(field))
             {
                 return true;
             }
@@ -472,7 +463,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     {
         for(FieldUi f : fields)
         {
-            if(f.data.tag.equals(tag))
+            if(f.getData().tag.equals(tag))
             {
                 return f;
             }
@@ -525,7 +516,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
         ArrayList<FieldData> arr = new ArrayList<>();
         for(FieldUi fui : fields)
         {
-            arr.add(fui.data);
+            arr.add(fui.getData());
         }
 
         try
@@ -580,7 +571,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
              */
             if(!(f instanceof ButtonFieldUi))
             {
-                datagrams.add(f.data.toDatagram());
+                datagrams.add(f.getData().toDatagram());
             }
         }
 

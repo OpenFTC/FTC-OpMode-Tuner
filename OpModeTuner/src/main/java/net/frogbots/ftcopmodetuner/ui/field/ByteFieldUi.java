@@ -23,25 +23,27 @@ package net.frogbots.ftcopmodetuner.ui.field;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
 import net.frogbots.ftcopmodetunercommon.field.data.ByteFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 
 /**
  * This class handles the UI events of a ByteField
  */
 
-public class ByteFieldUi extends FieldUi
+public class ByteFieldUi extends FieldUi implements FieldUiInterface<ByteFieldData>
 {
     private Button btnKeyIn;
     private ImageButton settingsBtn;
     private EditText textView;
+    private ByteFieldData data;
 
     public ByteFieldUi(FieldInterface fieldInterface)
     {
@@ -88,12 +90,12 @@ public class ByteFieldUi extends FieldUi
          * To ensure the UI gets restored properly
          * when loading from XML
          */
-        onManualInputReceived(DatatypeUtil.byteToHex(((ByteFieldData)data).value));
+        onManualInputReceived(DatatypeUtil.byteToHex(data.value));
     }
 
     private void setCurValue(byte b)
     {
-        ((ByteFieldData)data).value = b;
+        data.value = b;
     }
 
     @Override
@@ -115,16 +117,9 @@ public class ByteFieldUi extends FieldUi
         return R.color.byte_color;
     }
 
-    @Override
-    public void attachFieldDataClass(FieldData data)
+    public void attachFieldDataClass(ByteFieldData data)
     {
-        if(data instanceof ByteFieldData)
-        {
-            super.attachFieldDataClass(data);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Can't a attach a non-ByteFieldData class to a ByteFieldUi!");
-        }
+        this.data = data;
+        internalAttachFieldDataClass(data);
     }
 }

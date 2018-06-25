@@ -31,7 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 
 /**
  * Dialog shown for manually entering data to a Field

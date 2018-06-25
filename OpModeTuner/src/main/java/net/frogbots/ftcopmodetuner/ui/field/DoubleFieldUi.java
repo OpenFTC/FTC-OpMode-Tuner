@@ -23,27 +23,29 @@ package net.frogbots.ftcopmodetuner.ui.field;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
 import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
 /**
  * This class handles the UI events of a DoubleField
  */
 
-public class DoubleFieldUi extends FieldUi
+public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFieldData>
 {
     private Button btnKeyIn;
     private ImageButton settingsBtn;
     private SeekBar seekBar;
     private TextView value;
+    private DoubleFieldData data;
 
     public DoubleFieldUi(FieldInterface fieldInterface)
     {
@@ -68,32 +70,32 @@ public class DoubleFieldUi extends FieldUi
 
     private double getMinData()
     {
-        return ((DoubleFieldData)data).min;
+        return data.min;
     }
 
     private double getMaxData()
     {
-        return ((DoubleFieldData)data).max;
+        return data.max;
     }
 
     private void setMaxData(double max)
     {
-        ((DoubleFieldData)data).max = max;
+        data.max = max;
     }
 
     private void setMinData(double min)
     {
-        ((DoubleFieldData)data).min = min;
+        data.min = min;
     }
 
     private double getCurValue()
     {
-        return ((DoubleFieldData)data).curValue;
+        return data.curValue;
     }
 
     private void setCurValue(int value)
     {
-        ((DoubleFieldData)data).curValue = value / DataConstants.INT_TO_DOUBLE_SCALAR; //If seekbar is 1, then this will be .001
+        data.curValue = value / DataConstants.INT_TO_DOUBLE_SCALAR; //If seekbar is 1, then this will be .001
     }
 
     @Override
@@ -153,7 +155,7 @@ public class DoubleFieldUi extends FieldUi
          * To ensure the UI gets restored properly
          * when loading from XML
          */
-        double tmp = ((DoubleFieldData)data).curValue;
+        double tmp = data.curValue;
         setMinMax(getMinData(), getMaxData());
         seekBar.setProgress((int) ((tmp - getMinData()) * DataConstants.INT_TO_DOUBLE_SCALAR));
     }
@@ -177,16 +179,9 @@ public class DoubleFieldUi extends FieldUi
         seekBar.setProgress((int) ((Double.parseDouble(str) - getMinData()) * DataConstants.INT_TO_DOUBLE_SCALAR));
     }
 
-    @Override
-    public void attachFieldDataClass(FieldData data)
+    public void attachFieldDataClass(DoubleFieldData data)
     {
-        if(data instanceof DoubleFieldData)
-        {
-            super.attachFieldDataClass(data);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Can't a attach a non-DoubleFieldData class to a DoubleFieldUi!");
-        }
+        this.data = data;
+        internalAttachFieldDataClass(data);
     }
 }

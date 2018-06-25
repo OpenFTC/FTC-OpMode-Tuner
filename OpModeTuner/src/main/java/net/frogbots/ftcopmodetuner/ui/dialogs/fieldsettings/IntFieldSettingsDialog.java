@@ -24,8 +24,8 @@ package net.frogbots.ftcopmodetuner.ui.dialogs.fieldsettings;
 import android.content.Context;
 import android.text.InputType;
 
-import net.frogbots.ftcopmodetuner.ui.field.FieldInterface;
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.IntFieldUi;
 import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
 
@@ -45,8 +45,8 @@ public class IntFieldSettingsDialog extends NumberFieldSettingsDialog
     {
         super.setupUi();
 
-        max.setText(String.valueOf(((IntFieldData) field.data).max));
-        min.setText(String.valueOf(((IntFieldData) field.data).min));
+        max.setText(String.valueOf(((IntFieldData) field.getData()).max));
+        min.setText(String.valueOf(((IntFieldData) field.getData()).min));
 
         max.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
         min.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);

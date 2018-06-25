@@ -19,48 +19,11 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog;
+package net.frogbots.ftcopmodetuner.ui.field.base;
 
-import android.content.Context;
-import android.text.InputType;
+import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
 
-import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
-import net.frogbots.ftcopmodetunercommon.field.data.ByteFieldData;
-import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
-
-/**
- * Dialog shown for manually entering data to a ByteField
- */
-
-public class ByteKeyInDialog extends ManualKeyInDialog
+public interface FieldUiInterface<T extends FieldData> extends FieldUiInterfaceBase
 {
-    public ByteKeyInDialog(Context context, FieldUi fieldUi)
-    {
-        super(context, fieldUi);
-    }
-
-    @Override
-    protected void setup()
-    {
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        input.setText(DatatypeUtil.byteToHex(((ByteFieldData)fieldUi.getData()).value));
-    }
-
-    @Override
-    protected void validate()
-    {
-        try
-        {
-            byte b = DatatypeUtil.hexToByte(input.getText().toString());
-
-            input.setError(null);
-            doneBtn.setEnabled(true);
-        }
-
-        catch (IllegalArgumentException e)
-        {
-            doneBtn.setEnabled(false);
-            input.setError("Not a valid byte!");
-        }
-    }
+    void attachFieldDataClass(T data);
 }

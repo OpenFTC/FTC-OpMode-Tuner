@@ -24,7 +24,7 @@ package net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog;
 import android.content.Context;
 import android.text.InputType;
 
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
@@ -45,10 +45,10 @@ public class DoubleKeyInDialog extends ManualKeyInDialog
     @Override
     protected void setup()
     {
-        input.setText(String.valueOf(((DoubleFieldData) fieldUi.data).curValue));
+        input.setText(String.valueOf(((DoubleFieldData) fieldUi.getData()).curValue));
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-        max = ((DoubleFieldData) fieldUi.data).max;
-        min = ((DoubleFieldData) fieldUi.data).min;
+        max = ((DoubleFieldData) fieldUi.getData()).max;
+        min = ((DoubleFieldData) fieldUi.getData()).min;
     }
 
     @Override

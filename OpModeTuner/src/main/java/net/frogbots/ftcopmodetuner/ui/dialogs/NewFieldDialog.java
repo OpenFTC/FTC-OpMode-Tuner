@@ -34,7 +34,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetuner.ui.field.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetunercommon.field.FieldType;
 
 /**

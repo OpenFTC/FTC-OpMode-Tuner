@@ -27,8 +27,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetuner.ui.field.FieldInterface;
-import net.frogbots.ftcopmodetuner.ui.field.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 
 import java.util.Locale;
 

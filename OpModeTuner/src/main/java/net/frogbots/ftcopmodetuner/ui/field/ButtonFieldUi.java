@@ -23,22 +23,25 @@ package net.frogbots.ftcopmodetuner.ui.field;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
+import net.frogbots.ftcopmodetunercommon.field.data.ButtonFieldData;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressDatagram;
 
 /**
  * This class handles the UI events of a ButtonField
  */
 
-public class ButtonFieldUi extends FieldUi
+public class ButtonFieldUi extends FieldUi implements FieldUiInterface<ButtonFieldData>
 {
     private ImageButton settingsBtn;
     private Button sendEventBtn;
+    private ButtonFieldData data;
 
     public ButtonFieldUi(FieldInterface fieldInterface)
     {
@@ -90,9 +93,9 @@ public class ButtonFieldUi extends FieldUi
 
     }
 
-    @Override
-    public void attachFieldDataClass(FieldData data)
+    public void attachFieldDataClass(ButtonFieldData data)
     {
-        super.attachFieldDataClass(data);
+        this.data = data;
+        internalAttachFieldDataClass(data);
     }
 }

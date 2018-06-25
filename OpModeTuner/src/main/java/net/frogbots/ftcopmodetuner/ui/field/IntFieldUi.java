@@ -23,26 +23,28 @@ package net.frogbots.ftcopmodetuner.ui.field;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
+import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
 import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
 
 /**
  * This class handles the UI events of an IntField
  */
 
-public class IntFieldUi extends FieldUi
+public class IntFieldUi extends FieldUi implements FieldUiInterface<IntFieldData>
 {
     private Button btnKeyIn;
     private ImageButton settingsBtn;
     private SeekBar seekBar;
     private TextView value;
+    private IntFieldData data;
 
     public IntFieldUi(FieldInterface fieldInterface)
     {
@@ -67,27 +69,27 @@ public class IntFieldUi extends FieldUi
 
     private int getMinData()
     {
-        return ((IntFieldData)data).min;
+        return data.min;
     }
 
     private int getMaxData()
     {
-        return ((IntFieldData)data).max;
+        return data.max;
     }
 
     private void setMaxData(int max)
     {
-        ((IntFieldData)data).max = max;
+        data.max = max;
     }
 
     private void setMinData(int min)
     {
-        ((IntFieldData)data).min = min;
+        data.min = min;
     }
 
     private void setCurValue(int value)
     {
-        ((IntFieldData)data).curValue = value;
+        data.curValue = value;
     }
 
     @Override
@@ -146,7 +148,7 @@ public class IntFieldUi extends FieldUi
          * To ensure the UI gets restored properly
          * when loading from XML
          */
-        int tmp = ((IntFieldData)data).curValue;
+        int tmp = data.curValue;
         setMinMax(getMinData(), getMaxData());
         seekBar.setProgress(tmp - getMinData());
     }
@@ -170,16 +172,9 @@ public class IntFieldUi extends FieldUi
         seekBar.setProgress(Integer.parseInt(str) - getMinData());
     }
 
-    @Override
-    public void attachFieldDataClass(FieldData data)
+    public void attachFieldDataClass(IntFieldData data)
     {
-        if(data instanceof IntFieldData)
-        {
-            super.attachFieldDataClass(data);
-        }
-        else
-        {
-            throw new IllegalArgumentException("Can't a attach a non-IntFieldData class to an IntFieldUi!");
-        }
+        this.data = data;
+        internalAttachFieldDataClass(data);
     }
 }
