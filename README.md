@@ -131,7 +131,7 @@ This is 100% legal for use in competition. In fact, it falls under essentially t
 
     ![img-her](doc/images/load-config.png)
 
-11. Back on the main screen of the Tuner, press the newly visible *Add Field* FAB in the lower right hand corner:
+11. Back on the main screen of the Tuner, press the *Add Field* FAB in the lower right hand corner:
 
     ![img-her](doc/images/add-fab.png)
 

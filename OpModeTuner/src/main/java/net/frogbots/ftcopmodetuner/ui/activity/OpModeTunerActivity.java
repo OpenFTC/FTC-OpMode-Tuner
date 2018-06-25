@@ -113,8 +113,6 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
         addThingBelowConnectionStatusView(R.layout.active_config_box);
         activeConfigTxtView = findViewById(R.id.active_config);
 
-        addNewFieldBtn.setVisibility(View.INVISIBLE);
-
         if(savedInstanceState != null)
         {
             FieldData[] dataArray = (FieldData[]) savedInstanceState.getParcelableArray("dataArray");
@@ -253,7 +251,14 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
     public void showAddFieldDialog(View v)
     {
-        new NewFieldDialog(this, this, enableByteDataType, enableButtonDataType).show();
+        if(currentConfig != null)
+        {
+            new NewFieldDialog(this, this, enableByteDataType, enableButtonDataType).show();
+        }
+        else
+        {
+            showAlertDialog("No config loaded", "You need to load a config before adding fields.");
+        }
     }
 
     /***
@@ -267,8 +272,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onShowAlertDialogRequested(String title, String msg)
+    public void showAlertDialog(String title, String msg, Typeface typeface)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -277,9 +281,19 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
         AlertDialog d = builder.show();
 
-        TextView messageView = (TextView) d.findViewById(android.R.id.message);
-        messageView.setTypeface(Typeface.MONOSPACE);
+        TextView messageView = d.findViewById(android.R.id.message);
+        messageView.setTypeface(typeface);
+    }
 
+    public void showAlertDialog(String title, String msg)
+    {
+        showAlertDialog(title, msg, Typeface.DEFAULT);
+    }
+
+    @Override
+    public void onShowAlertDialogForCodeSampleRequested(String title, String msg)
+    {
+        showAlertDialog(title, msg, Typeface.MONOSPACE);
     }
 
     //--------------------------------------------------------------------------------------------------
@@ -474,7 +488,6 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
     private void unloadCurrentConfig()
     {
-        addNewFieldBtn.setVisibility(View.INVISIBLE);
         currentConfig = null;
         clearAllFields();
     }
@@ -491,7 +504,6 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
                 addFieldFromSavedBundle(fd);
             }
 
-            addNewFieldBtn.setVisibility(View.VISIBLE);
             activeConfigTxtView.setText("Active config: " + confName);
             currentConfig = confName;
         }

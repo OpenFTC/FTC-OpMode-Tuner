@@ -29,7 +29,7 @@ public interface FieldInterface
     void addNewField(FieldType fieldType, String tag);
     void removeField(String tag, boolean longPress);
     void onManualInputRequested(FieldUi fieldUi);
-    void onShowAlertDialogRequested(String title, String msg);
+    void onShowAlertDialogForCodeSampleRequested(String title, String msg);
     void addBtnPressEventToQueue(ButtonPressDatagram datagram);
     void onShowFieldSettingsDialogRequested(FieldUi field);
     void onRenameField(String currTag, String newTag);

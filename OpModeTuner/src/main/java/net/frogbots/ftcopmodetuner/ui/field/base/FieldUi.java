@@ -128,7 +128,7 @@ abstract public class FieldUi implements FieldUiInterfaceBase
                 @Override
                 public void onClick(View v)
                 {
-                    fieldInterface.onShowAlertDialogRequested(
+                    fieldInterface.onShowAlertDialogForCodeSampleRequested(
                             "Access this field with",
                             String.format("get%s(\"%s\");", getTypeString(), data.tag));
                 }
