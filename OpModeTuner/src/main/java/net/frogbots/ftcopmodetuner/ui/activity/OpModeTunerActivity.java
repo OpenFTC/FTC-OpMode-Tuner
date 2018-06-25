@@ -600,7 +600,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     private void updatePrefVals()
     {
         transmissionInterval = Integer.parseInt(globalPrefs.getString(PrefKeys.TX_INTERVAL, String.valueOf(DataConstants.DEFAULT_TX_INTERVAL_MS)));
-        loadLastConfigOnStartup = globalPrefs.getBoolean("loadLastConfigOnStartup", false);
+        loadLastConfigOnStartup = globalPrefs.getBoolean("loadLastConfigOnStartup", true);
         enableByteDataType = globalPrefs.getBoolean("enableByteDatatype", false);
         enableButtonDataType = globalPrefs.getBoolean("enableButtonDatatype", false);
         deleteFieldOnLongPress = globalPrefs.getBoolean("deleteFieldOnLongPress", false);

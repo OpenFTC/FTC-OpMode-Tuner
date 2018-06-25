@@ -24,7 +24,7 @@
         android:layout="@layout/preference_layout">
 
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="loadLastConfigOnStartup"
             android:summary="When cold-launching the app, load the last configuration used"
             android:title="Load last config on startup"/>
