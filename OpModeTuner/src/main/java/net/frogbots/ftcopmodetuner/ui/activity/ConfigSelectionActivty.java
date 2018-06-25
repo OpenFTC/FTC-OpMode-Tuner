@@ -47,12 +47,12 @@ import java.util.ArrayList;
 public class ConfigSelectionActivty extends Activity implements NewConfigInterface
 {
     public static final String CONFIG_FILES_PATH = "/sdcard/FtcOpModeTuner";
-    LinearLayout mainLinearLayout;
-    Button addNewConfBtn;
-    TextView activeConfigTextView;
-    GlobalPrefs globalPrefs;
-    String activeConfig;
-    ConfigUtils configUtils;
+    private LinearLayout mainLinearLayout;
+    private Button addNewConfBtn;
+    private TextView activeConfigTextView;
+    private GlobalPrefs globalPrefs;
+    private String activeConfig;
+    private ConfigUtils configUtils;
     public static String PREF_KEY_ACTIVE_CONFIG = "activeConfig";
 
     @Override
@@ -175,6 +175,10 @@ public class ConfigSelectionActivty extends Activity implements NewConfigInterfa
     private void launchMainActivity(File file)
     {
         globalPrefs.putString(PrefKeys.ACTIVE_CONFIG, file.getName().replace(".xml", "")).apply();
+
+        Intent returnIntent = new Intent().putExtra(PREF_KEY_ACTIVE_CONFIG, activeConfig);
+        setResult(Activity.RESULT_OK, returnIntent);
+
         finish();
     }
 
@@ -211,7 +215,6 @@ public class ConfigSelectionActivty extends Activity implements NewConfigInterfa
     @Override
     public void addNewConfig(String name)
     {
-        File file = new File(String.format("%s/%s.xml", CONFIG_FILES_PATH, name));
         try
         {
             configUtils.saveConfigToFileByName(name, new ArrayList<FieldData>());
@@ -242,14 +245,5 @@ public class ConfigSelectionActivty extends Activity implements NewConfigInterfa
             }
         });
         builder.show();
-    }
-
-    @Override
-    public void finish()
-    {
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(PREF_KEY_ACTIVE_CONFIG, activeConfig);
-        setResult(Activity.RESULT_OK, returnIntent);
-        super.finish();
     }
 }
