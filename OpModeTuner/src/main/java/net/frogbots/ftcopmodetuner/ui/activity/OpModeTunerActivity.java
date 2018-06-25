@@ -23,6 +23,8 @@ package net.frogbots.ftcopmodetuner.ui.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -38,6 +40,8 @@ import android.widget.Toast;
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.config.ConfigUtils;
 import net.frogbots.ftcopmodetuner.config.FileNotReadableException;
+import net.frogbots.ftcopmodetuner.misc.EntireAppLifecycleListener;
+import net.frogbots.ftcopmodetuner.network.NetworkedApplication;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.ButtonFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.ByteFieldUi;
@@ -73,8 +77,9 @@ import java.util.concurrent.TimeUnit;
 
 import static net.frogbots.ftcopmodetuner.ui.activity.ConfigSelectionActivty.PREF_KEY_ACTIVE_CONFIG;
 
-public class OpModeTunerActivity extends UdpConnectionActivity implements FieldInterface
+public class OpModeTunerActivity extends UdpConnectionActivity implements FieldInterface, EntireAppLifecycleListener
 {
+    private NetworkedApplication application;
     private LinearLayout mainLinearLayout;
     private ArrayList<FieldUi> fields = new ArrayList<>();
     private ArrayList<ButtonPressDatagram> btnPressDatagramQueue = new ArrayList<>();
@@ -86,6 +91,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     private boolean enableByteDataType;
     private boolean enableButtonDataType;
     private boolean loadLastConfigOnStartup;
+    private boolean autoSaveConfig;
     private FloatingActionButton addNewFieldBtn;
     private String currentConfig;
     private TextView activeConfigTxtView;
@@ -112,6 +118,9 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
         addNewFieldBtn = findViewById(R.id.addNewFieldBtn);
         addThingBelowConnectionStatusView(R.layout.active_config_box);
         activeConfigTxtView = findViewById(R.id.active_config);
+
+        application = (NetworkedApplication) getApplication();
+        application.addEntireAppLifecycleListener(this);
 
         if(savedInstanceState != null)
         {
@@ -148,6 +157,28 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
         updatePrefVals();
         setColorCodingAndDatatypeForAll();
         setupTransmissionRunnable();
+    }
+
+    @Override
+    public void onEntireAppPause()
+    {
+        if(autoSaveConfig && currentConfig != null)
+        {
+            saveCurrentFieldArrayToConfig();
+        }
+    }
+
+    @Override
+    public void onEntireAppResume()
+    {
+
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        application.removeEntireAppLifecycleListener(this);
+        super.onDestroy();
     }
 
     @Override
@@ -606,5 +637,6 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
         deleteFieldOnLongPress = globalPrefs.getBoolean("deleteFieldOnLongPress", false);
         colorCoding = globalPrefs.getBoolean("colorCodeDatatypes", false);
         displayDatatype = globalPrefs.getBoolean("displayDatatype", false);
+        autoSaveConfig = globalPrefs.getBoolean("autoSaveConfig", true);
     }
 }

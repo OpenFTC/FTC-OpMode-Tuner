@@ -20,7 +20,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="User Experience"
+        android:title="Configuration Files"
         android:layout="@layout/preference_layout">
 
         <CheckBoxPreference
@@ -28,6 +28,18 @@
             android:key="loadLastConfigOnStartup"
             android:summary="When cold-launching the app, load the last configuration used"
             android:title="Load last config on startup"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="autoSaveConfig"
+            android:summary="Automatically save the currently-loaded config file when leaving the app"
+            android:title="Auto-save config"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="User Experience"
+        android:layout="@layout/preference_layout">
 
         <CheckBoxPreference
             android:defaultValue="false"

@@ -36,11 +36,14 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetuner.misc.EntireAppLifecycleListener;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetuner.misc.SimpleSoundPool;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
+
+import java.util.ArrayList;
 
 public class NetworkedApplication extends Application implements LifecycleObserver, SharedPreferences.OnSharedPreferenceChangeListener, NetworkEventsListener
 {
@@ -58,6 +61,7 @@ public class NetworkedApplication extends Application implements LifecycleObserv
     private SimpleSoundPool soundPool;
     private int DISCONNECT_SOUND_ID;
     private int CONNECT_SOUND_ID;
+    private ArrayList<EntireAppLifecycleListener> entireAppLifecycleListeners = new ArrayList<>();
 
     @Override
     public void onCreate()
@@ -84,6 +88,16 @@ public class NetworkedApplication extends Application implements LifecycleObserv
         updateThings();
     }
 
+    public void addEntireAppLifecycleListener(EntireAppLifecycleListener listener)
+    {
+        entireAppLifecycleListeners.add(listener);
+    }
+
+    public void removeEntireAppLifecycleListener(EntireAppLifecycleListener listener)
+    {
+        entireAppLifecycleListeners.remove(listener);
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     private void resume()
     {
@@ -91,6 +105,11 @@ public class NetworkedApplication extends Application implements LifecycleObserv
         updateThings();
         handleWifiRadioConnectedState();
         registerReceiver(networkBroadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+        for(EntireAppLifecycleListener listener : entireAppLifecycleListeners)
+        {
+            listener.onEntireAppResume();
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
@@ -99,6 +118,11 @@ public class NetworkedApplication extends Application implements LifecycleObserv
         System.out.println("ON_PAUSE");
         networkingManager.stop();
         unregisterReceiver(networkBroadcastReceiver);
+
+        for(EntireAppLifecycleListener listener : entireAppLifecycleListeners)
+        {
+            listener.onEntireAppPause();
+        }
     }
 
     @Override
