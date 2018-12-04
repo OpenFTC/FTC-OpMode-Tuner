@@ -263,6 +263,36 @@ public class DatatypeUtil
         return things;
     }
 
+    /***
+     * Retrieves a certain chunk of bytes from an array
+     *
+     * @param bytes the byte array to pull from
+     * @param start the index of the byte in the array that will be the first byte in the chunk
+     * @param n the number of bytes to pull, beginning from the 'start' position
+     * @return the chunk of selected bytes
+     */
+    public static byte[] getNBytes(byte[] bytes, int start, int n)
+    {
+        byte[] things = new byte[n];
+
+        System.arraycopy(bytes, start, things, 0, n);
+
+        return things;
+    }
+
+    /***
+     * Retrieves a certain chunk of bytes from the front
+     * of an array
+     *
+     * @param bytes the byte array to pull from
+     * @param n the number of bytes to pull starting from the front
+     * @return the chunk of selected bytes
+     */
+    public static byte[] getNBytes(byte[] bytes, int n)
+    {
+        return getNBytes(bytes, 0, n);
+    }
+
     //------------------------------------------------------------------
     // Hexadecimal
     //------------------------------------------------------------------

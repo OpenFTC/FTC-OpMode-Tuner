@@ -48,7 +48,7 @@ public class DataConstants
      * . . . // Data bytes (in this case 11)
      */
 
-    public static final int NUM_BYTES_IN_DATAGRAM_PACKET  = 1024;
+    public static final int NUM_BYTES_IN_DATAGRAM_PACKET_BUF = 1024;
 
     public static final byte HEARTBEAT_PING               = (byte) 0xFA;
     public static final byte HEARTBEAT_REPLY              = (byte) 0xFB;

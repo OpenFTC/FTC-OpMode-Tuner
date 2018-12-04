@@ -21,7 +21,37 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-public interface ReceiverInterface
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class TunerUdpSocket extends UdpSocket
 {
-    void onDataReceived(byte[] data);
+    private InetAddress serverAddr;
+    private int port;
+
+    public TunerUdpSocket(int port, String serverIp, Receiver receiver)
+    {
+        super(receiver);
+
+        this.port = port;
+        try
+        {
+            serverAddr = InetAddress.getByName(serverIp);
+        }
+        catch (UnknownHostException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    public void enqueueForSend(byte[] bytes)
+    {
+        enqueueForSend(bytes, serverAddr, port);
+    }
+
+    public InetAddress getServerAddr()
+    {
+        return serverAddr;
+    }
 }

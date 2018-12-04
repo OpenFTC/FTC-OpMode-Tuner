@@ -26,12 +26,10 @@ import android.util.Log;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
-import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
-import net.frogbots.ftcopmodetunercommon.networking.udp.UdpClient;
-import net.frogbots.ftcopmodetunercommon.networking.udp.UdpSocketInterface;
+import net.frogbots.ftcopmodetunercommon.networking.udp.TunerUdpSocket;
 
-import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,15 +37,15 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This class handles are the networking things for the Tuner app.
- * It extends upon the functionality of UdpClient
+ * It extends upon the functionality of TunerUdpSocket
  */
 
-public class NetworkingManager implements UdpSocketInterface
+public class NetworkingManager implements TunerUdpSocket.Receiver
 {
     private volatile ConnectionStatus connectionStatus;
     private volatile int port;
     private volatile String ipAddr;
-    private volatile UdpClient udpClient;
+    private volatile TunerUdpSocket tunerUdpSocket;
     private volatile long lastAckTime;
     private volatile long lastServerResponseTime;
     private volatile ScheduledExecutorService heartbeatTimer;
@@ -127,12 +125,12 @@ public class NetworkingManager implements UdpSocketInterface
             initTime = System.currentTimeMillis();
             onConnectionStatusAvailable(ConnectionStatus.INITIALIZING);
             running = true;
-            if(udpClient != null && udpClient.isOpen())
+            if(tunerUdpSocket != null && tunerUdpSocket.isOpen())
             {
-                udpClient.close();
+                tunerUdpSocket.close();
             }
-            udpClient = new UdpClient(port, ipAddr, this);
-            udpClient.openSocket();
+            tunerUdpSocket = new TunerUdpSocket(port, ipAddr, this);
+            tunerUdpSocket.open(port);
             setupHeartbeatTask();
         }
     }
@@ -167,7 +165,7 @@ public class NetworkingManager implements UdpSocketInterface
         if(running)
         {
             running = false;
-            udpClient.close();
+            tunerUdpSocket.close();
             heartbeatTimer.shutdown();
         }
     }
@@ -212,19 +210,18 @@ public class NetworkingManager implements UdpSocketInterface
     /***
      * This is called when the underlying UDP client receives a packet
      *
-     * @param packet the packet received by the UDP client
+     * @param data the data received by the UDP client
      */
     @Override
-    public void onPacketReceived(DatagramPacket packet)
+    public void onDataReceived(byte[] data, InetAddress srcAddr)
     {
-        byte[] data = new byte[packet.getLength()];
-        data = DatatypeUtil.getBytesByIndex(packet.getData(), 0, data.length - 1);
-
         lastServerResponseTime = System.currentTimeMillis();
 
         if(data[0] == DataConstants.HEARTBEAT_REPLY)
         {
-            if(packet.getPort() == port && packet.getAddress().equals(udpClient.getServerAddr()))
+            //No need to check the port, the socket will only receive things on the port that
+            //it is bound to (at least AFAIK)
+            if(/*packet.getPort() == port && */ srcAddr.equals(tunerUdpSocket.getServerAddr()))
             {
                 lastAckTime = lastServerResponseTime;
                 connectionRefused = false;
@@ -249,7 +246,7 @@ public class NetworkingManager implements UdpSocketInterface
                 }
 
                 byte[] bytes = {DataConstants.HEARTBEAT_PING};
-                udpClient.sendBytesAsync(bytes);
+                tunerUdpSocket.enqueueForSend(bytes);
                 //System.out.println("bang");
 
                 if(connectionRefused && (System.currentTimeMillis() - lastServerResponseTime) < noResponseFromServerTimeoutMs)
@@ -280,7 +277,7 @@ public class NetworkingManager implements UdpSocketInterface
         {
             if(bytes != null && bytes.length > 0)
             {
-                udpClient.sendBytesAsync(bytes);
+                tunerUdpSocket.enqueueForSend(bytes);
             }
         }
     }

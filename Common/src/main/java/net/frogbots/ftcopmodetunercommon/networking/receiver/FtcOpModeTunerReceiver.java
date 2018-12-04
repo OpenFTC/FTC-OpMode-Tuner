@@ -32,9 +32,10 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
-import net.frogbots.ftcopmodetunercommon.networking.udp.ReceiverInterface;
-import net.frogbots.ftcopmodetunercommon.networking.udp.UdpServer;
+import net.frogbots.ftcopmodetunercommon.networking.udp.RcUdpSocket;
+import net.frogbots.ftcopmodetunercommon.networking.udp.UdpSocket;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -45,9 +46,9 @@ import java.util.Locale;
  * for ease of use purposes...
  */
 
-public class FtcOpModeTunerReceiver implements ReceiverInterface
+public class FtcOpModeTunerReceiver implements UdpSocket.Receiver
 {
-    private UdpServer server;
+    private RcUdpSocket server;
     private FtcOpModeTunerReceiverInterface callback;
     private WifiManager.WifiLock wifiLock;
     private ArrayList<IntegerDatagram> integerDatagrams = new ArrayList<>();
@@ -66,7 +67,7 @@ public class FtcOpModeTunerReceiver implements ReceiverInterface
     {
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "");
-        server = new UdpServer(this);
+        server = new RcUdpSocket(this);
         this.callback = callback;
     }
 
@@ -78,7 +79,7 @@ public class FtcOpModeTunerReceiver implements ReceiverInterface
     public synchronized void begin(int port)
     {
         wifiLock.acquire();
-        server.openSocket(port);
+        server.open(port);
     }
 
     /***
@@ -119,7 +120,7 @@ public class FtcOpModeTunerReceiver implements ReceiverInterface
      * @param data the new data packet in raw, encoded byte array form
      */
     @Override
-    public synchronized void onDataReceived(byte[] data)
+    public synchronized void onDataReceived(byte[] data, InetAddress srcAddr)
     {
         clearAllData(); //First things first, nuke all the old data - we don't want duplicate entries!
 
