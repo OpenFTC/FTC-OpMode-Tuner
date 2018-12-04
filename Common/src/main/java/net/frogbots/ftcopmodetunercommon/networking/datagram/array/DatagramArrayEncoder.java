@@ -21,8 +21,11 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.datagram.array;
 
+import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
+import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +34,8 @@ import java.util.ArrayList;
 
 public class DatagramArrayEncoder
 {
+    private static ByteBuffer buffer = ByteBuffer.allocate(DataConstants.NUM_BYTES_IN_DATAGRAM_PACKET_BUF);
+
     /***
      * Encodes an ArrayList of Datagrams into a byte array
      *
@@ -39,27 +44,14 @@ public class DatagramArrayEncoder
      */
     public static byte[] encode(ArrayList<Datagram> datagrams)
     {
-        /*
-         * The byte array into which we'll be putting the encoded datagrams
-         */
-        byte[] masterByteArray = new byte[getTotalByteArraySizeNeeded(datagrams)];
-
-        int i = 0; //Int to keep track of our position in the masterByteArray
+        buffer.clear();
 
         for(Datagram d : datagrams) //Iterate through all the datagrams in the ArrayList
         {
-            byte[] datagramBytes = d.encode(); //Encode each one
-
-            /*
-             * Chuck all the bytes from that datagram into the masterByteArray at the
-             * at the position indicated by 'i'
-             */
-            System.arraycopy(datagramBytes,0, masterByteArray, i, datagramBytes.length);
-
-            i+= datagramBytes.length; //Update our position in the masterByteArray
+            buffer.put(d.encode()); //Encode each one
         }
 
-        return masterByteArray;
+        return DatatypeUtil.getNBytes(buffer.array(), buffer.position());
     }
 
     /***
