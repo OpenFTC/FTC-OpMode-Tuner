@@ -42,7 +42,7 @@ public abstract class TunableOpMode extends OpMode implements TunableOpModeInter
 
     public TunableOpMode()
     {
-        tunableOpModeCommon = new TunableOpModeCommon();
+        tunableOpModeCommon = new TunableOpModeCommon(this);
     }
 
     /***

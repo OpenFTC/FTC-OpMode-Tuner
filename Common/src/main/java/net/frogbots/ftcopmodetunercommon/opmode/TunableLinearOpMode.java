@@ -42,7 +42,7 @@ public abstract class TunableLinearOpMode extends LinearOpMode implements Tunabl
 
     public TunableLinearOpMode()
     {
-        tunableOpModeCommon = new TunableOpModeCommon();
+        tunableOpModeCommon = new TunableOpModeCommon(this);
     }
 
     /***

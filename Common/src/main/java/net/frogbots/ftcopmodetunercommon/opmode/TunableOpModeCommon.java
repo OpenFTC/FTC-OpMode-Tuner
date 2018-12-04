@@ -60,9 +60,11 @@ class TunableOpModeCommon implements FtcOpModeTunerReceiverInterface
     protected AppUtil appUtil = AppUtil.getInstance();
     protected OpModeManagerImpl opModeManager = null;
     protected OpModeNotifications opModeNotifications = new OpModeNotifications();
+    private TunableOpModeInterface opMode;
 
-    TunableOpModeCommon()
+    TunableOpModeCommon(TunableOpModeInterface opMode)
     {
+        this.opMode = opMode;
         activity = appUtil.getActivity();
         opModeManager = OpModeManagerImpl.getOpModeManagerOfActivity(activity);
         opModeManager.registerListener(opModeNotifications);
@@ -184,7 +186,7 @@ class TunableOpModeCommon implements FtcOpModeTunerReceiverInterface
     @Override
     public void onButtonPressEvent(String tag)
     {
-
+        opMode.onButtonPressEvent(tag);
     }
 
     protected class OpModeNotifications implements OpModeManagerNotifier.Notifications
