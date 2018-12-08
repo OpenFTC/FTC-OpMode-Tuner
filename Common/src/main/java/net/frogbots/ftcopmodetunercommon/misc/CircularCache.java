@@ -50,7 +50,7 @@ public class CircularCache<T>
     {
         for(T obj1 : cacheArray)
         {
-            if(obj1.equals(obj2))
+            if(obj1 != null && obj1.equals(obj2))
             {
                 return true;
             }

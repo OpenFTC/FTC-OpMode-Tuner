@@ -104,7 +104,12 @@ public class NetworkCommand extends NetworkMsgBase implements Comparable<Network
         }
 
         mAcknowledged = true;
-        callback.onAck();
+
+        if(callback != null)
+        {
+            callback.onAck();
+        }
+
     }
 
     public void abandon()
@@ -115,7 +120,11 @@ public class NetworkCommand extends NetworkMsgBase implements Comparable<Network
         }
 
         abandoned = true;
-        callback.onNack();
+
+        if(callback != null)
+        {
+            callback.onNack();
+        }
     }
 
     /**
@@ -162,7 +171,7 @@ public class NetworkCommand extends NetworkMsgBase implements Comparable<Network
 
     public boolean shouldRepeatTx()
     {
-        return false;
+        return mAttempts < 15;
     }
 
     /*

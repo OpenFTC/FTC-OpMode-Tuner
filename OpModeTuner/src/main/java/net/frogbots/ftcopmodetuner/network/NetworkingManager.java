@@ -278,12 +278,17 @@ public class NetworkingManager implements SpecificMsgReceiver
 
     public synchronized void sendMsg(NetworkMsg msg)
     {
-        if(running && connectionStatus == ConnectionStatus.CONNECTED)
+        /*if(running && connectionStatus == ConnectionStatus.CONNECTED)
         {
             if(msg != null)
             {
                 tunerUdpSocket.sendMsg(msg);
             }
+        }*/
+
+        if(running)
+        {
+            tunerUdpSocket.sendMsg(msg);
         }
     }
 

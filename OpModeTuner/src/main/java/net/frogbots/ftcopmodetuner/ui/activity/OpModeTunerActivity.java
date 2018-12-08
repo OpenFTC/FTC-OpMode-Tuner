@@ -64,6 +64,7 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.array.DatagramArrayEncoder;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
 
 import java.io.FileNotFoundException;
@@ -281,14 +282,45 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
     public void showAddFieldDialog(View v)
     {
-        if(currentConfig != null)
+        NetworkCommand networkCommand = new NetworkCommand("HELLO WORLD CMD");
+        networkCommand.setListener(new NetworkCommand.AckOrNackListener()
+        {
+            @Override
+            public void onAck()
+            {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        Toast.makeText(OpModeTunerActivity.this, "got ack", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNack()
+            {
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        Toast.makeText(OpModeTunerActivity.this, "abandoned cmd", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+        networkingManager.sendMsg(networkCommand);
+        /*if(currentConfig != null)
         {
             new NewFieldDialog(this, this, enableByteDataType, enableButtonDataType).show();
         }
         else
         {
             showAlertDialog("No config loaded", "You need to load a config before adding fields.");
-        }
+        }*/
     }
 
     /***
