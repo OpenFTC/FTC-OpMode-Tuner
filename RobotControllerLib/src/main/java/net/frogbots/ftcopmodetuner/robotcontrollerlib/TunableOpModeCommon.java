@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.opmode;
+package net.frogbots.ftcopmodetuner.robotcontrollerlib;
 
 import android.app.Activity;
 import android.graphics.Typeface;
@@ -180,7 +180,7 @@ class TunableOpModeCommon implements FtcOpModeTunerReceiverInterface
         };
 
         connectionStatusUpdaterTimer = Executors.newSingleThreadScheduledExecutor();
-        connectionStatusUpdaterTimer.scheduleAtFixedRate(connectionStatusUpdaterRunnable, 0, 100, TimeUnit.MILLISECONDS);
+        connectionStatusUpdaterTimer.scheduleAtFixedRate(connectionStatusUpdaterRunnable, 0, 250, TimeUnit.MILLISECONDS);
     }
 
     @Override

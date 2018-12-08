@@ -21,41 +21,61 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
-public class TunerUdpSocket extends NetworkMsgSocket
+import java.nio.ByteBuffer;
+
+public class TunerDataMsg extends NetworkMsgBase
 {
-    private InetAddress serverAddr;
-    private int port;
+    private byte[] data;
 
-    public TunerUdpSocket(int port, String serverIp, SpecificMsgReceiver receiver)
+    public TunerDataMsg(byte[] data)
     {
-        super();
-        super.setCallback(receiver);
+        fromByteArray(data);
+    }
 
-        this.port = port;
-        try
-        {
-            serverAddr = InetAddress.getByName(serverIp);
-        }
-        catch (UnknownHostException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+    public TunerDataMsg()
+    {
+
     }
 
     @Override
-    public void sendMsg(NetworkMsg msg)
+    public MsgType getMsgType()
     {
-        msg.setDestAddr(serverAddr);
-        //enqueueForSend(msg, serverAddr, port);
-        super.sendMsg(msg);
+        return MsgType.TUNER_DATA;
     }
 
-    public InetAddress getServerAddr()
+    @Override
+    public byte[] toByteArray()
     {
-        return serverAddr;
+        return getWriteBuffer(calcPayloadSize())
+                .putInt(data.length)
+                .put(data)
+                .array();
+    }
+
+    @Override
+    public void fromByteArray(byte[] byteArray)
+    {
+        ByteBuffer readBuffer = getReadBuffer(byteArray);
+
+        int cbData = readBuffer.getInt();
+        data = new byte[cbData];
+        readBuffer.get(data);
+    }
+
+    public byte[] getData()
+    {
+        return data;
+    }
+
+    public void setData(byte[] data)
+    {
+        this.data = data;
+    }
+
+    private int calcPayloadSize()
+    {
+        return data.length + DataConstants.NUM_BYTES_IN_INT;
     }
 }

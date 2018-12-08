@@ -32,8 +32,12 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.RcUdpSocket;
-import net.frogbots.ftcopmodetunercommon.networking.udp.UdpSocket;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsgSocketBase;
+import net.frogbots.ftcopmodetunercommon.networking.udp.SpecificMsgReceiver;
+import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -46,7 +50,7 @@ import java.util.Locale;
  * for ease of use purposes...
  */
 
-public class FtcOpModeTunerReceiver implements UdpSocket.Receiver
+public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
 {
     private RcUdpSocket server;
     private FtcOpModeTunerReceiverInterface callback;
@@ -67,7 +71,8 @@ public class FtcOpModeTunerReceiver implements UdpSocket.Receiver
     {
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "");
-        server = new RcUdpSocket(this);
+        server = new RcUdpSocket();
+        server.setCallback(this);
         this.callback = callback;
     }
 
@@ -120,11 +125,11 @@ public class FtcOpModeTunerReceiver implements UdpSocket.Receiver
      * @param data the new data packet in raw, encoded byte array form
      */
     @Override
-    public synchronized void onDataReceived(byte[] data, InetAddress srcAddr)
+    public void onTunerData(TunerDataMsg tunerDataMsg, InetAddress src)
     {
         clearAllData(); //First things first, nuke all the old data - we don't want duplicate entries!
 
-        ArrayList<Datagram> datagrams = DatagramArrayDecoder.decode(data); //Decode that raw byte array into an ArrayList of Datagrams
+        ArrayList<Datagram> datagrams = DatagramArrayDecoder.decode(tunerDataMsg.getData()); //Decode that raw byte array into an ArrayList of Datagrams
 
         for(Datagram d : datagrams) //Iterate through all the datagrams we found in the byte array
         {
@@ -424,5 +429,17 @@ public class FtcOpModeTunerReceiver implements UdpSocket.Receiver
         all.addAll(stringDatagrams);
 
         return all;
+    }
+
+    @Override
+    public void onCommand(NetworkCommand command)
+    {
+
+    }
+
+    @Override
+    public void onHeatbeat(Heartbeat heartbeat, InetAddress srcAddr)
+    {
+
     }
 }

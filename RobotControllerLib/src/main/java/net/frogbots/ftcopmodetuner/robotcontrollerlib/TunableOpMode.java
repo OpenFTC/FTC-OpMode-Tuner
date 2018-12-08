@@ -19,15 +19,18 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.opmode;
+package net.frogbots.ftcopmodetuner.robotcontrollerlib;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.EventLoopManager;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.BooleanDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
+
+import org.firstinspires.ftc.robotcore.internal.network.RecvLoopRunnable;
 
 import java.util.ArrayList;
 
@@ -36,11 +39,12 @@ import java.util.ArrayList;
  * by in the Tuner app in your code
  */
 
-public abstract class TunableLinearOpMode extends LinearOpMode implements TunableOpModeInterface
+@SuppressWarnings("unused")
+public abstract class TunableOpMode extends OpMode implements TunableOpModeInterface
 {
     private TunableOpModeCommon tunableOpModeCommon;
 
-    public TunableLinearOpMode()
+    public TunableOpMode()
     {
         tunableOpModeCommon = new TunableOpModeCommon(this);
     }

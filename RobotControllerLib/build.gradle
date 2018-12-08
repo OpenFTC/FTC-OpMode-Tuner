@@ -1,13 +1,17 @@
 apply plugin: 'com.android.library'
 
-
+ext {
+    PUBLISH_GROUP_ID = 'org.openftc'
+    PUBLISH_ARTIFACT_ID = 'ftc-opmode-tuner-common'
+    PUBLISH_VERSION = '0.22'
+}
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "0.22"
     }
@@ -19,14 +23,11 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
 }
 
 dependencies {
-    compileOnly fileTree(dir: 'libs', include: ['*.aar'])
-    compile ('com.thoughtworks.xstream:xstream:1.4.10-java7') {
-        exclude group: 'xmlpull', module: 'xmlpull'
-    }
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    implementation project(':Common')
 }
+
+apply from: '../release-aar.gradle'

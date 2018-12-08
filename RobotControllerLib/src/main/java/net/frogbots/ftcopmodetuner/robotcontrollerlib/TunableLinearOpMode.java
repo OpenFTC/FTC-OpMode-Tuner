@@ -19,9 +19,9 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.opmode;
+package net.frogbots.ftcopmodetuner.robotcontrollerlib;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.BooleanDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
@@ -35,12 +35,12 @@ import java.util.ArrayList;
  * Make your OpMode extend this in order to be able to retrieve values sent
  * by in the Tuner app in your code
  */
-
-public abstract class TunableOpMode extends OpMode implements TunableOpModeInterface
+@SuppressWarnings("unused")
+public abstract class TunableLinearOpMode extends LinearOpMode implements TunableOpModeInterface
 {
     private TunableOpModeCommon tunableOpModeCommon;
 
-    public TunableOpMode()
+    public TunableLinearOpMode()
     {
         tunableOpModeCommon = new TunableOpModeCommon(this);
     }

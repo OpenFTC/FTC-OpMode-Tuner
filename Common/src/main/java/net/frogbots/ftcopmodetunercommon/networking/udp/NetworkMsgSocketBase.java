@@ -31,33 +31,33 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class UdpSocket
+public class NetworkMsgSocketBase
 {
     public int port;
     private DatagramSocket basicSocket;
-    private Receiver receiver;
+    private GenericMsgReceiver callback;
     private Thread rxThread;
     private Thread txThread;
-    private ArrayBlockingQueue<DatagramPacket> txQueue = new ArrayBlockingQueue<>(25);
+    private ArrayBlockingQueue<NetworkMsg> txQueue = new ArrayBlockingQueue<>(25);
 
-    public UdpSocket(Receiver receiver)
+    public NetworkMsgSocketBase(GenericMsgReceiver callback)
     {
-        this.receiver = receiver;
+        this.callback = callback;
     }
 
-    public UdpSocket()
+    public NetworkMsgSocketBase()
     {
 
     }
 
-    public void setReceiver(Receiver receiver)
+    public void setCallback(GenericMsgReceiver callback)
     {
-        this.receiver = receiver;
+        this.callback = callback;
     }
 
-    public void open(int port)
+    public void open(final int port)
     {
-        if(receiver == null)
+        if(callback == null)
         {
             throw new NullPointerException();
         }
@@ -91,7 +91,34 @@ public class UdpSocket
                     try
                     {
                         basicSocket.receive(incomingPacket);
-                        receiver.onDataReceived(DatatypeUtil.getNBytes(incomingPacket.getData(), incomingPacket.getLength()), incomingPacket.getAddress());
+
+                        byte[] data = DatatypeUtil.getNBytes(incomingPacket.getData(), incomingPacket.getLength());
+                        NetworkMsg msg = null;
+
+                        switch (NetworkMsg.MsgType.fromSerializedDatagram(data))
+                        {
+                            case HEARTBEAT:
+                            {
+                                msg = new Heartbeat(data);
+                                break;
+                            }
+
+                            case TUNER_DATA:
+                            {
+                                msg = new TunerDataMsg(data);
+                                break;
+                            }
+
+                            case COMMAND:
+                            {
+                                msg = new NetworkCommand(data);
+                                break;
+                            }
+                        }
+
+                        callback.onDataReceived(
+                                msg,
+                                incomingPacket.getAddress());
                     }
                     catch (IOException e)
                     {
@@ -115,7 +142,10 @@ public class UdpSocket
                     {
                         try
                         {
-                            basicSocket.send(txQueue.take());
+                            NetworkMsg parsable = txQueue.take();
+                            byte[] data = parsable.toByteArrayForTransmission();
+                            DatagramPacket packet = new DatagramPacket(data, data.length, parsable.getDestAddr(), port);
+                            basicSocket.send(packet);
                         }
                         catch (IOException e)
                         {
@@ -136,22 +166,16 @@ public class UdpSocket
         txThread.start();
     }
 
-    public void enqueueForSend(byte[] dataToSend, InetAddress destAddr, int destPort)
+    public void enqueueForSend(NetworkMsg parsable)
     {
         try
         {
-            DatagramPacket outgoingPacket = new DatagramPacket(dataToSend,  dataToSend.length, destAddr, destPort);
-            txQueue.put(outgoingPacket);
+            txQueue.put(parsable);
         }
         catch (InterruptedException e)
         {
             e.printStackTrace();
         }
-    }
-
-    public void enqueueForSend(byte[] bytes, InetAddress destAddr)
-    {
-        enqueueForSend(bytes, destAddr, port);
     }
 
     public void close()
@@ -209,10 +233,5 @@ public class UdpSocket
         {
             return true;
         }
-    }
-
-    public interface Receiver
-    {
-        void onDataReceived(byte[] data, InetAddress srcAddr);
     }
 }

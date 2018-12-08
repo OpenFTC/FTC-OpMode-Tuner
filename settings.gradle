@@ -1,1 +1,1 @@
-include ':OpModeTuner', ':Common', ':ReceiverTestApp'
+include ':OpModeTuner', ':Common', ':ReceiverTestApp', ':RobotControllerLib'

@@ -27,7 +27,7 @@ import java.nio.ByteBuffer;
 /**
  * General utilities for converting between data types
  */
-
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class DatatypeUtil
 {
     //------------------------------------------------------------------
@@ -81,6 +81,38 @@ public class DatatypeUtil
         return buffer.array();
     }
 
+    //------------------------------------------------------------------
+    // Unsigned --> integer
+    //------------------------------------------------------------------
+
+    /***
+     * Returns (as an int) the value of a byte as if it were unsigned
+     *
+     * @param b the byte to return the unsigned representation of
+     * @return an int that is the unsigned representation of the byte
+     */
+    public static int byteToUnsignedInt(byte b)
+    {
+        //Needs >= JDK8
+        //return Byte.toUnsignedInt(b);
+
+        return ((int)(b) & 0xff);
+    }
+
+    /***
+     * Returns (as an int) the value of a short as if it were unsigned
+     *
+     * @param s the short to return the unsigned representation of
+     * @return an int that is the unsigned representation of the short
+     */
+    public static int shortToUnsignedInt(short s)
+    {
+        //Needs >= JDK8
+        //return Short.toUnsignedInt(s);
+
+        return ((int)(s) & 0xffff);
+    }
+
     /***
      * Converts a byte array to a short
      *
@@ -95,7 +127,10 @@ public class DatatypeUtil
         }
 
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
-        return buffer.getShort();
+
+        short debugIntermediateStep = buffer.getShort();
+
+        return debugIntermediateStep;
     }
 
     //------------------------------------------------------------------
@@ -155,9 +190,67 @@ public class DatatypeUtil
         }
     }
 
+    /***
+     * Converts a string to a byte array
+     *
+     * @param string the string to be converted to a byte[]
+     * @return a byte[] with the UTF-8 representation of the String
+     */
+    public static byte[] stringToByteArray(String string)
+    {
+        try
+        {
+            return string.getBytes("UTF-8");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            throw new IllegalArgumentException("Failed to convert string to UTF-8!");
+        }
+    }
+
     //------------------------------------------------------------------
     // Booleans
     //------------------------------------------------------------------
+
+    /***
+     * Converts a boolean to a byte
+     *
+     * @param value the boolean to convert
+     * @return the byte value of the boolean
+     */
+    public static byte booleanToByte(boolean value)
+    {
+        if(value)
+        {
+            return DataConstants.BOOLEAN_BYTE_VALUE_TRUE;
+        }
+        else
+        {
+            return DataConstants.BOOLEAN_BYTE_VALUE_FALSE;
+        }
+    }
+
+    /***
+     * Converts a byte to a boolean
+     *
+     * @param value the byte to convert
+     * @return the boolean value of the byte
+     */
+    public static boolean byteToBoolean(byte value)
+    {
+        if(value == DataConstants.BOOLEAN_BYTE_VALUE_TRUE)
+        {
+            return true;
+        }
+        else if(value == DataConstants.BOOLEAN_BYTE_VALUE_FALSE)
+        {
+            return false;
+        }
+        else
+        {
+            throw new IllegalArgumentException("A boolean byte cannot be " + value + ", it must either be 0x00 or 0x01!");
+        }
+    }
 
     /***
      * Converts a boolean to a byte array
@@ -207,7 +300,7 @@ public class DatatypeUtil
         }
         else
         {
-            throw new IllegalArgumentException("A boolean byte cannot be " + bytes[0] + ", it must either be 0x00 or 0xFF!");
+            throw new IllegalArgumentException("A boolean byte cannot be " + bytes[0] + ", it must either be 0x00 or 0x01!");
         }
     }
 
@@ -333,11 +426,13 @@ public class DatatypeUtil
         return "0x" + printHexBinary(new byte[]{theByte});
     }
 
+    //---------------------------------------------------------------------------------------------------------------
+    // Methods from DatatypeConverter.java of the JDK (Android doesn't have it)
+    // See that file for the license covering these methods
+    //---------------------------------------------------------------------------------------------------------------
+
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
-    /*
-     * Method from the DatatypeConverter class (Android doesn't have it)
-     */
     private static String printHexBinary(byte[] data)
     {
         StringBuilder r = new StringBuilder(data.length * 2);
@@ -351,9 +446,6 @@ public class DatatypeUtil
         return r.toString();
     }
 
-    /*
-     * Method from the DatatypeConverter class (Android doesn't have it)
-     */
     private static byte[] parseHexBinary(String s)
     {
         final int len = s.length();
@@ -382,9 +474,6 @@ public class DatatypeUtil
         return out;
     }
 
-    /*
-     * Method from the DatatypeConverter class (Android doesn't have it)
-     */
     private static int hexToBin(char ch)
     {
         if ('0' <= ch && ch <= '9')

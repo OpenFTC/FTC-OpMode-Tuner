@@ -23,8 +23,6 @@ package net.frogbots.ftcopmodetuner.ui.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -66,6 +64,7 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.array.DatagramArrayEncoder;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
+import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -588,7 +587,9 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
             {
                 if(networkingManager.getConnectionStatus() == ConnectionStatus.CONNECTED)
                 {
-                    networkingManager.sendBytes(getDataForTransmissionToRC());
+                    TunerDataMsg tunerDataMsg = new TunerDataMsg();
+                    tunerDataMsg.setData(getDataForTransmissionToRC());
+                    networkingManager.sendMsg(tunerDataMsg);
                 }
             }
         };

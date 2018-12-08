@@ -27,6 +27,12 @@ import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
+import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsgSocketBase;
+import net.frogbots.ftcopmodetunercommon.networking.udp.SpecificMsgReceiver;
+import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.TunerUdpSocket;
 
 import java.net.InetAddress;
@@ -40,7 +46,7 @@ import java.util.concurrent.TimeUnit;
  * It extends upon the functionality of TunerUdpSocket
  */
 
-public class NetworkingManager implements TunerUdpSocket.Receiver
+public class NetworkingManager implements SpecificMsgReceiver
 {
     private volatile ConnectionStatus connectionStatus;
     private volatile int port;
@@ -212,7 +218,7 @@ public class NetworkingManager implements TunerUdpSocket.Receiver
      *
      * @param data the data received by the UDP client
      */
-    @Override
+    /*@Override
     public void onDataReceived(byte[] data, InetAddress srcAddr)
     {
         lastServerResponseTime = System.currentTimeMillis();
@@ -221,7 +227,7 @@ public class NetworkingManager implements TunerUdpSocket.Receiver
         {
             //No need to check the port, the socket will only receive things on the port that
             //it is bound to (at least AFAIK)
-            if(/*packet.getPort() == port && */ srcAddr.equals(tunerUdpSocket.getServerAddr()))
+            if(srcAddr.equals(tunerUdpSocket.getServerAddr()))
             {
                 lastAckTime = lastServerResponseTime;
                 connectionRefused = false;
@@ -231,7 +237,7 @@ public class NetworkingManager implements TunerUdpSocket.Receiver
         {
             connectionRefused = true;
         }
-    }
+    }*/
 
     private void setupHeartbeatTask()
     {
@@ -245,8 +251,7 @@ public class NetworkingManager implements TunerUdpSocket.Receiver
                     return;
                 }
 
-                byte[] bytes = {DataConstants.HEARTBEAT_PING};
-                tunerUdpSocket.enqueueForSend(bytes);
+                tunerUdpSocket.sendMsg(new Heartbeat());
                 //System.out.println("bang");
 
                 if(connectionRefused && (System.currentTimeMillis() - lastServerResponseTime) < noResponseFromServerTimeoutMs)
@@ -271,14 +276,40 @@ public class NetworkingManager implements TunerUdpSocket.Receiver
         heartbeatTimer.scheduleAtFixedRate(heartbeatRunnable, 0, serverHeartbeatInterval, TimeUnit.MILLISECONDS);
     }
 
-    public synchronized void sendBytes(byte[] bytes)
+    public synchronized void sendMsg(NetworkMsg msg)
     {
         if(running && connectionStatus == ConnectionStatus.CONNECTED)
         {
-            if(bytes != null && bytes.length > 0)
+            if(msg != null)
             {
-                tunerUdpSocket.enqueueForSend(bytes);
+                tunerUdpSocket.sendMsg(msg);
             }
         }
+    }
+
+    @Override
+    public void onCommand(NetworkCommand command)
+    {
+        lastServerResponseTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void onHeatbeat(Heartbeat heartbeat, InetAddress srcAddr)
+    {
+        lastServerResponseTime = System.currentTimeMillis();
+
+        //No need to check the port, the socket will only receive things on the port that
+        //it is bound to (at least AFAIK)
+        if(/*packet.getPort() == port && */ srcAddr.equals(tunerUdpSocket.getServerAddr()))
+        {
+            lastAckTime = lastServerResponseTime;
+            connectionRefused = false;
+        }
+    }
+
+    @Override
+    public void onTunerData(TunerDataMsg msg, InetAddress src)
+    {
+        lastServerResponseTime = System.currentTimeMillis();
     }
 }

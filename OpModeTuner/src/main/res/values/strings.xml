@@ -131,7 +131,7 @@
     <string name="intro_slide_hello_title">Hello!</string>
     <string name="intro_slide_hello_msg">Thanks for downloading FTC OpMode Tuner!\n\nFTC OpMode Tuner allows you to tune parameters in your OpModes (such as PID coefficients or servo positions) in REAL TIME.</string>
     <string name="intro_slide_how_does_it_work_title">How does it work?</string>
-    <string name="intro_slide_how_does_it_work_msg">You add fields (variables) to the UI in this app. Those fields are then sent over the network to the RobotController, where a network receiver is listening for them. Each field is identified with a tag, similar to the HardwareMap.</string>
+    <string name="intro_slide_how_does_it_work_msg">You add fields (variables) to the UI in this app. Those fields are then sent over the network to the RobotController, where a network callback is listening for them. Each field is identified with a tag, similar to the HardwareMap.</string>
     <string name="intro_slide_open_source_title">This app is open source!</string>
     <string name="intro_slide_open_source_msg">For more details, please see the About screen.</string>
 

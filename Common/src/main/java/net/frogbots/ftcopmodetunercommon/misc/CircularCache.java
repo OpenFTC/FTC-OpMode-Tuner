@@ -19,43 +19,43 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.networking.udp;
+package net.frogbots.ftcopmodetunercommon.misc;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.lang.reflect.Array;
 
-public class TunerUdpSocket extends NetworkMsgSocket
+public class CircularCache<T>
 {
-    private InetAddress serverAddr;
-    private int port;
+    private T[] cacheArray;
+    int i = 0;
 
-    public TunerUdpSocket(int port, String serverIp, SpecificMsgReceiver receiver)
+    public CircularCache(Class<T> t, int size)
     {
-        super();
-        super.setCallback(receiver);
+        // Use Array native method to create array
+        // of a type only known at run time
+        cacheArray = (T[]) Array.newInstance(t, size);
+    }
 
-        this.port = port;
-        try
+    public void add(T obj)
+    {
+        cacheArray[i] = obj;
+        i++;
+
+        if(i >= cacheArray.length)
         {
-            serverAddr = InetAddress.getByName(serverIp);
-        }
-        catch (UnknownHostException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException();
+            i = 0;
         }
     }
 
-    @Override
-    public void sendMsg(NetworkMsg msg)
+    public boolean contains(T obj2)
     {
-        msg.setDestAddr(serverAddr);
-        //enqueueForSend(msg, serverAddr, port);
-        super.sendMsg(msg);
-    }
+        for(T obj1 : cacheArray)
+        {
+            if(obj1.equals(obj2))
+            {
+                return true;
+            }
+        }
 
-    public InetAddress getServerAddr()
-    {
-        return serverAddr;
+        return false;
     }
 }

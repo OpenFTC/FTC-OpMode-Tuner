@@ -21,41 +21,14 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
+import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
+
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
-public class TunerUdpSocket extends NetworkMsgSocket
+public interface SpecificMsgReceiver
 {
-    private InetAddress serverAddr;
-    private int port;
-
-    public TunerUdpSocket(int port, String serverIp, SpecificMsgReceiver receiver)
-    {
-        super();
-        super.setCallback(receiver);
-
-        this.port = port;
-        try
-        {
-            serverAddr = InetAddress.getByName(serverIp);
-        }
-        catch (UnknownHostException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
-    }
-
-    @Override
-    public void sendMsg(NetworkMsg msg)
-    {
-        msg.setDestAddr(serverAddr);
-        //enqueueForSend(msg, serverAddr, port);
-        super.sendMsg(msg);
-    }
-
-    public InetAddress getServerAddr()
-    {
-        return serverAddr;
-    }
+    void onCommand(NetworkCommand command);
+    void onHeatbeat(Heartbeat heartbeat, InetAddress srcAddr);
+    void onTunerData(TunerDataMsg tunerDataMsg, InetAddress src);
 }

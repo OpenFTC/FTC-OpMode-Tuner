@@ -21,41 +21,47 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 
-public class TunerUdpSocket extends NetworkMsgSocket
+public class Heartbeat extends NetworkMsgBase
 {
-    private InetAddress serverAddr;
-    private int port;
+    private boolean acknowledged = false;
+    private int PAYLOAD_SIZE = 1;
 
-    public TunerUdpSocket(int port, String serverIp, SpecificMsgReceiver receiver)
+    public Heartbeat(byte[] data)
     {
-        super();
-        super.setCallback(receiver);
+        fromByteArray(data);
+    }
 
-        this.port = port;
-        try
-        {
-            serverAddr = InetAddress.getByName(serverIp);
-        }
-        catch (UnknownHostException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+    public Heartbeat()
+    {
+
     }
 
     @Override
-    public void sendMsg(NetworkMsg msg)
+    public MsgType getMsgType()
     {
-        msg.setDestAddr(serverAddr);
-        //enqueueForSend(msg, serverAddr, port);
-        super.sendMsg(msg);
+        return MsgType.HEARTBEAT;
     }
 
-    public InetAddress getServerAddr()
+    @Override
+    public byte[] toByteArray()
     {
-        return serverAddr;
+        return getWriteBuffer(PAYLOAD_SIZE)
+                .put(DatatypeUtil.booleanToByte(acknowledged))
+                .array();
+    }
+
+    @Override
+    public void fromByteArray(byte[] byteArray)
+    {
+        acknowledged = DatatypeUtil.byteToBoolean(
+                getReadBuffer(byteArray).get()
+        );
+    }
+
+    public void acknowledge()
+    {
+        acknowledged = true;
     }
 }

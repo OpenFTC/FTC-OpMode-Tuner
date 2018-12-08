@@ -81,7 +81,7 @@ public class DataConstants
     public static final int BYTE_MIN_VALUE                = 0;
     public static final int BYTE_MAX_VALUE                = 255;
 
-    public static final byte BOOLEAN_BYTE_VALUE_TRUE      = (byte) 0xFF;
+    public static final byte BOOLEAN_BYTE_VALUE_TRUE      = (byte) 0x01;
     public static final byte BOOLEAN_BYTE_VALUE_FALSE     = (byte) 0x00;
 
     public static final byte INT_DATATYPE_INDICATOR       = 0x01;

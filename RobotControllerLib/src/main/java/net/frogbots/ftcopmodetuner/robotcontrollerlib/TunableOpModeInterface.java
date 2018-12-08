@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.opmode;
+package net.frogbots.ftcopmodetuner.robotcontrollerlib;
 
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.BooleanDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
@@ -33,6 +33,7 @@ import java.util.ArrayList;
  * User-methods common to TunableOpMode and TunableLinearOpMode
  */
 
+@SuppressWarnings("unused")
 interface TunableOpModeInterface
 {
     int getPort();
