@@ -177,4 +177,13 @@
     <string name="dont_want_interval_this_high">You probably don\'t want the interval this high...</string>
     <string name="must_be_at_least_10ms">Must be at least 10ms</string>
     <string name="add_new_config">Add new config</string>
+    <string name="title_activity_lynx_module_control">LynxModuleControlActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -16,4 +16,13 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="FtcOpModeTunerTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="FtcOpModeTunerTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="FtcOpModeTunerTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
 </resources>
