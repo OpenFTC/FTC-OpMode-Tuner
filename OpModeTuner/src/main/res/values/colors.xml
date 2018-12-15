@@ -17,4 +17,5 @@
     <color name="light_grey">#dedede</color>
     <color name="black">#000000</color>
     <color name="info_shadow">#A8A8A8</color>
+    <color name="hub_toolkit_actionbar_color">#ff8400</color>
 </resources>

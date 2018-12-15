@@ -20,13 +20,6 @@
         <activity
             android:name=".ui.activity.OpModeTunerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-
         </activity>
         <activity android:name=".ui.activity.settings.OpModeTunerSettingsActivity"/>
         <activity android:name=".ui.activity.settings.AdvancedNetworkSettingsActivity"/>
@@ -38,6 +31,22 @@
         <activity
             android:name=".ui.activity.ConfigSelectionActivty"
             android:theme="@style/ConfigSelectionStyle"/>
+        <activity android:name=".ui.activity.hubtoolkit.HubSelectionActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.FunctionChooserActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.hubtoolkit.LynxModuleControlActivity"
+            android:label="@string/title_activity_lynx_module_control"
+            android:theme="@style/FtcOpModeTunerTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
