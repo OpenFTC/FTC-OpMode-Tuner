@@ -619,9 +619,14 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
             {
                 if(networkingManager.getConnectionStatus() == ConnectionStatus.CONNECTED)
                 {
-                    TunerDataMsg tunerDataMsg = new TunerDataMsg();
-                    tunerDataMsg.setData(getDataForTransmissionToRC());
-                    networkingManager.sendMsg(tunerDataMsg);
+                    byte[] tunerData = getDataForTransmissionToRC();
+
+                    if(tunerData != null)
+                    {
+                        TunerDataMsg tunerDataMsg = new TunerDataMsg();
+                        tunerDataMsg.setData(tunerData);
+                        networkingManager.sendMsg(tunerDataMsg);
+                    }
                 }
             }
         };
