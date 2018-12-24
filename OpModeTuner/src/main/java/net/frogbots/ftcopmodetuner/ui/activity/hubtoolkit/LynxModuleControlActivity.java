@@ -188,6 +188,11 @@ public class LynxModuleControlActivity extends AppCompatActivity
                 {
                     return LynxModuleMotorControlFragment.newInstance("p2", "p2");
                 }
+
+                case 5:
+                {
+                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                }
             }
 
             throw new IllegalArgumentException();
@@ -197,7 +202,7 @@ public class LynxModuleControlActivity extends AppCompatActivity
         public int getCount()
         {
             // Show 3 total pages.
-            return 5;
+            return 6;
         }
     }
 }
