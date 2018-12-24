@@ -160,7 +160,37 @@ public class LynxModuleControlActivity extends AppCompatActivity
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
-            return LynxModuleMotorControlFragment.newInstance("p1", "p2");
+            //return LynxModuleMotorControlFragment.newInstance("p1", "p2");
+
+            switch (position)
+            {
+                case 0:
+                {
+                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                }
+
+                case 1:
+                {
+                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                }
+
+                case 2:
+                {
+                    return LynxModuleDigitalControlFragment.newInstance("p2", "p2");
+                }
+
+                case 3:
+                {
+                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                }
+
+                case 4:
+                {
+                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                }
+            }
+
+            throw new IllegalArgumentException();
         }
 
         @Override
