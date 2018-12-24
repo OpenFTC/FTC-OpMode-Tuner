@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <fragment
+            android:layout_marginBottom="10dp"
+            android:id="@+id/analogPort0"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.AnalogPortFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_analog_port"/>
+
+        <fragment
+            android:layout_marginBottom="10dp"
+            android:id="@+id/analogPort1"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.AnalogPortFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_analog_port"/>
+
+        <fragment
+            android:layout_marginBottom="10dp"
+            android:id="@+id/analogPort2"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.AnalogPortFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_analog_port"/>
+
+        <fragment
+            android:id="@+id/analogPort3"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.AnalogPortFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_analog_port"/>
+
+    </LinearLayout>
+
+</ScrollView>

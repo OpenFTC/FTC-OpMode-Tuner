@@ -181,7 +181,7 @@ public class LynxModuleControlActivity extends AppCompatActivity
 
                 case 3:
                 {
-                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                    return LynxModuleAnalogControlFragment.newInstance("p2", "p2");
                 }
 
                 case 4:
