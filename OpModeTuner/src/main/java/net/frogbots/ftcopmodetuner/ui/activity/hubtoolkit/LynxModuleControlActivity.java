@@ -179,7 +179,7 @@ public class LynxModuleControlActivity extends AppCompatActivity
 
                 case 5:
                 {
-                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                    return new LynxModuleExtraFragment();
                 }
             }
 
