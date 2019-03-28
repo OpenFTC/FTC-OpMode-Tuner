@@ -96,7 +96,7 @@ public class DigitalPortFragment extends Fragment implements View.OnClickListene
 
     public void setNum(int num)
     {
-        this.num.setText("#" + num);
+        this.num.setText("Digital " + num);
     }
 
     @Override

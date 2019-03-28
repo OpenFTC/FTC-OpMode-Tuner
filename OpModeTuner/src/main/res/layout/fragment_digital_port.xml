@@ -1,52 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
+<android.support.v7.widget.CardView
     android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    app:cardBackgroundColor="@color/cardview_light_background"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/card"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/num"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="20dp"
-        android:text="#0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/inModeBtn"
-        android:layout_marginRight="-5dp"
-        android:minWidth="50dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_width="wrap_content"
-        android:text="in"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/num"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"
+            android:text="Digital 0"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/outModeBtn"
-        android:minWidth="50dp"
-        android:layout_width="wrap_content"
-        android:text="out"
-        android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/rwTxtView"
-        android:paddingLeft="20dp"
-        android:text="WRITE:"
-        android:textSize="20dp"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/inModeBtn"
+                android:layout_marginRight="-5dp"
+                android:minWidth="50dp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:text="in"
+                android:layout_height="wrap_content"/>
 
-    <ToggleButton
-        android:id="@+id/highLowToggleBtn"
-        android:textOff="LOW"
-        android:textOn="HIGH"
-        android:checked="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/outModeBtn"
+                android:minWidth="50dp"
+                android:layout_width="wrap_content"
+                android:text="out"
+                android:layout_height="wrap_content"/>
 
+            <TextView
+                android:id="@+id/rwTxtView"
+                android:paddingLeft="20dp"
+                android:text="WRITE:"
+                android:textSize="20dp"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"/>
 
-</LinearLayout>
+            <ToggleButton
+                android:id="@+id/highLowToggleBtn"
+                android:textOff="LOW"
+                android:textOn="HIGH"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
