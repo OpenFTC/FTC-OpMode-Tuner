@@ -32,6 +32,8 @@ import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
+import net.frogbots.ftcopmodetuner.ui.field.util.FloatingPointSignedSeekBar;
+import net.frogbots.ftcopmodetuner.ui.field.util.SignedSeekBar;
 import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
@@ -39,11 +41,11 @@ import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
  * This class handles the UI events of a DoubleField
  */
 
-public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFieldData>
+public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFieldData>, FloatingPointSignedSeekBar.OnFloatingPointSeekBarChangeListener, View.OnClickListener
 {
     private Button btnKeyIn;
     private ImageButton settingsBtn;
-    private SeekBar seekBar;
+    private FloatingPointSignedSeekBar seekBar;
     private TextView value;
     private DoubleFieldData data;
 
@@ -52,50 +54,12 @@ public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFie
         super(fieldInterface, R.layout.number_layout);
     }
 
-    private int getProgress()
-    {
-        return (int) (seekBar.getProgress() + (getMinData() * DataConstants.INT_TO_DOUBLE_SCALAR));
-    }
-
     public void setMinMax(double min, double max)
     {
-        setMaxData(max);
-        setMinData(min);
-
-        seekBar.setMax((int) ((max - min) * DataConstants.INT_TO_DOUBLE_SCALAR));
-        seekBar.setProgress(1); // To trigger a call to the onChanged listener
-        seekBar.setProgress(0);
-        //seekBar.setMin(min);
-    }
-
-    private double getMinData()
-    {
-        return data.min;
-    }
-
-    private double getMaxData()
-    {
-        return data.max;
-    }
-
-    private void setMaxData(double max)
-    {
-        data.max = max;
-    }
-
-    private void setMinData(double min)
-    {
         data.min = min;
-    }
+        data.max = max;
 
-    private double getCurValue()
-    {
-        return data.curValue;
-    }
-
-    private void setCurValue(int value)
-    {
-        data.curValue = value / DataConstants.INT_TO_DOUBLE_SCALAR; //If seekbar is 1, then this will be .001
+        seekBar.setMinMax(min, max);
     }
 
     @Override
@@ -103,61 +67,25 @@ public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFie
     {
         super.setupUi(inflater);
 
+        /*
+         * Create our UI handles
+         */
         settingsBtn = findViewById(R.id.fieldSettings);
         btnKeyIn = findViewById(R.id.btnKeyIn);
-        seekBar = findViewById(R.id.seekBar);
+        seekBar = new FloatingPointSignedSeekBar((SeekBar) findViewById(R.id.seekBar), data.min, data.max);
         value = findViewById(R.id.value);
 
-        value.setText(String.valueOf(seekBar.getProgress()));
-
-        settingsBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                showFieldSettingsDialog();
-            }
-        });
-
-        btnKeyIn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                requestManualInput();
-            }
-        });
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                setCurValue(getProgress());
-                value.setText(String.valueOf(getCurValue()));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
-
-            }
-        });
-
+        /*
+         * Set our listeners
+         */
+        settingsBtn.setOnClickListener(this);
+        btnKeyIn.setOnClickListener(this);
+        seekBar.setOnSeekBarChangeListener(this);
 
         /*
-         * To ensure the UI gets restored properly
-         * when loading from XML
+         * Restore UI state
          */
-        double tmp = data.curValue;
-        setMinMax(getMinData(), getMaxData());
-        seekBar.setProgress((int) ((tmp - getMinData()) * DataConstants.INT_TO_DOUBLE_SCALAR));
+        seekBar.setProgress(data.curValue);
     }
 
     @Override
@@ -176,12 +104,32 @@ public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFie
     public void onManualInputReceived(String str)
     {
         value.setText(str);
-        seekBar.setProgress((int) ((Double.parseDouble(str) - getMinData()) * DataConstants.INT_TO_DOUBLE_SCALAR));
+        seekBar.setProgress(Double.parseDouble(str));
     }
 
     public void attachFieldDataClass(DoubleFieldData data)
     {
         this.data = data;
         internalAttachFieldDataClass(data);
+    }
+
+    @Override
+    public void onProgressChanged(FloatingPointSignedSeekBar seekBar, double progress, boolean fromUser)
+    {
+        data.curValue = progress;
+        value.setText(String.valueOf(progress));
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        if(view == settingsBtn)
+        {
+            showFieldSettingsDialog();
+        }
+        else if(view == btnKeyIn)
+        {
+            requestManualInput();
+        }
     }
 }

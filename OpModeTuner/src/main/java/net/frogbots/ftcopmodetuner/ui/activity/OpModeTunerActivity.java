@@ -282,7 +282,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
     public void showAddFieldDialog(View v)
     {
-        NetworkCommand networkCommand = new NetworkCommand("HELLO WORLD CMD");
+        /*NetworkCommand networkCommand = new NetworkCommand("HELLO WORLD CMD");
         networkCommand.setListener(new NetworkCommand.AckOrNackListener()
         {
             @Override
@@ -312,15 +312,15 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
                 });
             }
         });
-        networkingManager.sendMsg(networkCommand);
-        /*if(currentConfig != null)
+        networkingManager.sendMsg(networkCommand);*/
+        if(currentConfig != null)
         {
             new NewFieldDialog(this, this, enableByteDataType, enableButtonDataType).show();
         }
         else
         {
             showAlertDialog("No config loaded", "You need to load a config before adding fields.");
-        }*/
+        }
     }
 
     /***

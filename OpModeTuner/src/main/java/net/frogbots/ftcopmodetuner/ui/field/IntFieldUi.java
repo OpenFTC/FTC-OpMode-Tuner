@@ -32,17 +32,18 @@ import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
+import net.frogbots.ftcopmodetuner.ui.field.util.SignedSeekBar;
 import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
 
 /**
  * This class handles the UI events of an IntField
  */
 
-public class IntFieldUi extends FieldUi implements FieldUiInterface<IntFieldData>
+public class IntFieldUi extends FieldUi implements FieldUiInterface<IntFieldData>, SignedSeekBar.OnSignedSeekBarChangeListener, View.OnClickListener
 {
     private Button btnKeyIn;
     private ImageButton settingsBtn;
-    private SeekBar seekBar;
+    private SignedSeekBar seekBar;
     private TextView value;
     private IntFieldData data;
 
@@ -51,45 +52,12 @@ public class IntFieldUi extends FieldUi implements FieldUiInterface<IntFieldData
         super(fieldInterface, R.layout.number_layout);
     }
 
-    private int getProgress()
-    {
-        return seekBar.getProgress() + getMinData();
-    }
-
     public void setMinMax(int min, int max)
     {
-        setMaxData(max);
-        setMinData(min);
-
-        seekBar.setMax(max - min);
-        seekBar.setProgress(1); // To trigger a call to the onChanged listener
-        seekBar.setProgress(0);
-        //seekBar.setMin(min);
-    }
-
-    private int getMinData()
-    {
-        return data.min;
-    }
-
-    private int getMaxData()
-    {
-        return data.max;
-    }
-
-    private void setMaxData(int max)
-    {
-        data.max = max;
-    }
-
-    private void setMinData(int min)
-    {
         data.min = min;
-    }
+        data.max = max;
 
-    private void setCurValue(int value)
-    {
-        data.curValue = value;
+        seekBar.setMinMax(min, max);
     }
 
     @Override
@@ -97,60 +65,25 @@ public class IntFieldUi extends FieldUi implements FieldUiInterface<IntFieldData
     {
         super.setupUi(inflater);
 
+        /*
+         * Create our UI handles
+         */
         settingsBtn = findViewById(R.id.fieldSettings);
         btnKeyIn = findViewById(R.id.btnKeyIn);
-        seekBar = findViewById(R.id.seekBar);
+        seekBar = new SignedSeekBar((SeekBar) findViewById(R.id.seekBar), data.min, data.max);
         value = findViewById(R.id.value);
 
-        value.setText(String.valueOf(seekBar.getProgress()));
-
-        settingsBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                showFieldSettingsDialog();
-            }
-        });
-
-        btnKeyIn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                requestManualInput();
-            }
-        });
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
-        {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-            {
-                value.setText(String.valueOf(getProgress()));
-                setCurValue(getProgress());
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar)
-            {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar)
-            {
-
-            }
-        });
+        /*
+         * Set our listeners
+         */
+        settingsBtn.setOnClickListener(this);
+        btnKeyIn.setOnClickListener(this);
+        seekBar.setOnSeekBarChangeListener(this);
 
         /*
-         * To ensure the UI gets restored properly
-         * when loading from XML
+         * Restore UI state
          */
-        int tmp = data.curValue;
-        setMinMax(getMinData(), getMaxData());
-        seekBar.setProgress(tmp - getMinData());
+        seekBar.setProgress(data.curValue);
     }
 
     @Override
@@ -169,12 +102,32 @@ public class IntFieldUi extends FieldUi implements FieldUiInterface<IntFieldData
     public void onManualInputReceived(String str)
     {
         value.setText(str);
-        seekBar.setProgress(Integer.parseInt(str) - getMinData());
+        seekBar.setProgress(Integer.parseInt(str));
     }
 
     public void attachFieldDataClass(IntFieldData data)
     {
         this.data = data;
         internalAttachFieldDataClass(data);
+    }
+
+    @Override
+    public void onProgressChanged(SignedSeekBar seekBar, int progress, boolean fromUser)
+    {
+        value.setText(String.valueOf(progress));
+        data.curValue = progress;
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        if(view == settingsBtn)
+        {
+            showFieldSettingsDialog();
+        }
+        else if(view == btnKeyIn)
+        {
+            requestManualInput();
+        }
     }
 }
