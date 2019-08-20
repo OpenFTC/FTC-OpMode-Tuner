@@ -47,6 +47,12 @@
             android:summary="Show the 'delete?' dialog when a field is long-pressed"
             android:title="Delete field on long press"/>
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="clearLastValOnKeyIn"
+            android:summary="Clear the previous value from the input box when opening the manual key-in dialog"
+            android:title="Clear last value on key-in"/>
+
         <PreferenceScreen
             android:title="Advanced UI"
             android:summary="Change advanced settings for the UI">

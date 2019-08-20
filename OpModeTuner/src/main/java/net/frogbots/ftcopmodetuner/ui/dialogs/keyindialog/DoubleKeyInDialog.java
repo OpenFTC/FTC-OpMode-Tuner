@@ -24,6 +24,7 @@ package net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog;
 import android.content.Context;
 import android.text.InputType;
 
+import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
@@ -36,16 +37,23 @@ public class DoubleKeyInDialog extends ManualKeyInDialog
 {
     private double max;
     private double min;
+    private boolean clearLastVal;
 
     public DoubleKeyInDialog(Context context, FieldUi fieldUi)
     {
         super(context, fieldUi);
+
+        clearLastVal = GlobalPrefs.getInstance().getBoolean("clearLastValOnKeyIn", true);
     }
 
     @Override
     protected void setup()
     {
-        input.setText(String.valueOf(((DoubleFieldData) fieldUi.getData()).curValue));
+        if(!clearLastVal)
+        {
+            input.setText(String.valueOf(((DoubleFieldData) fieldUi.getData()).curValue));
+        }
+
         input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         max = ((DoubleFieldData) fieldUi.getData()).max;
         min = ((DoubleFieldData) fieldUi.getData()).min;
