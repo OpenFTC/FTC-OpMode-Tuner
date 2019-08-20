@@ -37,6 +37,8 @@ import net.frogbots.ftcopmodetuner.ui.field.util.SignedSeekBar;
 import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
+import java.text.DecimalFormat;
+
 /**
  * This class handles the UI events of a DoubleField
  */
@@ -48,6 +50,7 @@ public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFie
     private FloatingPointSignedSeekBar seekBar;
     private TextView value;
     private DoubleFieldData data;
+    private DecimalFormat decimalFormat = new DecimalFormat("0.0000");
 
     public DoubleFieldUi(FieldInterface fieldInterface)
     {
@@ -117,7 +120,7 @@ public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFie
     public void onProgressChanged(FloatingPointSignedSeekBar seekBar, double progress, boolean fromUser)
     {
         data.curValue = progress;
-        value.setText(String.valueOf(progress));
+        value.setText(decimalFormat.format(progress));
     }
 
     @Override
