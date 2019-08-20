@@ -98,31 +98,29 @@ public class NewConfigDialog extends AlertDialog.Builder
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
-                if (fieldTagTxtView.getText().toString().isEmpty())
+                String newTag = s.toString();
+
+                positiveBtn.setEnabled(false);
+
+                if (newTag.isEmpty())
                 {
                     fieldTagTxtView.setError(null);
-                    positiveBtn.setEnabled(false);
                 }
-                else if(fieldTagTxtView.getText().toString().startsWith(DataConstants.SPACE))
+                else if(newTag.startsWith(DataConstants.SPACE))
                 {
                     fieldTagTxtView.setError(getContext().getString(R.string.leading_space));
-                    positiveBtn.setEnabled(false);
                 }
-                else if(fieldTagTxtView.getText().toString().endsWith(DataConstants.SPACE))
+                else if(newTag.endsWith(DataConstants.SPACE))
                 {
                     fieldTagTxtView.setError(getContext().getString(R.string.trailing_space));
-                    positiveBtn.setEnabled(false);
                 }
-                else if(fieldTagTxtView.getText().toString().contains(DataConstants.DOUBLE_SPACE))
+                else if(newTag.contains(DataConstants.DOUBLE_SPACE))
                 {
                     fieldTagTxtView.setError(getContext().getString(R.string.double_space));
-                    positiveBtn.setEnabled(false);
                 }
-                else if(newConfigInterface.configPresent(fieldTagTxtView.getText().toString()))
+                else if(newConfigInterface.configPresent(newTag))
                 {
                     fieldTagTxtView.setError(getContext().getString(R.string.tag_in_use));
-                    positiveBtn.setEnabled(false);
-
                 }
                 else
                 {
