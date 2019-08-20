@@ -27,10 +27,12 @@ import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetuner.ui.UiUtil;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 
 /**
@@ -71,6 +73,8 @@ public abstract class ManualKeyInDialog extends AlertDialog.Builder
             {
                 dialog.dismiss();
                 fieldUi.onManualInputReceived(input.getText().toString());
+
+                UiUtil.setSoftInputMode(getContext(), InputMethodManager.SHOW_IMPLICIT);
             }
         });
         setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
@@ -79,6 +83,8 @@ public abstract class ManualKeyInDialog extends AlertDialog.Builder
             public void onClick(DialogInterface dialog, int which)
             {
                 dialog.cancel();
+
+                UiUtil.setSoftInputMode(getContext(), InputMethodManager.SHOW_IMPLICIT);
             }
         });
 
@@ -105,6 +111,8 @@ public abstract class ManualKeyInDialog extends AlertDialog.Builder
 
             }
         });
+
+        UiUtil.setSoftInputMode(getContext(), InputMethodManager.SHOW_FORCED);
 
         return dialog;
     }
