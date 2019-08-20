@@ -57,12 +57,13 @@ public class DoubleKeyInDialog extends ManualKeyInDialog
         try
         {
             double thing = Double.parseDouble(input.getText().toString());
+
             if(thing * DataConstants.INT_TO_DOUBLE_SCALAR > Integer.MAX_VALUE)
             {
-                throw new NullPointerException();
+                doneBtn.setEnabled(false);
+                input.setError("Cannot parse value!");
             }
-
-            if(thing < min)
+            else if(thing < min)
             {
                 doneBtn.setEnabled(false);
                 input.setError("Less than minimum!");
