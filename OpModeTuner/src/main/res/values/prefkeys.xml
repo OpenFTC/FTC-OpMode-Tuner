@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prefkey_port">portPref</string>
+    <string name="prefkey_showIntro">showIntro</string>
+    <string name="prefkey_ipAddr">ipAddrPref</string>
+    <string name="prefkey_txInterval">transmissionInterval</string>
+    <string name="prefkey_activeConfig">ACTIVE_CONFIG</string>
+    <string name="prefkey_serverHeartbeatInterval">serverHeartbeatInterval</string>
+    <string name="prefkey_noServerResponseTimeoutMs">noResponseFromServerTimeoutMs</string>
+    <string name="prefkey_enableByteDataType">enableByteDatatype</string>
+    <string name="prefkey_displayDatatype">displayDatatype</string>
+    <string name="prefkey_colorCodeDatatypes">colorCodeDatatypes</string>
+    <string name="prefkey_connectionSounds">connectionSounds</string>
+    <string name="prefkey_loadLastConfigOnStartup">loadLastConfigOnStartup</string>
+    <string name="prefkey_autoSaveConfig">autoSaveConfig</string>
+    <string name="prefkey_deleteFieldOnLongPress">deleteFieldOnLongPress</string>
+    <string name="prefkey_clearLastValOnKeyIn">clearLastValOnKeyIn</string>
+    <string name="prefkey_enableButtonDataType">enableButtonDatatype</string>
+</resources>

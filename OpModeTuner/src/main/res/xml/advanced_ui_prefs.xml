@@ -7,13 +7,13 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="enableByteDatatype"
+            android:key="@string/prefkey_enableByteDataType"
             android:title="Enable byte datatype"
             android:summary="Enables the ability to send byte variables"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="enableButtonDatatype"
+            android:key="@string/prefkey_enableButtonDataType"
             android:title="Enable button datatype"
             android:summary="Enables the ability to send button press events"/>
 
@@ -27,12 +27,12 @@
             android:title="Display datatype"
             android:defaultValue="true"
             android:summary="Show the datatype in the upper right corner of each field"
-            android:key="displayDatatype" />
+            android:key="@string/prefkey_displayDatatype" />
 
         <CheckBoxPreference
             android:title="Enable color coding of datatypes"
             android:summary="Show a thin color strip at the top of each field indicating the datatype"
-            android:key="colorCodeDatatypes"
+            android:key="@string/prefkey_colorCodeDatatypes"
             android:defaultValue="false" />
 
     </PreferenceCategory>

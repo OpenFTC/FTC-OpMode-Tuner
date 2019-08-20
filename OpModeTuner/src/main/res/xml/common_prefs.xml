@@ -10,7 +10,7 @@
 
         <net.frogbots.ftcopmodetuner.prefs.IpAddrPref
             android:defaultValue="192.168.49.1"
-            android:key="ipAddrPref"
+            android:key="@string/prefkey_ipAddr"
             android:selectAllOnFocus="false"
             android:singleLine="true"
             android:title="Server IP address"/>
@@ -32,13 +32,13 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="connectionSounds"
+            android:key="@string/prefkey_connectionSounds"
             android:summary="Play a sound when the connection is established or lost"
             android:title="Connection sounds"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="showIntro"
+            android:key="@string/prefkey_showIntro"
             android:summary="Show the intro slides next time the app is cold-launched"
             android:title="Show intro on next app launch"/>
 

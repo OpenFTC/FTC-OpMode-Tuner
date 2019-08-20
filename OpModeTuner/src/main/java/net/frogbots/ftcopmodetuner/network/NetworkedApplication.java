@@ -38,7 +38,6 @@ import android.widget.Toast;
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.misc.EntireAppLifecycleListener;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
-import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetuner.misc.SimpleSoundPool;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
@@ -201,11 +200,11 @@ public class NetworkedApplication extends Application implements LifecycleObserv
 
     private void updateThings()
     {
-        connectionSounds = globalPrefs.getBoolean(PrefKeys.CONNECTION_SOUNDS, true);
-        serverHeartbeatInterval = Integer.parseInt(globalPrefs.getString(PrefKeys.HEARTBEAT_INTERVAL, String.valueOf(DataConstants.DEFAULT_HEARTBEAT_INTERVAL_MS)));
-        noResponseFromServerTimeoutMs = Integer.parseInt(globalPrefs.getString(PrefKeys.NO_SERVER_RESPONSE_TIMEOUT, String.valueOf(DataConstants.DEFAULT_CONNECTION_TIMEOUT_MS)));
-        addr = globalPrefs.getString(PrefKeys.IP_ADDR, DataConstants.DEFAULT_IP_ADDR);
-        port = Integer.parseInt(globalPrefs.getString(PrefKeys.PORT, String.valueOf(DataConstants.DEFAULT_PORT)));
+        connectionSounds = globalPrefs.getBoolean(R.string.prefkey_connectionSounds, true);
+        serverHeartbeatInterval = Integer.parseInt(globalPrefs.getString(R.string.prefkey_serverHeartbeatInterval, String.valueOf(DataConstants.DEFAULT_HEARTBEAT_INTERVAL_MS)));
+        noResponseFromServerTimeoutMs = Integer.parseInt(globalPrefs.getString(R.string.prefkey_noServerResponseTimeoutMs, String.valueOf(DataConstants.DEFAULT_CONNECTION_TIMEOUT_MS)));
+        addr = globalPrefs.getString(R.string.prefkey_ipAddr, DataConstants.DEFAULT_IP_ADDR);
+        port = Integer.parseInt(globalPrefs.getString(R.string.prefkey_port, String.valueOf(DataConstants.DEFAULT_PORT)));
     }
 
     private void loadSoundpoolThings()

@@ -25,13 +25,13 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="loadLastConfigOnStartup"
+            android:key="@string/prefkey_loadLastConfigOnStartup"
             android:summary="When cold-launching the app, load the last configuration used"
             android:title="Load last config on startup"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="autoSaveConfig"
+            android:key="@string/prefkey_autoSaveConfig"
             android:summary="Automatically save the currently-loaded config file when leaving the app"
             android:title="Auto-save config"/>
 
@@ -43,13 +43,13 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="deleteFieldOnLongPress"
+            android:key="@string/prefkey_deleteFieldOnLongPress"
             android:summary="Show the 'delete?' dialog when a field is long-pressed"
             android:title="Delete field on long press"/>
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="clearLastValOnKeyIn"
+            android:key="@string/prefkey_clearLastValOnKeyIn"
             android:summary="Clear the previous value from the input box when opening the manual key-in dialog"
             android:title="Clear last value on key-in"/>
 

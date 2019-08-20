@@ -7,28 +7,28 @@
 
         <net.frogbots.ftcopmodetuner.prefs.PortNumberPref
             android:defaultValue="8081"
-            android:key="portPref"
+            android:key="@string/prefkey_port"
             android:selectAllOnFocus="false"
             android:singleLine="true"
             android:title="Server port"/>
 
         <net.frogbots.ftcopmodetuner.prefs.NumberPref
             android:defaultValue="50"
-            android:key="transmissionInterval"
+            android:key="@string/prefkey_txInterval"
             android:selectAllOnFocus="false"
             android:singleLine="true"
             android:title="Transmission interval (ms)"/>
 
         <net.frogbots.ftcopmodetuner.prefs.NumberPref
             android:defaultValue="100"
-            android:key="serverHeartbeatInterval"
+            android:key="@string/prefkey_serverHeartbeatInterval"
             android:selectAllOnFocus="false"
             android:singleLine="true"
             android:title="Connection heartbeat (ms)"/>
 
         <net.frogbots.ftcopmodetuner.prefs.NumberPref
             android:defaultValue="1000"
-            android:key="noResponseFromServerTimeoutMs"
+            android:key="@string/prefkey_noServerResponseTimeoutMs"
             android:selectAllOnFocus="false"
             android:singleLine="true"
             android:title="No response from server timeout (ms)"/>

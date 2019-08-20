@@ -36,7 +36,6 @@ import net.frogbots.ftcopmodetuner.network.NetworkEventsListener;
 import net.frogbots.ftcopmodetuner.network.NetworkedApplication;
 import net.frogbots.ftcopmodetuner.network.NetworkingManager;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
-import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
 
 import java.util.Locale;
@@ -162,9 +161,9 @@ public abstract class UdpConnectionActivity extends AppCompatActivity implements
 
     private void showIntroIfRequested()
     {
-        if(globalPrefs.getBoolean(PrefKeys.INTRO, true))
+        if(globalPrefs.getBoolean(R.string.prefkey_showIntro, true))
         {
-            globalPrefs.edit().putBoolean(PrefKeys.INTRO, false).apply();
+            globalPrefs.edit().putBoolean(R.string.prefkey_showIntro, false).apply();
             Intent intent = new Intent(this, AppIntroActivity.class);
             startActivity(intent);
         }

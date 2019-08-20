@@ -35,7 +35,6 @@ import android.widget.TextView;
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.config.ConfigUtils;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
-import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetuner.ui.dialogs.NewConfigDialog;
 import net.frogbots.ftcopmodetuner.ui.dialogs.NewConfigInterface;
 import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
@@ -174,7 +173,7 @@ public class ConfigSelectionActivty extends Activity implements NewConfigInterfa
 
     private void launchMainActivity(File file)
     {
-        globalPrefs.putString(PrefKeys.ACTIVE_CONFIG, file.getName().replace(".xml", "")).apply();
+        globalPrefs.putString(R.string.prefkey_activeConfig, file.getName().replace(".xml", "")).apply();
 
         Intent returnIntent = new Intent().putExtra(PREF_KEY_ACTIVE_CONFIG, activeConfig);
         setResult(Activity.RESULT_OK, returnIntent);

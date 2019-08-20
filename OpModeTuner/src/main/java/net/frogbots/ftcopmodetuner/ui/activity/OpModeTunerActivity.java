@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -48,7 +49,6 @@ import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.util.FieldUiFactory;
 import net.frogbots.ftcopmodetuner.ui.field.IntFieldUi;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
-import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetuner.ui.activity.settings.OpModeTunerSettingsActivity;
 import net.frogbots.ftcopmodetuner.ui.dialogs.NewFieldDialog;
 import net.frogbots.ftcopmodetuner.ui.dialogs.fieldsettings.DoubleFieldSettingsDialog;
@@ -99,6 +99,7 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     private ScheduledExecutorService transmissionTimer;
     private Runnable transmissionRunnable;
     private int transmissionInterval;
+    private Resources resources;
 
     //--------------------------------------------------------------------------------------------------
     // Android Lifecycle
@@ -109,6 +110,8 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        resources = getResources();
 
         globalPrefs = GlobalPrefs.getInstance();
 
@@ -136,8 +139,8 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
         if(loadLastConfigOnStartup)
         {
-            System.out.println(globalPrefs.getString(PrefKeys.ACTIVE_CONFIG, null));
-            loadConfig(globalPrefs.getString(PrefKeys.ACTIVE_CONFIG, null));
+            System.out.println(globalPrefs.getString(R.string.prefkey_activeConfig, null));
+            loadConfig(globalPrefs.getString(R.string.prefkey_activeConfig, null));
         }
     }
 
@@ -668,13 +671,13 @@ public class OpModeTunerActivity extends UdpConnectionActivity implements FieldI
 
     private void updatePrefVals()
     {
-        transmissionInterval = Integer.parseInt(globalPrefs.getString(PrefKeys.TX_INTERVAL, String.valueOf(DataConstants.DEFAULT_TX_INTERVAL_MS)));
-        loadLastConfigOnStartup = globalPrefs.getBoolean("loadLastConfigOnStartup", true);
-        enableByteDataType = globalPrefs.getBoolean("enableByteDatatype", false);
-        enableButtonDataType = globalPrefs.getBoolean("enableButtonDatatype", false);
-        deleteFieldOnLongPress = globalPrefs.getBoolean("deleteFieldOnLongPress", false);
-        colorCoding = globalPrefs.getBoolean("colorCodeDatatypes", false);
-        displayDatatype = globalPrefs.getBoolean("displayDatatype", false);
-        autoSaveConfig = globalPrefs.getBoolean("autoSaveConfig", true);
+        transmissionInterval = Integer.parseInt(globalPrefs.getString(R.string.prefkey_txInterval, String.valueOf(DataConstants.DEFAULT_TX_INTERVAL_MS)));
+        loadLastConfigOnStartup = globalPrefs.getBoolean(R.string.prefkey_loadLastConfigOnStartup, true);
+        enableByteDataType = globalPrefs.getBoolean(R.string.prefkey_enableByteDataType, false);
+        enableButtonDataType = globalPrefs.getBoolean(R.string.prefkey_enableButtonDataType, false);
+        deleteFieldOnLongPress = globalPrefs.getBoolean(R.string.prefkey_deleteFieldOnLongPress, false);
+        colorCoding = globalPrefs.getBoolean(R.string.prefkey_colorCodeDatatypes, false);
+        displayDatatype = globalPrefs.getBoolean(R.string.prefkey_displayDatatype, false);
+        autoSaveConfig = globalPrefs.getBoolean(R.string.prefkey_autoSaveConfig, true);
     }
 }

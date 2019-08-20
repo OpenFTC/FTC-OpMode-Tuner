@@ -23,8 +23,8 @@ package net.frogbots.ftcopmodetuner.network;
 
 import android.util.Log;
 
+import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
-import net.frogbots.ftcopmodetuner.prefs.PrefKeys;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
@@ -87,8 +87,8 @@ public class NetworkingManager implements SpecificMsgReceiver
 
     private NetworkingManager()
     {
-        ipAddr = GlobalPrefs.getInstance().getString(PrefKeys.IP_ADDR, DataConstants.DEFAULT_IP_ADDR);
-        port = Integer.parseInt(GlobalPrefs.getInstance().getString(PrefKeys.PORT, String.valueOf(DataConstants.DEFAULT_PORT)));
+        ipAddr = GlobalPrefs.getInstance().getString(R.string.prefkey_ipAddr, DataConstants.DEFAULT_IP_ADDR);
+        port = Integer.parseInt(GlobalPrefs.getInstance().getString(R.string.prefkey_port, String.valueOf(DataConstants.DEFAULT_PORT)));
     }
 
     /***

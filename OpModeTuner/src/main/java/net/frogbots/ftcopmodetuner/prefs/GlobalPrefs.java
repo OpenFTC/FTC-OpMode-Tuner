@@ -2,17 +2,20 @@ package net.frogbots.ftcopmodetuner.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 
 import java.util.Map;
 import java.util.Set;
 
-public class GlobalPrefs implements SharedPreferences, SharedPreferences.Editor
+public class GlobalPrefs
 {
     private static GlobalPrefs singletonInstance;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private Resources res;
 
     private GlobalPrefs(Context context)
     {
@@ -25,6 +28,7 @@ public class GlobalPrefs implements SharedPreferences, SharedPreferences.Editor
         if(singletonInstance == null)
         {
             singletonInstance = new GlobalPrefs(context);
+            singletonInstance.res = context.getResources();
         }
         else
         {
@@ -42,70 +46,65 @@ public class GlobalPrefs implements SharedPreferences, SharedPreferences.Editor
         return singletonInstance;
     }
 
-    @Override
+    private String key(int key)
+    {
+        return res.getString(key);
+    }
+
     public Map<String, ?> getAll()
     {
         return preferences.getAll();
     }
 
     @Nullable
-    @Override
-    public String getString(String key, @Nullable String defValue)
+    public String getString(@StringRes int key_id, @Nullable String defValue)
     {
-        return preferences.getString(key, defValue);
+        return preferences.getString(key(key_id), defValue);
     }
 
     @Nullable
-    @Override
-    public Set<String> getStringSet(String key, @Nullable Set<String> defValues)
+    public Set<String> getStringSet(@StringRes int key_id, @Nullable Set<String> defValues)
     {
-        return preferences.getStringSet(key, defValues);
+        return preferences.getStringSet(key(key_id), defValues);
     }
 
-    @Override
-    public int getInt(String key, int defValue)
+    public int getInt(@StringRes int key_id, int defValue)
     {
-        return preferences.getInt(key, defValue);
+        return preferences.getInt(key(key_id), defValue);
     }
 
-    @Override
-    public long getLong(String key, long defValue)
+    public long getLong(@StringRes int key_id, long defValue)
     {
-        return preferences.getLong(key, defValue);
+        return preferences.getLong(key(key_id), defValue);
     }
 
-    @Override
-    public float getFloat(String key, float defValue)
+    public float getFloat(@StringRes int key_id, float defValue)
     {
-        return preferences.getFloat(key, defValue);
+        return preferences.getFloat(key(key_id), defValue);
     }
 
-    @Override
-    public boolean getBoolean(String key, boolean defValue)
+    public boolean getBoolean(@StringRes int key_id, boolean defValue)
     {
-        return preferences.getBoolean(key, defValue);
+        return preferences.getBoolean(key(key_id), defValue);
     }
 
-    @Override
-    public boolean contains(String key)
+    public boolean contains(@StringRes int key_id)
     {
-        return preferences.contains(key);
+        return preferences.contains(key(key_id));
     }
 
-    @Override
-    public Editor edit()
+    public GlobalPrefs edit()
     {
-        return preferences.edit();
+        preferences.edit();
+        return this;
     }
 
-    @Override
-    public void registerOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener)
+    public void registerOnSharedPreferenceChangeListener(SharedPreferences.OnSharedPreferenceChangeListener listener)
     {
         preferences.registerOnSharedPreferenceChangeListener(listener);
     }
 
-    @Override
-    public void unregisterOnSharedPreferenceChangeListener(OnSharedPreferenceChangeListener listener)
+    public void unregisterOnSharedPreferenceChangeListener(SharedPreferences.OnSharedPreferenceChangeListener listener)
     {
         preferences.unregisterOnSharedPreferenceChangeListener(listener);
     }
@@ -113,62 +112,59 @@ public class GlobalPrefs implements SharedPreferences, SharedPreferences.Editor
     //-----------------------------------------------------
     // EDITOR
     //------------------------------------------------------
-
-    @Override
-    public Editor putString(String key, @Nullable String value)
+    
+    public GlobalPrefs putString(@StringRes int key_id, @Nullable String value)
     {
-        return editor.putString(key, value);
+        editor.putString(key(key_id), value);
+        return this;
+    }
+    
+    public GlobalPrefs putStringSet(@StringRes int key_id, @Nullable Set<String> values)
+    {
+        editor.putStringSet(key(key_id), values);
+        return this;
+    }
+    
+    public GlobalPrefs putInt(@StringRes int key_id, int value)
+    {
+        editor.putInt(key(key_id), value);
+        return this;
+    }
+    
+    public GlobalPrefs putLong(@StringRes int key_id, long value)
+    {
+        editor.putLong(key(key_id), value);
+        return this;
+    }
+    
+    public GlobalPrefs putFloat(@StringRes int key_id, float value)
+    {
+        editor.putFloat(key(key_id), value);
+        return this;
+    }
+    
+    public GlobalPrefs putBoolean(@StringRes int key_id, boolean value)
+    {
+        editor.putBoolean(key(key_id), value);
+        return this;
+    }
+    
+    public void remove(@StringRes int key_id)
+    {
+        editor.remove(key(key_id));
+    }
+    
+    public void clear()
+    {
+        editor.clear();
     }
 
-    @Override
-    public Editor putStringSet(String key, @Nullable Set<String> values)
-    {
-        return editor.putStringSet(key, values);
-    }
-
-    @Override
-    public Editor putInt(String key, int value)
-    {
-        return editor.putInt(key, value);
-    }
-
-    @Override
-    public Editor putLong(String key, long value)
-    {
-        return editor.putLong(key, value);
-    }
-
-    @Override
-    public Editor putFloat(String key, float value)
-    {
-        return editor.putFloat(key, value);
-    }
-
-    @Override
-    public Editor putBoolean(String key, boolean value)
-    {
-        return editor.putBoolean(key, value);
-    }
-
-    @Override
-    public Editor remove(String key)
-    {
-        return editor.remove(key);
-    }
-
-    @Override
-    public Editor clear()
-    {
-        return editor.clear();
-    }
-
-    @Override
     public boolean commit()
     {
         return editor.commit();
     }
 
-    @Override
+
     public void apply()
     {
         editor.apply();
