@@ -59,10 +59,21 @@ public class DoubleFieldUi extends FieldUi implements FieldUiInterface<DoubleFie
 
     public void setMinMax(double min, double max)
     {
+        //Cache the current value
+        double valBeforeSetMinMax = data.curValue;
+
         data.min = min;
         data.max = max;
 
         seekBar.setMinMax(min, max);
+
+        /*
+         * If possible, restore the previous value
+         */
+        if(valBeforeSetMinMax >= min && valBeforeSetMinMax <= max)
+        {
+            seekBar.setProgress(valBeforeSetMinMax);
+        }
     }
 
     @Override

@@ -54,10 +54,21 @@ public class IntFieldUi extends FieldUi implements FieldUiInterface<IntFieldData
 
     public void setMinMax(int min, int max)
     {
+        //Cache the current value
+        int valBeforeSetMinMax = data.curValue;
+
         data.min = min;
         data.max = max;
 
         seekBar.setMinMax(min, max);
+
+        /*
+         * If possible, restore the previous value
+         */
+        if(valBeforeSetMinMax >= min && valBeforeSetMinMax <= max)
+        {
+            seekBar.setProgress(valBeforeSetMinMax);
+        }
     }
 
     @Override
