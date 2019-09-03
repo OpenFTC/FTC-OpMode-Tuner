@@ -167,6 +167,12 @@ public class NetworkMsgSocket extends NetworkMsgSocketBase
                     break;
                 }
 
+                case HUBTOOLKIT_DATA:
+                {
+                    callback.onHubToolkitData((HubToolkitDataMsg)msg);
+                    break;
+                }
+
                 case COMMAND:
                 {
                     //Transform those bytes into a nice object - this isn't assembler!

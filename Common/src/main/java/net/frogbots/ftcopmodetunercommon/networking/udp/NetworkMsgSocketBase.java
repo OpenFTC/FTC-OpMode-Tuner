@@ -109,6 +109,12 @@ public class NetworkMsgSocketBase
                                 break;
                             }
 
+                            case HUBTOOLKIT_DATA:
+                            {
+                                msg = new HubToolkitDataMsg(data);
+                                break;
+                            }
+
                             case COMMAND:
                             {
                                 msg = new NetworkCommand(data);

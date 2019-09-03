@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +18,7 @@ import net.frogbots.ftcopmodetuner.R;
  * Use the {@link LynxModuleMotorControlFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LynxModuleMotorControlFragment extends Fragment
+public class LynxModuleMotorControlFragment extends LynxControlFragment
 {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,5 +70,10 @@ public class LynxModuleMotorControlFragment extends Fragment
     {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_lynx_module_motor_control, container, false);
+    }
+
+    @Override
+    void onDataUpdate(HubToolkitDatagram datagram) {
+
     }
 }

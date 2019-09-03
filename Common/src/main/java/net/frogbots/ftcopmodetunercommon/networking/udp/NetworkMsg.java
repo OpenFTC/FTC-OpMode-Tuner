@@ -66,7 +66,8 @@ public interface NetworkMsg
          */
         HEARTBEAT(0),
         TUNER_DATA(1),
-        COMMAND(2);
+        COMMAND(2),
+        HUBTOOLKIT_DATA(3);
 
         private static final MsgType[] VALUES_CACHE = MsgType.values();
         private final int type;

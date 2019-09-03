@@ -30,14 +30,11 @@ import android.widget.Toast;
 
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.BooleanDatagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiver;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiverInterface;
 import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
 import java.util.Locale;
@@ -50,6 +47,8 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
     TextView connected;
     Thread thread;
     WifiManager wm;
+    HubToolkitDatagram hubToolkitDatagram = new HubToolkitDatagram();
+    HubToolkitStreamer hubToolkitStreamer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -159,7 +158,52 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
         if(command.getName().equals(CommandList.QUERY_LIST_OF_LYNX_MODULES.toString()))
         {
             NetworkCommand resp = new NetworkCommand(CommandList.QUERY_LIST_OF_LYNX_MODULES_RESP.toString(), "Expansion Hub 2;Expansion Hub 3");
-            receiver.sendCommand(resp);
+            receiver.sendMsg(resp);
+        }
+        else if(command.getName().equals(CommandList.START_HUBTOOLKIT_STREAM.toString()))
+        {
+            String module = command.getExtra();
+
+            if(hubToolkitStreamer == null)
+            {
+                hubToolkitStreamer = new HubToolkitStreamer();
+                hubToolkitStreamer.start();
+            }
+        }
+        else if(command.getName().equals(CommandList.STOP_HUBTOOLKIT_STREAM.toString()))
+        {
+            if(hubToolkitStreamer != null)
+            {
+                hubToolkitStreamer.interrupt();
+                hubToolkitStreamer = null;
+            }
+        }
+    }
+
+    class HubToolkitStreamer extends Thread
+    {
+        @Override
+        public void run()
+        {
+            short i = 0;
+
+            while (!Thread.currentThread().isInterrupted())
+            {
+                hubToolkitDatagram.motor0currentDraw = i;
+
+                HubToolkitDataMsg hubToolkitDataMsg = new HubToolkitDataMsg();
+                hubToolkitDataMsg.setData(hubToolkitDatagram.encode());
+                receiver.sendMsg(hubToolkitDataMsg);
+
+                i++;
+
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+            }
         }
     }
 }

@@ -119,6 +119,11 @@ public class RcUdpSocket extends NetworkMsgSocket implements SpecificMsgReceiver
     }
 
     @Override
+    public void onHubToolkitData(HubToolkitDataMsg dataMsg) {
+        callback.onHubToolkitData(dataMsg);
+    }
+
+    @Override
     public void sendMsg(NetworkMsg msg)
     {
         if(addrOfLastHeartbeat != null && isConnected())

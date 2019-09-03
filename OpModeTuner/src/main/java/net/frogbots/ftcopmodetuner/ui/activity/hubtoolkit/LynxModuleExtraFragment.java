@@ -15,10 +15,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
 
 import top.defaults.colorpicker.ColorPickerPopup;
 
-public class LynxModuleExtraFragment extends Fragment
+public class LynxModuleExtraFragment extends LynxControlFragment
 {
     Button setLedColor;
     View statusLedColorView;
@@ -71,5 +72,10 @@ public class LynxModuleExtraFragment extends Fragment
         });
 
         return view;
+    }
+
+    @Override
+    void onDataUpdate(HubToolkitDatagram datagram) {
+
     }
 }

@@ -21,15 +21,61 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
-import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
+import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
-import java.net.InetAddress;
+import java.nio.ByteBuffer;
 
-public interface SpecificMsgReceiver
+public class HubToolkitDataMsg extends NetworkMsgBase
 {
-    void onCommand(NetworkCommand command);
-    void onHeatbeat(Heartbeat heartbeat, InetAddress srcAddr);
-    void onTunerData(TunerDataMsg tunerDataMsg, InetAddress src);
-    void onHubToolkitData(HubToolkitDataMsg dataMsg);
+    private byte[] data;
+
+    public HubToolkitDataMsg(byte[] data)
+    {
+        fromByteArray(data);
+    }
+
+    public HubToolkitDataMsg()
+    {
+
+    }
+
+    @Override
+    public MsgType getMsgType()
+    {
+        return MsgType.HUBTOOLKIT_DATA;
+    }
+
+    @Override
+    public byte[] toByteArray()
+    {
+        return getWriteBuffer(calcPayloadSize())
+                .putInt(data.length)
+                .put(data)
+                .array();
+    }
+
+    @Override
+    public void fromByteArray(byte[] byteArray)
+    {
+        ByteBuffer readBuffer = getReadBuffer(byteArray);
+
+        int cbData = readBuffer.getInt();
+        data = new byte[cbData];
+        readBuffer.get(data);
+    }
+
+    public byte[] getData()
+    {
+        return data;
+    }
+
+    public void setData(byte[] data)
+    {
+        this.data = data;
+    }
+
+    private int calcPayloadSize()
+    {
+        return data.length + DataConstants.NUM_BYTES_IN_INT;
+    }
 }

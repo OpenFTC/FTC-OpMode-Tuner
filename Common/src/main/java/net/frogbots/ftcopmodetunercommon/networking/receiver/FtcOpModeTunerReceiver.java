@@ -34,7 +34,9 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.RcUdpSocket;
 import net.frogbots.ftcopmodetunercommon.networking.udp.SpecificMsgReceiver;
 import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
@@ -437,7 +439,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
         callback.onCommand(command);
     }
 
-    public void sendCommand(NetworkCommand command)
+    public void sendMsg(NetworkMsg command)
     {
         server.sendMsg(command);
     }
@@ -445,6 +447,11 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     @Override
     public void onHeatbeat(Heartbeat heartbeat, InetAddress srcAddr)
     {
+
+    }
+
+    @Override
+    public void onHubToolkitData(HubToolkitDataMsg dataMsg) {
 
     }
 }

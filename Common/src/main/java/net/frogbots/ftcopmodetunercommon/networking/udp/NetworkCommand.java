@@ -114,10 +114,10 @@ public class NetworkCommand extends NetworkMsgBase implements Comparable<Network
 
     public void abandon()
     {
-        if(mAcknowledged)
+        /*if(mAcknowledged)
         {
             throw new IllegalStateException();
-        }
+        }*/
 
         abandoned = true;
 

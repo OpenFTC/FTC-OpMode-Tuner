@@ -22,8 +22,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetuner.ui.activity.UdpConnectionActivity;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataHandler;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
-public class LynxModuleControlActivity extends AppCompatActivity
+public class LynxModuleControlActivity extends UdpConnectionActivity implements HubToolkitDataHandler
 {
 
     /**
@@ -41,6 +47,15 @@ public class LynxModuleControlActivity extends AppCompatActivity
      */
     private ViewPager mViewPager;
 
+    private LynxModuleMotorControlFragment motorControlFragment;
+    private LynxModuleMotorControlFragment servoControlFragment;
+    private LynxModuleDigitalControlFragment digitalControlFragment;
+    private LynxModuleAnalogControlFragment analogControlFragment;
+    private LynxModuleMonitorsFragment monitorsFragment;
+    private LynxModuleExtraFragment extraFragment;
+
+    private HubToolkitDatagram hubToolkitDatagram = new HubToolkitDatagram();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,8 +64,16 @@ public class LynxModuleControlActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //toolbar.setBackgroundColor(getResources().getColor(R.color.hub_toolkit_actionbar_color));
-        toolbar.setTitle("Lynx Module 1");
+        toolbar.setTitle(getIntent().getStringExtra("module"));
         setSupportActionBar(toolbar);
+
+        motorControlFragment = LynxModuleMotorControlFragment.newInstance("p2", "p2");
+        servoControlFragment = LynxModuleMotorControlFragment.newInstance("p2", "p2");
+        digitalControlFragment = LynxModuleDigitalControlFragment.newInstance("p2", "p2");
+        analogControlFragment = LynxModuleAnalogControlFragment.newInstance("p2", "p2");
+        monitorsFragment = new LynxModuleMonitorsFragment();
+        extraFragment = new LynxModuleExtraFragment();
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -65,6 +88,21 @@ public class LynxModuleControlActivity extends AppCompatActivity
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        networkingManager.setHubToolkitDataHandler(this);
+        networkingManager.sendMsg(new NetworkCommand(CommandList.START_HUBTOOLKIT_STREAM.toString()));
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        networkingManager.setHubToolkitDataHandler(null);
+        networkingManager.sendMsg(new NetworkCommand(CommandList.STOP_HUBTOOLKIT_STREAM.toString()));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -154,32 +192,32 @@ public class LynxModuleControlActivity extends AppCompatActivity
             {
                 case 0:
                 {
-                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                    return motorControlFragment;
                 }
 
                 case 1:
                 {
-                    return LynxModuleMotorControlFragment.newInstance("p2", "p2");
+                    return servoControlFragment;
                 }
 
                 case 2:
                 {
-                    return LynxModuleDigitalControlFragment.newInstance("p2", "p2");
+                    return digitalControlFragment;
                 }
 
                 case 3:
                 {
-                    return LynxModuleAnalogControlFragment.newInstance("p2", "p2");
+                    return analogControlFragment;
                 }
 
                 case 4:
                 {
-                    return new LynxModuleMonitorsFragment();
+                    return monitorsFragment;
                 }
 
                 case 5:
                 {
-                    return new LynxModuleExtraFragment();
+                    return extraFragment;
                 }
             }
 
@@ -189,8 +227,22 @@ public class LynxModuleControlActivity extends AppCompatActivity
         @Override
         public int getCount()
         {
-            // Show 3 total pages.
             return 6;
         }
+    }
+
+    @Override
+    public void handleHubToolkitData(HubToolkitDataMsg hubToolkitDataMsg)
+    {
+        hubToolkitDatagram.fromByteArray(hubToolkitDataMsg.getData());
+
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                monitorsFragment.onDataUpdate(hubToolkitDatagram);
+            }
+        });
     }
 }

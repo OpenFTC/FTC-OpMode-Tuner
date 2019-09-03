@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,7 +16,7 @@ import net.frogbots.ftcopmodetuner.R;
  * Use the {@link LynxModuleAnalogControlFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LynxModuleAnalogControlFragment extends Fragment
+public class LynxModuleAnalogControlFragment extends LynxControlFragment
 {
     AnalogPortFragment a0, a1, a2, a3;
 
@@ -82,5 +83,10 @@ public class LynxModuleAnalogControlFragment extends Fragment
         a3.setNum(3);
 
         return v;
+    }
+
+    @Override
+    void onDataUpdate(HubToolkitDatagram datagram) {
+
     }
 }

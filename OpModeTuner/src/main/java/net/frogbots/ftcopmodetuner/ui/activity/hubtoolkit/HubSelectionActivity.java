@@ -1,5 +1,6 @@
 package net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -47,6 +49,18 @@ public class HubSelectionActivity extends UdpConnectionActivity implements Comma
 
         hubListView = findViewById(R.id.hubListView);
         detectingHubsProgressBar = findViewById(R.id.detectingHubsProgressBar);
+
+        hubListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                Intent intent = new Intent(HubSelectionActivity.this, LynxModuleControlActivity.class);
+                intent.putExtra("module", (String) adapterView.getAdapter().getItem(i));
+                startActivity(intent);
+                //System.out.println(adapterView.getAdapter().getItem(i));
+            }
+        });
     }
 
     @Override
@@ -103,6 +117,8 @@ public class HubSelectionActivity extends UdpConnectionActivity implements Comma
         {
             while (!Thread.currentThread().isInterrupted() && shouldContinue)
             {
+                System.out.println("Req lynx mods");
+
                 final CountDownLatch latch = new CountDownLatch(1);
 
                 NetworkCommand networkCommand = new NetworkCommand(CommandList.QUERY_LIST_OF_LYNX_MODULES.toString());

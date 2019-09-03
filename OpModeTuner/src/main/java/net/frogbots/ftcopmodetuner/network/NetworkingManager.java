@@ -29,6 +29,8 @@ import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.udp.CommandHandler;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataHandler;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsgSocketBase;
@@ -66,6 +68,8 @@ public class NetworkingManager implements SpecificMsgReceiver
     private static NetworkingManager singletonInstance;
     private volatile ArrayList<NetworkEventsListener> listeners = new ArrayList<>();
     private volatile ArrayList<CommandHandler> commandHandlers = new ArrayList<>();
+    private volatile HubToolkitDataHandler hubToolkitDataHandler;
+    private final Object handlersLock = new Object();
 
     public synchronized void registerListener(NetworkEventsListener listener)
     {
@@ -296,12 +300,18 @@ public class NetworkingManager implements SpecificMsgReceiver
 
     public void registerCommandHandler(CommandHandler handler)
     {
-        commandHandlers.add(handler);
+        synchronized (handlersLock)
+        {
+            commandHandlers.add(handler);
+        }
     }
 
     public void unregisterCommandHandler(CommandHandler handler)
     {
-        commandHandlers.remove(handler);
+        synchronized (handlersLock)
+        {
+            commandHandlers.remove(handler);
+        }
     }
 
     @Override
@@ -309,11 +319,14 @@ public class NetworkingManager implements SpecificMsgReceiver
     {
         lastServerResponseTime = System.currentTimeMillis();
 
-        for(CommandHandler handler : commandHandlers)
+        synchronized (handlersLock)
         {
-            if(handler.handleCommand(command) == CommandHandler.Result.HANDLED)
+            for(CommandHandler handler : commandHandlers)
             {
-                break;
+                if(handler.handleCommand(command) == CommandHandler.Result.HANDLED)
+                {
+                    break;
+                }
             }
         }
     }
@@ -336,5 +349,25 @@ public class NetworkingManager implements SpecificMsgReceiver
     public void onTunerData(TunerDataMsg msg, InetAddress src)
     {
         lastServerResponseTime = System.currentTimeMillis();
+    }
+
+    public void setHubToolkitDataHandler(HubToolkitDataHandler handler)
+    {
+        synchronized (handlersLock)
+        {
+            hubToolkitDataHandler = handler;
+        }
+    }
+
+    @Override
+    public void onHubToolkitData(HubToolkitDataMsg dataMsg)
+    {
+        synchronized (handlersLock)
+        {
+            if(hubToolkitDataHandler != null)
+            {
+                hubToolkitDataHandler.handleHubToolkitData(dataMsg);
+            }
+        }
     }
 }

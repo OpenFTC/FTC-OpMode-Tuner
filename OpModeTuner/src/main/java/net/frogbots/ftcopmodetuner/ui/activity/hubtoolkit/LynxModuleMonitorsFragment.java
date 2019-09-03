@@ -15,13 +15,14 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import net.frogbots.ftcopmodetuner.R;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
 
 import top.defaults.colorpicker.ColorPickerPopup;
 
-public class LynxModuleMonitorsFragment extends Fragment
+public class LynxModuleMonitorsFragment extends LynxControlFragment
 {
-    Button setLedColor;
-    View statusLedColorView;
+    TextView motor_0_currentDraw;
+    boolean viewCreated;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -35,7 +36,19 @@ public class LynxModuleMonitorsFragment extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lynx_module_monitors, container, false);
 
+        motor_0_currentDraw = view.findViewById(R.id.motor_0_current_draw);
+
+        viewCreated = true;
 
         return view;
+    }
+
+    @Override
+    void onDataUpdate(HubToolkitDatagram datagram)
+    {
+        if(viewCreated)
+        {
+            motor_0_currentDraw.setText("Motor 0: " + datagram.motor0currentDraw + "A");
+        }
     }
 }
