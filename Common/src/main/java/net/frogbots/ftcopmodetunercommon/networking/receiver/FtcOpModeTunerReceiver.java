@@ -124,7 +124,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
      * @param data the new data packet in raw, encoded byte array form
      */
     @Override
-    public void onTunerData(TunerDataMsg tunerDataMsg, InetAddress src)
+    public synchronized void onTunerData(TunerDataMsg tunerDataMsg, InetAddress src)
     {
         clearAllData(); //First things first, nuke all the old data - we don't want duplicate entries!
 
