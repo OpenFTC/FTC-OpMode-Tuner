@@ -55,10 +55,10 @@ public class DataConstants
     public static final byte CONNECTION_REFUSED           = (byte) 0xFC;
 
     public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 500;
-    public static final int DEFAULT_TX_INTERVAL_MS        = 50;
+    public static final int DEFAULT_TX_INTERVAL_MS        = 20;
     public static final int TX_INTERVAL_MAX               = 1000;
     public static final int TX_INTERVAL_MIN               = 10;
-    public static final int DEFAULT_HEARTBEAT_INTERVAL_MS = 100;
+    public static final int DEFAULT_HEARTBEAT_INTERVAL_MS = 20;
     public static final int DEFAULT_PORT                  = 8081;
     public static final String DEFAULT_IP_ADDR            = "192.168.49.1";
 
