@@ -43,7 +43,7 @@ public class BooleanDatagram extends Datagram
      */
     public BooleanDatagram(boolean value, String tag)
     {
-        super(tag, DataConstants.BOOLEAN_DATATYPE_INDICATOR);
+        super(tag, DataConstants.TunerDataType.BOOLEAN);
         this.value = value;
     }
 

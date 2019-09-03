@@ -84,12 +84,34 @@ public class DataConstants
     public static final byte BOOLEAN_BYTE_VALUE_TRUE      = (byte) 0x01;
     public static final byte BOOLEAN_BYTE_VALUE_FALSE     = (byte) 0x00;
 
-    public static final byte INT_DATATYPE_INDICATOR       = 0x01;
-    public static final byte DOUBLE_DATATYPE_INDICATOR    = 0x02;
-    public static final byte BYTE_DATATYPE_INDICATOR      = 0x03;
-    public static final byte STRING_DATATYPE_INDICATOR    = 0x04;
-    public static final byte BOOLEAN_DATATYPE_INDICATOR   = 0x05;
-    public static final byte BTN_PRESS_DATATYPE_INDICATOR = 0x06;
+    public enum TunerDataType
+    {
+        INT    ((byte)0x01),
+        DOUBLE ((byte)0x02),
+        BYTE   ((byte)0x03),
+        STRING ((byte)0x04),
+        BOOLEAN((byte)0x05),
+        BUTTON ((byte)0x06);
+
+        private static final TunerDataType[] VALUES = TunerDataType.values();
+
+        private byte b;
+
+        TunerDataType(byte b)
+        {
+            this.b = b;
+        }
+
+        public static TunerDataType fromByte(byte b)
+        {
+            return VALUES[b-1];
+        }
+
+        public byte asByte()
+        {
+            return b;
+        }
+    }
 
     public static final String SPACE                      = " ";
     public static final String DOUBLE_SPACE               = "  ";

@@ -43,7 +43,7 @@ public class IntegerDatagram extends Datagram
      */
     public IntegerDatagram(int value, String tag)
     {
-        super(tag, DataConstants.INT_DATATYPE_INDICATOR);
+        super(tag, DataConstants.TunerDataType.INT);
         this.value = value;
     }
 

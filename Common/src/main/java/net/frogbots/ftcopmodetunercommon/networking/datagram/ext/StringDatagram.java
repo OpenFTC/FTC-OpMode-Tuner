@@ -43,7 +43,7 @@ public class StringDatagram extends Datagram
      */
     public StringDatagram(String dataString, String tag)
     {
-        super(tag, DataConstants.STRING_DATATYPE_INDICATOR);
+        super(tag, DataConstants.TunerDataType.STRING);
 
         if(dataString != null)
         {

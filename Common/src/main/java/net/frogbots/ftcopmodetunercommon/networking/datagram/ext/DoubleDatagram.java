@@ -43,7 +43,7 @@ public class DoubleDatagram extends Datagram
      */
     public DoubleDatagram(double value, String tag)
     {
-        super(tag, DataConstants.DOUBLE_DATATYPE_INDICATOR);
+        super(tag, DataConstants.TunerDataType.DOUBLE);
         this.value = value;
     }
 

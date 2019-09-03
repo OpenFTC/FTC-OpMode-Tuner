@@ -43,7 +43,7 @@ public class ByteDatagram extends Datagram
      */
     public ByteDatagram(byte value, String tag)
     {
-        super(tag, DataConstants.BYTE_DATATYPE_INDICATOR);
+        super(tag, DataConstants.TunerDataType.BYTE);
         this.value = value;
     }
 

@@ -122,7 +122,7 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
 
         for(Datagram d : receiver.getAll())
         {
-            text.append(String.format(Locale.US, "Tag: %s Data: %s\n", d.getTagString(), d.getStringValue()));
+            text.append(String.format(Locale.US, "Tag: %s Data: %s\n", d.getTag(), d.getStringValue()));
         }
 
         textView.setText(text.toString());

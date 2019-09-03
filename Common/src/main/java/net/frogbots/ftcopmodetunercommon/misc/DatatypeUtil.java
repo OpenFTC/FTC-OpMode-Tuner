@@ -344,23 +344,6 @@ public class DatatypeUtil
      *
      * @param bytes the byte array to pull from
      * @param start the index of the byte in the array that will be the first byte in the chunk
-     * @param end the index of the byte in the array that will be the last byte in the chunk
-     * @return the chunk of selected bytes
-     */
-    public static byte[] getBytesByIndex(byte[] bytes, int start, int end)
-    {
-        byte[] things = new byte[end - start + 1];
-
-        System.arraycopy(bytes, start, things, 0, things.length);
-
-        return things;
-    }
-
-    /***
-     * Retrieves a certain chunk of bytes from an array
-     *
-     * @param bytes the byte array to pull from
-     * @param start the index of the byte in the array that will be the first byte in the chunk
      * @param n the number of bytes to pull, beginning from the 'start' position
      * @return the chunk of selected bytes
      */

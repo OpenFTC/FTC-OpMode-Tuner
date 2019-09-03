@@ -40,7 +40,7 @@ public class ButtonPressDatagram extends Datagram
      */
     public ButtonPressDatagram(String tag)
     {
-        super(tag, DataConstants.BTN_PRESS_DATATYPE_INDICATOR);
+        super(tag, DataConstants.TunerDataType.BUTTON);
     }
 
     /***

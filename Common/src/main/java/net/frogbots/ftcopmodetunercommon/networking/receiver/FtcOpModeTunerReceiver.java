@@ -35,7 +35,6 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.RcUdpSocket;
-import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsgSocketBase;
 import net.frogbots.ftcopmodetunercommon.networking.udp.SpecificMsgReceiver;
 import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
 
@@ -165,7 +164,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
                  * we trigger an interface callback in the user code, passing them
                  * the tag string of the event.
                  */
-                onBtnPressEvent(d.getTagString());
+                onBtnPressEvent(d.getTag());
             }
         }
     }
@@ -218,7 +217,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     {
         for(StringDatagram d : stringDatagrams)
         {
-            if(d.getTagString().equals(tag))
+            if(d.getTag().equals(tag))
             {
                 return d.getDataString();
             }
@@ -259,7 +258,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     {
         for(IntegerDatagram d : integerDatagrams)
         {
-            if(d.getTagString().equals(tag))
+            if(d.getTag().equals(tag))
             {
                 return d.getValue();
             }
@@ -300,7 +299,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     {
         for(DoubleDatagram d : doubleDatagrams)
         {
-            if(d.getTagString().equals(tag))
+            if(d.getTag().equals(tag))
             {
                 return d.getValue();
             }
@@ -341,7 +340,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     {
         for(BooleanDatagram d : booleanDatagrams)
         {
-            if(d.getTagString().equals(tag))
+            if(d.getTag().equals(tag))
             {
                 return d.getValue();
             }
@@ -383,7 +382,7 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     {
         for(ByteDatagram d : byteDatagrams)
         {
-            if(d.getTagString().equals(tag))
+            if(d.getTag().equals(tag))
             {
                 return d.getValue();
             }

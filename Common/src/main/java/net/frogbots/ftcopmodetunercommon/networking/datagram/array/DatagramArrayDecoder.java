@@ -21,6 +21,8 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.datagram.array;
 
+import android.renderscript.Element;
+
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
@@ -31,6 +33,7 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 /**
@@ -49,23 +52,20 @@ public class DatagramArrayDecoder
     {
         ArrayList<Datagram> datagrams = new ArrayList<>(); //The array list we'll be adding the decoded Datagrams to
 
-        int offset = DataConstants.NUM_BYTES_IN_SHORT; //We need to account for the length of the 2-byte length indicator as well
-
         for (int i = 0; i < bytes.length;) //Iterate through all the bytes in the input array
         {
             /*
              * Read the 2-byte length indicator to determine the length of this Datagram
              */
-            short length = DatatypeUtil.byteArrayToShort(DatatypeUtil.getBytesByIndex(bytes, i, i+1));
+            short len = DatatypeUtil.byteArrayToShort(DatatypeUtil.getNBytes(bytes, i,DataConstants.NUM_BYTES_IN_SHORT));
 
             /*
              * Separate out the bytes for this datagram and actually convert them into a
              * Datagram, then add them to the ArrayList
              */
-            datagrams.add(byteArrayToDatagram(DatatypeUtil.getBytesByIndex(bytes, i, i + length + 1)));
+            datagrams.add(byteArrayToDatagram(DatatypeUtil.getNBytes(bytes, i, len)));
 
-            i += length; //Next time around the loop, we start reading after all the bytes we just read
-            i += offset; //We need to account for the length of the 2-byte length indicator as well as it isn't included in 'length'
+            i += len; //Next time around the loop, we start reading after all the bytes we just read
         }
 
         return datagrams; //Return the ArrayList of Datagrams we've decoded
@@ -82,60 +82,33 @@ public class DatagramArrayDecoder
         /*
          * Figure out what kind of datagram we're dealing with
          */
-        byte typeCode = bytes[DataConstants.DATATYPE_INDICATOR_POS];
+        byte typeCodeByte = bytes[DataConstants.DATATYPE_INDICATOR_POS];
 
-        /*
-         * String
-         */
-        if (typeCode == DataConstants.STRING_DATATYPE_INDICATOR)
+        DataConstants.TunerDataType dataType = DataConstants.TunerDataType.fromByte(typeCodeByte);
+
+        switch (dataType)
         {
-            return StringDatagram.fromByteArray(bytes);
-        }
+            case INT:
+                return IntegerDatagram.fromByteArray(bytes);
 
-        /*
-         * Integer
-         */
-        else if(typeCode == DataConstants.INT_DATATYPE_INDICATOR)
-        {
-            return IntegerDatagram.fromByteArray(bytes);
-        }
+            case DOUBLE:
+                return DoubleDatagram.fromByteArray(bytes);
 
-        /*
-         * Boolean
-         */
-        else if(typeCode == DataConstants.BOOLEAN_DATATYPE_INDICATOR)
-        {
-            return BooleanDatagram.fromByteArray(bytes);
-        }
+            case BOOLEAN:
+                return BooleanDatagram.fromByteArray(bytes);
 
-        /*
-         * Byte
-         */
-        else if(typeCode == DataConstants.BYTE_DATATYPE_INDICATOR)
-        {
-            return ByteDatagram.fromByteArray(bytes);
-        }
+            case BYTE:
+                return ByteDatagram.fromByteArray(bytes);
 
-        /*
-         * Double
-         */
-        else if(typeCode == DataConstants.DOUBLE_DATATYPE_INDICATOR)
-        {
-            return DoubleDatagram.fromByteArray(bytes);
-        }
+            case STRING:
+                return StringDatagram.fromByteArray(bytes);
 
-        /*
-         * Button
-         */
-        else if(typeCode == DataConstants.BTN_PRESS_DATATYPE_INDICATOR)
-        {
-            return ButtonPressDatagram.fromByteArray(bytes);
-        }
+            case BUTTON:
+                return ButtonPressDatagram.fromByteArray(bytes);
 
-        /*
-         * Ruh roh!
-         */
-        throw new IllegalArgumentException("Byte array was not of a known type!");
+            default:
+                throw new IllegalArgumentException("Byte array was not of a known type!");
+        }
     }
 
     /***
@@ -147,17 +120,15 @@ public class DatagramArrayDecoder
     private static int countDatagramsInArray(byte[] bytes)
     {
         int count = 0; //The number of Datagrams we've found
-        int offset = DataConstants.NUM_BYTES_IN_SHORT; //We need to account for the length of the 2-byte length indicator as well
 
         for (int i = 0; i < bytes.length;) //Iterate through all the bytes in the array
         {
             /*
              * Read the 2-byte length indicator to determine the length of this Datagram
              */
-            short jumpToNext = DatatypeUtil.byteArrayToShort(DatatypeUtil.getBytesByIndex(bytes, i, i+1));
+            short len = DatatypeUtil.byteArrayToShort(DatatypeUtil.getNBytes(bytes, i, DataConstants.NUM_BYTES_IN_SHORT));
 
-            i += jumpToNext; //Next time around the loop, we start reading after all the bytes we just read
-            i += offset; //We need to account for the length of the 2-byte length indicator as well as it isn't included in 'jumpToNext'
+            i += len; //Next time around the loop, we start reading after all the bytes we just read
 
             count ++; //Alright, that was one Datagram
         }
