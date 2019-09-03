@@ -18,7 +18,6 @@
     <color name="black">#000000</color>
     <color name="info_shadow">#A8A8A8</color>
     <color name="hub_toolkit_actionbar_color">#ff8400</color>
-
     <color name="progressBarGreen">#44ce3b</color>
     <color name="progressBarGreenDark">#288724</color>
 </resources>

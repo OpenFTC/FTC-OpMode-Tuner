@@ -32,6 +32,7 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.RcUdpSocket;
@@ -433,7 +434,12 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     @Override
     public void onCommand(NetworkCommand command)
     {
+        callback.onCommand(command);
+    }
 
+    public void sendCommand(NetworkCommand command)
+    {
+        server.sendMsg(command);
     }
 
     @Override

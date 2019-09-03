@@ -1,24 +1,30 @@
 package net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit;
 
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.activity.UdpConnectionActivity;
-import net.frogbots.ftcopmodetunercommon.networking.udp.Command;
+import net.frogbots.ftcopmodetunercommon.networking.udp.CommandHandler;
+import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
-public class HubSelectionActivity extends UdpConnectionActivity
+import java.util.concurrent.CountDownLatch;
+
+public class HubSelectionActivity extends UdpConnectionActivity implements CommandHandler
 {
     ListView hubListView;
+    ProgressBar detectingHubsProgressBar;
+    SearchingThread searchingThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,24 +46,109 @@ public class HubSelectionActivity extends UdpConnectionActivity
         }
 
         hubListView = findViewById(R.id.hubListView);
+        detectingHubsProgressBar = findViewById(R.id.detectingHubsProgressBar);
+    }
 
-        NetworkCommand networkCommand = new NetworkCommand(Command.QUERY_LIST_OF_LYNX_MODULES.toString());
+    @Override
+    public void onResume()
+    {
+        super.onResume();
 
-        networkCommand.setListener(new NetworkCommand.AckOrNackListener()
+        networkingManager.registerCommandHandler(this);
+        searchingThread = new SearchingThread();
+        searchingThread.start();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+
+        networkingManager.unregisterCommandHandler(this);
+        searchingThread.interrupt();
+    }
+
+    @Override
+    public Result handleCommand(final NetworkCommand command)
+    {
+        if(command.getName().equals(CommandList.QUERY_LIST_OF_LYNX_MODULES_RESP.toString()))
         {
-            @Override
-            public void onAck()
+            runOnUiThread(new Runnable()
             {
-                
-            }
+                @Override
+                public void run()
+                {
+                    detectingHubsProgressBar.setVisibility(View.GONE);
 
-            @Override
-            public void onNack()
+                    String[] hubNames = command.getExtra().split(";");
+
+                    ArrayAdapter adapter = new ArrayAdapter<String>(HubSelectionActivity.this, R.layout.lynx_module_list_item, hubNames);
+
+                    hubListView.setAdapter(adapter);
+                }
+            });
+
+            return Result.HANDLED;
+        }
+
+        return Result.NOT_HANDLED;
+    }
+
+    class SearchingThread extends Thread
+    {
+        private volatile boolean shouldContinue = true;
+
+        @Override
+        public void run()
+        {
+            while (!Thread.currentThread().isInterrupted() && shouldContinue)
             {
+                final CountDownLatch latch = new CountDownLatch(1);
 
+                NetworkCommand networkCommand = new NetworkCommand(CommandList.QUERY_LIST_OF_LYNX_MODULES.toString());
+
+                networkCommand.setListener(new NetworkCommand.AckOrNackListener()
+                {
+                    @Override
+                    public void onAck()
+                    {
+                        runOnUiThread(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                shouldContinue = false;
+                                latch.countDown();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNack()
+                    {
+                        runOnUiThread(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                latch.countDown();
+                            }
+                        });
+                    }
+                });
+
+                networkingManager.sendMsg(networkCommand);
+
+                try
+                {
+                    latch.await();
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
             }
-        });
-
-        networkingManager.sendMsg(networkCommand);
+        }
     }
 }

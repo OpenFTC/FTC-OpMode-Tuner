@@ -37,6 +37,8 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiver;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiverInterface;
+import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
 import java.util.Locale;
 
@@ -149,5 +151,15 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onCommand(NetworkCommand command)
+    {
+        if(command.getName().equals(CommandList.QUERY_LIST_OF_LYNX_MODULES.toString()))
+        {
+            NetworkCommand resp = new NetworkCommand(CommandList.QUERY_LIST_OF_LYNX_MODULES_RESP.toString(), "Expansion Hub 2;Expansion Hub 3");
+            receiver.sendCommand(resp);
+        }
     }
 }

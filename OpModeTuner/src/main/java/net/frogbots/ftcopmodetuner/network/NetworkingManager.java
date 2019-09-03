@@ -26,6 +26,7 @@ import android.util.Log;
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
+import net.frogbots.ftcopmodetunercommon.networking.udp.CommandHandler;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
@@ -64,6 +65,7 @@ public class NetworkingManager implements SpecificMsgReceiver
 
     private static NetworkingManager singletonInstance;
     private volatile ArrayList<NetworkEventsListener> listeners = new ArrayList<>();
+    private volatile ArrayList<CommandHandler> commandHandlers = new ArrayList<>();
 
     public synchronized void registerListener(NetworkEventsListener listener)
     {
@@ -292,10 +294,28 @@ public class NetworkingManager implements SpecificMsgReceiver
         }
     }
 
+    public void registerCommandHandler(CommandHandler handler)
+    {
+        commandHandlers.add(handler);
+    }
+
+    public void unregisterCommandHandler(CommandHandler handler)
+    {
+        commandHandlers.remove(handler);
+    }
+
     @Override
     public void onCommand(NetworkCommand command)
     {
         lastServerResponseTime = System.currentTimeMillis();
+
+        for(CommandHandler handler : commandHandlers)
+        {
+            if(handler.handleCommand(command) == CommandHandler.Result.HANDLED)
+            {
+                break;
+            }
+        }
     }
 
     @Override

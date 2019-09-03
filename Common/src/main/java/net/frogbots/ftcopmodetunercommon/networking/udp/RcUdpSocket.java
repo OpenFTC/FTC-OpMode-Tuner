@@ -67,7 +67,7 @@ public class RcUdpSocket extends NetworkMsgSocket implements SpecificMsgReceiver
     @Override
     public void onCommand(NetworkCommand command)
     {
-
+        callback.onCommand(command);
     }
 
     @Override
@@ -115,6 +115,24 @@ public class RcUdpSocket extends NetworkMsgSocket implements SpecificMsgReceiver
         if(isConnected() && srcAddr.equals(addrOfLastHeartbeat))
         {
             callback.onTunerData(tunerDataMsg, srcAddr);
+        }
+    }
+
+    @Override
+    public void sendMsg(NetworkMsg msg)
+    {
+        if(addrOfLastHeartbeat != null && isConnected())
+        {
+            msg.setDestAddr(addrOfLastHeartbeat);
+            //enqueueForSend(msg, serverAddr, port);
+            super.sendMsg(msg);
+        }
+        else
+        {
+            if(msg.getMsgType() == NetworkMsg.MsgType.COMMAND)
+            {
+                ((NetworkCommand)msg).abandon();
+            }
         }
     }
 }

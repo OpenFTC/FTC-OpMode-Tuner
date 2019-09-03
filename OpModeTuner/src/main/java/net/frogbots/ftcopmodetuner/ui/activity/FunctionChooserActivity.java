@@ -30,7 +30,7 @@ public class FunctionChooserActivity extends UdpConnectionActivity
 
     public void launchHubToolkit(View v)
     {
-        Intent intent = new Intent(this, LynxModuleControlActivity.class);
+        Intent intent = new Intent(this, HubSelectionActivity.class);
         startActivity(intent);
     }
 
