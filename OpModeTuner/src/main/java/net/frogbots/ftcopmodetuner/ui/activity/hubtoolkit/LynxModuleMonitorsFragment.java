@@ -22,6 +22,8 @@ import top.defaults.colorpicker.ColorPickerPopup;
 public class LynxModuleMonitorsFragment extends LynxControlFragment
 {
     TextView motor_0_currentDraw;
+    TextView monitor_12v;
+    TextView monitor_5v;
     boolean viewCreated;
 
     @Override
@@ -37,6 +39,8 @@ public class LynxModuleMonitorsFragment extends LynxControlFragment
         View view = inflater.inflate(R.layout.fragment_lynx_module_monitors, container, false);
 
         motor_0_currentDraw = view.findViewById(R.id.motor_0_current_draw);
+        monitor_12v = view.findViewById(R.id.monitor_12v);
+        monitor_5v = view.findViewById(R.id.monitor_5v);
 
         viewCreated = true;
 
@@ -49,6 +53,8 @@ public class LynxModuleMonitorsFragment extends LynxControlFragment
         if(viewCreated)
         {
             motor_0_currentDraw.setText("Motor 0: " + datagram.motor0currentDraw + "A");
+            monitor_12v.setText("12v monitor: " + datagram.monitor_12v/1000f + "v");
+            monitor_5v.setText("5v monitor: " + datagram.monitor_5v/1000f + "v");
         }
     }
 }

@@ -49,6 +49,7 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
     WifiManager wm;
     HubToolkitDatagram hubToolkitDatagram = new HubToolkitDatagram();
     HubToolkitStreamer hubToolkitStreamer;
+    BogusHubToolkitDataUpdater bogusHubToolkitDataUpdater = new BogusHubToolkitDataUpdater(hubToolkitDatagram);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -185,17 +186,13 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
         @Override
         public void run()
         {
-            short i = 0;
-
             while (!Thread.currentThread().isInterrupted())
             {
-                hubToolkitDatagram.motor0currentDraw = i;
+                bogusHubToolkitDataUpdater.update();
 
                 HubToolkitDataMsg hubToolkitDataMsg = new HubToolkitDataMsg();
                 hubToolkitDataMsg.setData(hubToolkitDatagram.encode());
                 receiver.sendMsg(hubToolkitDataMsg);
-
-                i++;
 
                 try {
                     Thread.sleep(50);
