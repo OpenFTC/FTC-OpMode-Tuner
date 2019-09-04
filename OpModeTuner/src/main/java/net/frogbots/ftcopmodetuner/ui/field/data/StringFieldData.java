@@ -19,37 +19,38 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.field.data;
+package net.frogbots.ftcopmodetuner.ui.field.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
 
 /**
+ * This class holds the data for a StringFieldUi object.
+ *
  * This is the object that is written to XML when saving
  * to a config file (it is then later attached to the UI
  * object when read back from the XML)
  */
 
-public abstract class FieldData implements Parcelable
+@XStreamAlias("string")
+public class StringFieldData extends FieldData
 {
     @XStreamAsAttribute
-    @XStreamAlias("tag")
-    public String tag;
+    @XStreamAlias("value")
+    public String string = "Hello World";
 
-    public FieldData(String tag)
+    public StringFieldData(String tag)
     {
-        this.tag = tag;
+        super(tag);
     }
 
-    public abstract Datagram toDatagram();
-    public abstract FieldType getType();
 
     @Override
     public int describeContents()
@@ -60,11 +61,40 @@ public abstract class FieldData implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeString(this.tag);
+        super.writeToParcel(dest, flags);
+        dest.writeString(this.string);
     }
 
-    protected FieldData(Parcel in)
+    protected StringFieldData(Parcel in)
     {
-        this.tag = in.readString();
+        super(in);
+        this.string = in.readString();
     }
+
+    @Override
+    public Datagram toDatagram()
+    {
+        return new StringDatagram(string, tag);
+    }
+
+    @Override
+    public FieldType getType()
+    {
+        return FieldType.STRING;
+    }
+
+    public static final Parcelable.Creator<StringFieldData> CREATOR = new Parcelable.Creator<StringFieldData>()
+    {
+        @Override
+        public StringFieldData createFromParcel(Parcel source)
+        {
+            return new StringFieldData(source);
+        }
+
+        @Override
+        public StringFieldData[] newArray(int size)
+        {
+            return new StringFieldData[size];
+        }
+    };
 }

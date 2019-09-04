@@ -57,14 +57,13 @@ import net.frogbots.ftcopmodetuner.ui.dialogs.fieldsettings.IntFieldSettingsDial
 import net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog.ByteKeyInDialog;
 import net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog.DoubleKeyInDialog;
 import net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog.IntKeyInDialog;
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.data.FieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.array.DatagramArrayEncoder;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
-import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
 
 import java.io.FileNotFoundException;

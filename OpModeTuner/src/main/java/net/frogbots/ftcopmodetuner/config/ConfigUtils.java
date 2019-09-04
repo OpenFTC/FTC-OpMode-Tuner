@@ -24,13 +24,13 @@ package net.frogbots.ftcopmodetuner.config;
 import com.thoughtworks.xstream.XStream;
 
 import net.frogbots.ftcopmodetuner.ui.activity.ConfigSelectionActivty;
-import net.frogbots.ftcopmodetunercommon.field.data.BooleanFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.ButtonFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.ByteFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.StringFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.BooleanFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.ButtonFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.ByteFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.DoubleFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.IntFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.StringFieldData;
 
 import java.io.File;
 import java.io.FileNotFoundException;

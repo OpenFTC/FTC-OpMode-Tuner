@@ -19,44 +19,47 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.field.data;
+package net.frogbots.ftcopmodetuner.ui.field.data;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
 
 /**
- * This class holds the data for a DoubleFieldUi object.
+ * This class holds the data for a ByteFieldUi object.
  *
  * This is the object that is written to XML when saving
  * to a config file (it is then later attached to the UI
  * object when read back from the XML)
  */
 
-@XStreamAlias("double")
-public class DoubleFieldData extends FieldData
+@XStreamAlias("byte")
+public class ByteFieldData extends FieldData
 {
-    @XStreamAlias("min")
     @XStreamAsAttribute
-    public double min = 0;
-
-    @XStreamAlias("max")
-    @XStreamAsAttribute
-    public double max = 1;
-
     @XStreamAlias("value")
-    @XStreamAsAttribute
-    public double curValue;
+    public byte value = 0x4A;
 
-    public DoubleFieldData(String tag)
+    public ByteFieldData(String tag)
     {
         super(tag);
+    }
+
+    @Override
+    public Datagram toDatagram()
+    {
+        return new ByteDatagram(value, tag);
+    }
+
+    @Override
+    public FieldType getType()
+    {
+        return FieldType.BYTE;
     }
 
     @Override
@@ -69,43 +72,27 @@ public class DoubleFieldData extends FieldData
     public void writeToParcel(Parcel dest, int flags)
     {
         super.writeToParcel(dest, flags);
-        dest.writeDouble(this.min);
-        dest.writeDouble(this.max);
-        dest.writeDouble(this.curValue);
+        dest.writeByte(this.value);
     }
 
-    protected DoubleFieldData(Parcel in)
+    protected ByteFieldData(Parcel in)
     {
         super(in);
-        this.min = in.readDouble();
-        this.max = in.readDouble();
-        this.curValue = in.readDouble();
+        this.value = in.readByte();
     }
 
-    @Override
-    public Datagram toDatagram()
-    {
-        return new DoubleDatagram(curValue, tag);
-    }
-
-    @Override
-    public FieldType getType()
-    {
-        return FieldType.DOUBLE;
-    }
-
-    public static final Parcelable.Creator<DoubleFieldData> CREATOR = new Parcelable.Creator<DoubleFieldData>()
+    public static final Creator<ByteFieldData> CREATOR = new Creator<ByteFieldData>()
     {
         @Override
-        public DoubleFieldData createFromParcel(Parcel source)
+        public ByteFieldData createFromParcel(Parcel source)
         {
-            return new DoubleFieldData(source);
+            return new ByteFieldData(source);
         }
 
         @Override
-        public DoubleFieldData[] newArray(int size)
+        public ByteFieldData[] newArray(int size)
         {
-            return new DoubleFieldData[size];
+            return new ByteFieldData[size];
         }
     };
 }

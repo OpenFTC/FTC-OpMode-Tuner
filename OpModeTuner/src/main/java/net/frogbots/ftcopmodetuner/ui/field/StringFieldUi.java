@@ -32,7 +32,7 @@ import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
-import net.frogbots.ftcopmodetunercommon.field.data.StringFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.StringFieldData;
 
 /**
  * This class handles the UI events of a StringField

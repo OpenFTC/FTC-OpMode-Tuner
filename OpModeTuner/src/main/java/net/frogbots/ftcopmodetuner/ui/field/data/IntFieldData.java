@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.field.data;
+package net.frogbots.ftcopmodetuner.ui.field.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -27,30 +27,37 @@ import android.os.Parcelable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 
 /**
- * This class holds the data for a StringFieldUi object.
+ * This class holds the data for an IntFieldUi object.
  *
  * This is the object that is written to XML when saving
  * to a config file (it is then later attached to the UI
  * object when read back from the XML)
  */
 
-@XStreamAlias("string")
-public class StringFieldData extends FieldData
+@XStreamAlias("int")
+public class IntFieldData extends FieldData
 {
     @XStreamAsAttribute
-    @XStreamAlias("value")
-    public String string = "Hello World";
+    @XStreamAlias("min")
+    public int min = 0;
 
-    public StringFieldData(String tag)
+    @XStreamAsAttribute
+    @XStreamAlias("max")
+    public int max = 100;
+
+    @XStreamAsAttribute
+    @XStreamAlias("value")
+    public int curValue;
+
+    public IntFieldData(String tag)
     {
         super(tag);
     }
-
 
     @Override
     public int describeContents()
@@ -62,39 +69,43 @@ public class StringFieldData extends FieldData
     public void writeToParcel(Parcel dest, int flags)
     {
         super.writeToParcel(dest, flags);
-        dest.writeString(this.string);
+        dest.writeInt(this.min);
+        dest.writeInt(this.max);
+        dest.writeInt(this.curValue);
     }
 
-    protected StringFieldData(Parcel in)
+    protected IntFieldData(Parcel in)
     {
         super(in);
-        this.string = in.readString();
+        this.min = in.readInt();
+        this.max = in.readInt();
+        this.curValue = in.readInt();
     }
 
     @Override
     public Datagram toDatagram()
     {
-        return new StringDatagram(string, tag);
+        return new IntegerDatagram(curValue, tag);
     }
 
     @Override
     public FieldType getType()
     {
-        return FieldType.STRING;
+        return FieldType.INT;
     }
 
-    public static final Parcelable.Creator<StringFieldData> CREATOR = new Parcelable.Creator<StringFieldData>()
+    public static final Parcelable.Creator<IntFieldData> CREATOR = new Parcelable.Creator<IntFieldData>()
     {
         @Override
-        public StringFieldData createFromParcel(Parcel source)
+        public IntFieldData createFromParcel(Parcel source)
         {
-            return new StringFieldData(source);
+            return new IntFieldData(source);
         }
 
         @Override
-        public StringFieldData[] newArray(int size)
+        public IntFieldData[] newArray(int size)
         {
-            return new StringFieldData[size];
+            return new IntFieldData[size];
         }
     };
 }

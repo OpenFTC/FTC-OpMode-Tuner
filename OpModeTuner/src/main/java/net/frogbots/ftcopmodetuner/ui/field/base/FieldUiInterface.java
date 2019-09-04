@@ -21,7 +21,7 @@
 
 package net.frogbots.ftcopmodetuner.ui.field.base;
 
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.FieldData;
 
 public interface FieldUiInterface<T extends FieldData> extends FieldUiInterfaceBase
 {

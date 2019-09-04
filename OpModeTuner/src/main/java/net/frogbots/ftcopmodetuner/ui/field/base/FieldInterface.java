@@ -21,7 +21,7 @@
 
 package net.frogbots.ftcopmodetuner.ui.field.base;
 
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ButtonPressDatagram;
 
 public interface FieldInterface

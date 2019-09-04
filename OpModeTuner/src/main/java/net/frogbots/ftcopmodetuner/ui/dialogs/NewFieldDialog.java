@@ -35,7 +35,7 @@ import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
 
 /**
  * Dialog shown for creating a new Field

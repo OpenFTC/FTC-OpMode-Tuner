@@ -24,7 +24,7 @@ package net.frogbots.ftcopmodetuner.config;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.FieldData;
 
 import java.util.ArrayList;
 

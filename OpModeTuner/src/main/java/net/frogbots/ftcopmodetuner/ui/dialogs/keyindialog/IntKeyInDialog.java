@@ -24,7 +24,7 @@ package net.frogbots.ftcopmodetuner.ui.dialogs.keyindialog;
 import android.content.Context;
 
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
-import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.IntFieldData;
 
 /**
  * Dialog shown for manually entering data to an IntField

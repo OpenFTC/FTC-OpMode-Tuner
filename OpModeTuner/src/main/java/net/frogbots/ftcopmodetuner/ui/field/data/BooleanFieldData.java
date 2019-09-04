@@ -19,27 +19,34 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.field.data;
+package net.frogbots.ftcopmodetuner.ui.field.data;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.BooleanDatagram;
 
 /**
- * This class holds the data for a ButtonFieldUi object.
+ * This class holds the data for a BooleanFieldUi object.
  *
  * This is the object that is written to XML when saving
  * to a config file (it is then later attached to the UI
  * object when read back from the XML)
  */
 
-@XStreamAlias("button")
-public class ButtonFieldData extends FieldData
+@XStreamAlias("boolean")
+public class BooleanFieldData extends FieldData
 {
-    public ButtonFieldData(String tag)
+    @XStreamAsAttribute
+    @XStreamAlias("value")
+    public boolean value;
+
+    public BooleanFieldData(String tag)
     {
         super(tag);
     }
@@ -47,13 +54,13 @@ public class ButtonFieldData extends FieldData
     @Override
     public Datagram toDatagram()
     {
-        return null;
+        return new BooleanDatagram(value, tag);
     }
 
     @Override
     public FieldType getType()
     {
-        return FieldType.BUTTON;
+        return FieldType.BOOLEAN;
     }
 
     @Override
@@ -66,25 +73,27 @@ public class ButtonFieldData extends FieldData
     public void writeToParcel(Parcel dest, int flags)
     {
         super.writeToParcel(dest, flags);
+        dest.writeByte(this.value ? (byte) 1 : (byte) 0);
     }
 
-    protected ButtonFieldData(Parcel in)
+    protected BooleanFieldData(Parcel in)
     {
         super(in);
+        this.value = in.readByte() != 0;
     }
 
-    public static final Creator<ButtonFieldData> CREATOR = new Creator<ButtonFieldData>()
+    public static final Parcelable.Creator<BooleanFieldData> CREATOR = new Parcelable.Creator<BooleanFieldData>()
     {
         @Override
-        public ButtonFieldData createFromParcel(Parcel source)
+        public BooleanFieldData createFromParcel(Parcel source)
         {
-            return new ButtonFieldData(source);
+            return new BooleanFieldData(source);
         }
 
         @Override
-        public ButtonFieldData[] newArray(int size)
+        public BooleanFieldData[] newArray(int size)
         {
-            return new ButtonFieldData[size];
+            return new BooleanFieldData[size];
         }
     };
 }

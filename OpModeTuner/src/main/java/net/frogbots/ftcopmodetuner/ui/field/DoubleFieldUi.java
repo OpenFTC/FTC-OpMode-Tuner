@@ -33,9 +33,7 @@ import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
 import net.frogbots.ftcopmodetuner.ui.field.util.FloatingPointSignedSeekBar;
-import net.frogbots.ftcopmodetuner.ui.field.util.SignedSeekBar;
-import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
-import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
+import net.frogbots.ftcopmodetuner.ui.field.data.DoubleFieldData;
 
 import java.text.DecimalFormat;
 

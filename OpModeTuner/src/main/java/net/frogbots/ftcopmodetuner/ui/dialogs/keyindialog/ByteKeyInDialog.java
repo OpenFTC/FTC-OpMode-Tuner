@@ -25,7 +25,7 @@ import android.content.Context;
 import android.text.InputType;
 
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
-import net.frogbots.ftcopmodetunercommon.field.data.ByteFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.ByteFieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 
 /**

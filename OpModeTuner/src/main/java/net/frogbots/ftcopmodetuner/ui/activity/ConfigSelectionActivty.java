@@ -37,7 +37,7 @@ import net.frogbots.ftcopmodetuner.config.ConfigUtils;
 import net.frogbots.ftcopmodetuner.prefs.GlobalPrefs;
 import net.frogbots.ftcopmodetuner.ui.dialogs.NewConfigDialog;
 import net.frogbots.ftcopmodetuner.ui.dialogs.NewConfigInterface;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.FieldData;
 
 import java.io.File;
 import java.io.IOException;

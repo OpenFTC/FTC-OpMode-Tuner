@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package net.frogbots.ftcopmodetunercommon.field;
+package net.frogbots.ftcopmodetuner.ui.field;
 
 /**
  * The different data types a field can be

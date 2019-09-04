@@ -29,14 +29,14 @@ import net.frogbots.ftcopmodetuner.ui.field.IntFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.StringFieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
-import net.frogbots.ftcopmodetunercommon.field.FieldType;
-import net.frogbots.ftcopmodetunercommon.field.data.BooleanFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.ButtonFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.ByteFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.DoubleFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.FieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
-import net.frogbots.ftcopmodetunercommon.field.data.StringFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.FieldType;
+import net.frogbots.ftcopmodetuner.ui.field.data.BooleanFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.ButtonFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.ByteFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.DoubleFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.FieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.IntFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.StringFieldData;
 
 public class FieldUiFactory
 {

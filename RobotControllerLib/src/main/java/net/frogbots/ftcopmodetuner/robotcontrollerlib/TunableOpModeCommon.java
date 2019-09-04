@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerNotifier;
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiver;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiverInterface;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitWriteDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeManagerImpl;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
@@ -186,6 +188,18 @@ class TunableOpModeCommon implements FtcOpModeTunerReceiverInterface
     public void onButtonPressEvent(String tag)
     {
         opMode.onButtonPressEvent(tag);
+    }
+
+    @Override
+    public void onCommand(NetworkCommand command)
+    {
+
+    }
+
+    @Override
+    public void onHubToolkitWriteData(HubToolkitWriteDataMsg hubToolkitWriteDataMsg)
+    {
+
     }
 
     protected class OpModeNotifications implements OpModeManagerNotifier.Notifications

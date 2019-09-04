@@ -31,7 +31,7 @@ import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
-import net.frogbots.ftcopmodetunercommon.field.data.ByteFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.ByteFieldData;
 import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 
 /**

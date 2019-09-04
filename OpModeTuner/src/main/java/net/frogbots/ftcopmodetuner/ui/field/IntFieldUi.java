@@ -33,7 +33,7 @@ import net.frogbots.ftcopmodetuner.ui.field.base.FieldInterface;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUi;
 import net.frogbots.ftcopmodetuner.ui.field.base.FieldUiInterface;
 import net.frogbots.ftcopmodetuner.ui.field.util.SignedSeekBar;
-import net.frogbots.ftcopmodetunercommon.field.data.IntFieldData;
+import net.frogbots.ftcopmodetuner.ui.field.data.IntFieldData;
 
 /**
  * This class handles the UI events of an IntField
