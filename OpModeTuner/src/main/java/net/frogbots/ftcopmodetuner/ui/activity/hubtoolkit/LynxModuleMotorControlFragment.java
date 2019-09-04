@@ -1,7 +1,5 @@
 package net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,7 +71,7 @@ public class LynxModuleMotorControlFragment extends LynxControlFragment
     }
 
     @Override
-    void onDataUpdate(HubToolkitDatagram datagram) {
+    void onDataUpdate(HubToolkitReadDatagram datagram) {
 
     }
 }

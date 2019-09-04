@@ -32,9 +32,9 @@ import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.ByteDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.DoubleDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.IntegerDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.ext.StringDatagram;
-import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
-import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitReadDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitWriteDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.RcUdpSocket;
@@ -451,7 +451,12 @@ public class FtcOpModeTunerReceiver implements SpecificMsgReceiver
     }
 
     @Override
-    public void onHubToolkitData(HubToolkitDataMsg dataMsg) {
+    public void onHubToolkitReadData(HubToolkitReadDataMsg dataMsg) {
 
+    }
+
+    @Override
+    public void onHubToolkitWriteData(HubToolkitWriteDataMsg dataMsg) {
+        callback.onHubToolkitWriteData(dataMsg);
     }
 }

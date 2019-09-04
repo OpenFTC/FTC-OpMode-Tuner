@@ -119,8 +119,13 @@ public class RcUdpSocket extends NetworkMsgSocket implements SpecificMsgReceiver
     }
 
     @Override
-    public void onHubToolkitData(HubToolkitDataMsg dataMsg) {
-        callback.onHubToolkitData(dataMsg);
+    public void onHubToolkitReadData(HubToolkitReadDataMsg dataMsg) {
+        callback.onHubToolkitReadData(dataMsg);
+    }
+
+    @Override
+    public void onHubToolkitWriteData(HubToolkitWriteDataMsg dataMsg) {
+        callback.onHubToolkitWriteData(dataMsg);
     }
 
     @Override

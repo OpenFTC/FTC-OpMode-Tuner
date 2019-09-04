@@ -21,14 +21,14 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-public class TunerDataMsg extends ByteArrayNetworkMessage
+public class HubToolkitWriteDataMsg extends ByteArrayNetworkMessage
 {
-    public TunerDataMsg()
+    public HubToolkitWriteDataMsg()
     {
 
     }
 
-    public TunerDataMsg(byte[] data)
+    public HubToolkitWriteDataMsg(byte[] data)
     {
         super(data);
     }
@@ -36,6 +36,6 @@ public class TunerDataMsg extends ByteArrayNetworkMessage
     @Override
     public MsgType getMsgType()
     {
-        return MsgType.TUNER_DATA;
+        return MsgType.HUBTOOLKIT_WRITE_DATA;
     }
 }

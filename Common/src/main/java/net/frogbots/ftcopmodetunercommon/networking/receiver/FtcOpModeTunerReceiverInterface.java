@@ -21,10 +21,12 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.receiver;
 
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitWriteDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
 public interface FtcOpModeTunerReceiverInterface
 {
     void onButtonPressEvent(String tag);
     void onCommand(NetworkCommand command);
+    void onHubToolkitWriteData(HubToolkitWriteDataMsg hubToolkitWriteDataMsg);
 }

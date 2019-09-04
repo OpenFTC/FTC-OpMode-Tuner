@@ -21,61 +21,21 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
-
-import java.nio.ByteBuffer;
-
-public class HubToolkitDataMsg extends NetworkMsgBase
+public class HubToolkitReadDataMsg extends ByteArrayNetworkMessage
 {
-    private byte[] data;
-
-    public HubToolkitDataMsg(byte[] data)
+    public HubToolkitReadDataMsg()
     {
-        fromByteArray(data);
+
     }
 
-    public HubToolkitDataMsg()
+    public HubToolkitReadDataMsg(byte[] data)
     {
-
+        super(data);
     }
 
     @Override
     public MsgType getMsgType()
     {
-        return MsgType.HUBTOOLKIT_DATA;
-    }
-
-    @Override
-    public byte[] toByteArray()
-    {
-        return getWriteBuffer(calcPayloadSize())
-                .putInt(data.length)
-                .put(data)
-                .array();
-    }
-
-    @Override
-    public void fromByteArray(byte[] byteArray)
-    {
-        ByteBuffer readBuffer = getReadBuffer(byteArray);
-
-        int cbData = readBuffer.getInt();
-        data = new byte[cbData];
-        readBuffer.get(data);
-    }
-
-    public byte[] getData()
-    {
-        return data;
-    }
-
-    public void setData(byte[] data)
-    {
-        this.data = data;
-    }
-
-    private int calcPayloadSize()
-    {
-        return data.length + DataConstants.NUM_BYTES_IN_INT;
+        return MsgType.HUBTOOLKIT_READ_DATA;
     }
 }

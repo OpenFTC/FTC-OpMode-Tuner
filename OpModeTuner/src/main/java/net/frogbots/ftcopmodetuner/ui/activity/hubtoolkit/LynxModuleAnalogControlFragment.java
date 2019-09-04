@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,7 +86,7 @@ public class LynxModuleAnalogControlFragment extends LynxControlFragment
     }
 
     @Override
-    void onDataUpdate(HubToolkitDatagram datagram) {
+    void onDataUpdate(HubToolkitReadDatagram datagram) {
 
     }
 }

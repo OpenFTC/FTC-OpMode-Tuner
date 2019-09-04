@@ -1,15 +1,15 @@
 package net.frogbots.receivertestapp;
 
-import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
 
 public class BogusHubToolkitDataUpdater
 {
-    private HubToolkitDatagram datagram;
+    private HubToolkitReadDatagram datagram;
 
     private MovingBogusValue mon12v = new MovingBogusValue(12000, 13000);
     private MovingBogusValue mon5v = new MovingBogusValue(4500, 5500);
 
-    public BogusHubToolkitDataUpdater(HubToolkitDatagram datagram)
+    public BogusHubToolkitDataUpdater(HubToolkitReadDatagram datagram)
     {
         this.datagram = datagram;
     }

@@ -25,16 +25,19 @@ import android.app.Activity;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.format.Formatter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.Datagram;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitWriteDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiver;
 import net.frogbots.ftcopmodetunercommon.networking.receiver.FtcOpModeTunerReceiverInterface;
 import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
-import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitReadDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitWriteDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
 import java.util.Locale;
@@ -47,15 +50,19 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
     TextView connected;
     Thread thread;
     WifiManager wm;
-    HubToolkitDatagram hubToolkitDatagram = new HubToolkitDatagram();
+    LinearLayout layout;
+    HubToolkitReadDatagram hubToolkitReadDatagram = new HubToolkitReadDatagram();
+    HubToolkitWriteDatagram hubToolkitWriteDatagram = new HubToolkitWriteDatagram();
     HubToolkitStreamer hubToolkitStreamer;
-    BogusHubToolkitDataUpdater bogusHubToolkitDataUpdater = new BogusHubToolkitDataUpdater(hubToolkitDatagram);
+    BogusHubToolkitDataUpdater bogusHubToolkitDataUpdater = new BogusHubToolkitDataUpdater(hubToolkitReadDatagram);
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        layout = findViewById(R.id.layout);
 
         textView = findViewById(R.id.textView);
         connected = findViewById(R.id.connection);
@@ -181,6 +188,21 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
         }
     }
 
+    @Override
+    public void onHubToolkitWriteData(HubToolkitWriteDataMsg hubToolkitWriteDataMsg)
+    {
+        hubToolkitWriteDatagram.fromByteArray(hubToolkitWriteDataMsg.getData());
+
+        runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                layout.setBackgroundColor(hubToolkitWriteDatagram.ledRgb);
+            }
+        });
+    }
+
     class HubToolkitStreamer extends Thread
     {
         @Override
@@ -190,9 +212,9 @@ public class MainActivity extends Activity implements FtcOpModeTunerReceiverInte
             {
                 bogusHubToolkitDataUpdater.update();
 
-                HubToolkitDataMsg hubToolkitDataMsg = new HubToolkitDataMsg();
-                hubToolkitDataMsg.setData(hubToolkitDatagram.encode());
-                receiver.sendMsg(hubToolkitDataMsg);
+                HubToolkitReadDataMsg hubToolkitReadDataMsg = new HubToolkitReadDataMsg();
+                hubToolkitReadDataMsg.setData(hubToolkitReadDatagram.encode());
+                receiver.sendMsg(hubToolkitReadDataMsg);
 
                 try {
                     Thread.sleep(50);

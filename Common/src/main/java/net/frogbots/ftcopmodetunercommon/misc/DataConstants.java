@@ -72,6 +72,7 @@ public class DataConstants
     public static final int DATATYPE_INDICATOR_POS        = 2;
 
     public static final int NUM_BYTES_IN_DOUBLE           = 8;
+    public static final int NUM_BYTES_IN_FLOAT            = 8;
     public static final int NUM_BYTES_IN_INT              = 4;
     public static final int NUM_BYTES_IN_SHORT            = 2;
     public static final int NUM_BYTES_IN_BOOLEAN          = 1;

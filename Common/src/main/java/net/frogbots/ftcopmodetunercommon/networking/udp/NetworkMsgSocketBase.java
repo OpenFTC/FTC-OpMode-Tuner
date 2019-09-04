@@ -27,7 +27,6 @@ import net.frogbots.ftcopmodetunercommon.misc.DatatypeUtil;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -109,9 +108,15 @@ public class NetworkMsgSocketBase
                                 break;
                             }
 
-                            case HUBTOOLKIT_DATA:
+                            case HUBTOOLKIT_READ_DATA:
                             {
-                                msg = new HubToolkitDataMsg(data);
+                                msg = new HubToolkitReadDataMsg(data);
+                                break;
+                            }
+
+                            case HUBTOOLKIT_WRITE_DATA:
+                            {
+                                msg = new HubToolkitWriteDataMsg(data);
                                 break;
                             }
 

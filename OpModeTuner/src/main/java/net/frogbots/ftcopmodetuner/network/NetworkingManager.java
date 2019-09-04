@@ -30,10 +30,10 @@ import net.frogbots.ftcopmodetunercommon.networking.udp.CommandHandler;
 import net.frogbots.ftcopmodetunercommon.networking.udp.ConnectionStatus;
 import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
 import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataHandler;
-import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitReadDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitWriteDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsg;
-import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkMsgSocketBase;
 import net.frogbots.ftcopmodetunercommon.networking.udp.SpecificMsgReceiver;
 import net.frogbots.ftcopmodetunercommon.networking.udp.TunerDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.TunerUdpSocket;
@@ -360,14 +360,19 @@ public class NetworkingManager implements SpecificMsgReceiver
     }
 
     @Override
-    public void onHubToolkitData(HubToolkitDataMsg dataMsg)
+    public void onHubToolkitReadData(HubToolkitReadDataMsg dataMsg)
     {
         synchronized (handlersLock)
         {
             if(hubToolkitDataHandler != null)
             {
-                hubToolkitDataHandler.handleHubToolkitData(dataMsg);
+                hubToolkitDataHandler.handleHubToolkitReadData(dataMsg);
             }
         }
+    }
+
+    @Override
+    public void onHubToolkitWriteData(HubToolkitWriteDataMsg dataMsg) {
+
     }
 }

@@ -167,9 +167,15 @@ public class NetworkMsgSocket extends NetworkMsgSocketBase
                     break;
                 }
 
-                case HUBTOOLKIT_DATA:
+                case HUBTOOLKIT_READ_DATA:
                 {
-                    callback.onHubToolkitData((HubToolkitDataMsg)msg);
+                    callback.onHubToolkitReadData((HubToolkitReadDataMsg)msg);
+                    break;
+                }
+
+                case HUBTOOLKIT_WRITE_DATA:
+                {
+                    callback.onHubToolkitWriteData((HubToolkitWriteDataMsg)msg);
                     break;
                 }
 

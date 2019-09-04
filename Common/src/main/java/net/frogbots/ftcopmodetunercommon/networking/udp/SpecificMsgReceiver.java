@@ -21,9 +21,6 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-import net.frogbots.ftcopmodetunercommon.networking.udp.Heartbeat;
-import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
-
 import java.net.InetAddress;
 
 public interface SpecificMsgReceiver
@@ -31,5 +28,6 @@ public interface SpecificMsgReceiver
     void onCommand(NetworkCommand command);
     void onHeatbeat(Heartbeat heartbeat, InetAddress srcAddr);
     void onTunerData(TunerDataMsg tunerDataMsg, InetAddress src);
-    void onHubToolkitData(HubToolkitDataMsg dataMsg);
+    void onHubToolkitReadData(HubToolkitReadDataMsg dataMsg);
+    void onHubToolkitWriteData(HubToolkitWriteDataMsg dataMsg);
 }

@@ -1,11 +1,6 @@
 package net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit;
 
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -23,10 +18,12 @@ import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.activity.UdpConnectionActivity;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitWriteDatagram;
 import net.frogbots.ftcopmodetunercommon.networking.udp.CommandList;
 import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataHandler;
-import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitReadDataMsg;
+import net.frogbots.ftcopmodetunercommon.networking.udp.HubToolkitWriteDataMsg;
 import net.frogbots.ftcopmodetunercommon.networking.udp.NetworkCommand;
 
 public class LynxModuleControlActivity extends UdpConnectionActivity implements HubToolkitDataHandler
@@ -54,7 +51,10 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
     private LynxModuleMonitorsFragment monitorsFragment;
     private LynxModuleExtraFragment extraFragment;
 
-    private HubToolkitDatagram hubToolkitDatagram = new HubToolkitDatagram();
+    private HubToolkitReadDatagram hubToolkitReadDatagram = new HubToolkitReadDatagram();
+    private HubToolkitWriteDatagram hubToolkitWriteDatagram = new HubToolkitWriteDatagram();
+
+    private WriteLooper writeLooper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,6 +73,13 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
         analogControlFragment = LynxModuleAnalogControlFragment.newInstance("p2", "p2");
         monitorsFragment = new LynxModuleMonitorsFragment();
         extraFragment = new LynxModuleExtraFragment();
+
+        motorControlFragment.setWriteDatagram(hubToolkitWriteDatagram);
+        servoControlFragment.setWriteDatagram(hubToolkitWriteDatagram);
+        digitalControlFragment.setWriteDatagram(hubToolkitWriteDatagram);
+        analogControlFragment.setWriteDatagram(hubToolkitWriteDatagram);
+        monitorsFragment.setWriteDatagram(hubToolkitWriteDatagram);
+        extraFragment.setWriteDatagram(hubToolkitWriteDatagram);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -94,6 +101,8 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
         super.onResume();
         networkingManager.setHubToolkitDataHandler(this);
         networkingManager.sendMsg(new NetworkCommand(CommandList.START_HUBTOOLKIT_STREAM.toString()));
+        writeLooper = new WriteLooper();
+        writeLooper.start();
     }
 
     @Override
@@ -102,6 +111,8 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
         super.onPause();
         networkingManager.setHubToolkitDataHandler(null);
         networkingManager.sendMsg(new NetworkCommand(CommandList.STOP_HUBTOOLKIT_STREAM.toString()));
+        writeLooper.interrupt();
+        writeLooper = null;
     }
 
     @Override
@@ -232,17 +243,38 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
     }
 
     @Override
-    public void handleHubToolkitData(HubToolkitDataMsg hubToolkitDataMsg)
+    public void handleHubToolkitReadData(HubToolkitReadDataMsg hubToolkitReadDataMsg)
     {
-        hubToolkitDatagram.fromByteArray(hubToolkitDataMsg.getData());
+        hubToolkitReadDatagram.fromByteArray(hubToolkitReadDataMsg.getData());
 
         runOnUiThread(new Runnable()
         {
             @Override
             public void run()
             {
-                monitorsFragment.onDataUpdate(hubToolkitDatagram);
+                monitorsFragment.onDataUpdate(hubToolkitReadDatagram);
             }
         });
+    }
+
+    class WriteLooper extends Thread
+    {
+        @Override
+        public void run()
+        {
+            while (!Thread.currentThread().isInterrupted())
+            {
+                HubToolkitWriteDataMsg writeDataMsg = new HubToolkitWriteDataMsg();
+                writeDataMsg.setData(hubToolkitWriteDatagram.encode());
+                networkingManager.sendMsg(writeDataMsg);
+
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
     }
 }

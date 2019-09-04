@@ -21,21 +21,55 @@
 
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-public class TunerDataMsg extends ByteArrayNetworkMessage
-{
-    public TunerDataMsg()
-    {
+import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
+import java.nio.ByteBuffer;
+
+public abstract class ByteArrayNetworkMessage extends NetworkMsgBase
+{
+    private byte[] data;
+
+    public ByteArrayNetworkMessage(byte[] data)
+    {
+        fromByteArray(data);
     }
 
-    public TunerDataMsg(byte[] data)
+    public ByteArrayNetworkMessage()
     {
-        super(data);
+
     }
 
     @Override
-    public MsgType getMsgType()
+    public byte[] toByteArray()
     {
-        return MsgType.TUNER_DATA;
+        return getWriteBuffer(calcPayloadSize())
+                .putInt(data.length)
+                .put(data)
+                .array();
+    }
+
+    @Override
+    public void fromByteArray(byte[] byteArray)
+    {
+        ByteBuffer readBuffer = getReadBuffer(byteArray);
+
+        int cbData = readBuffer.getInt();
+        data = new byte[cbData];
+        readBuffer.get(data);
+    }
+
+    public byte[] getData()
+    {
+        return data;
+    }
+
+    public void setData(byte[] data)
+    {
+        this.data = data;
+    }
+
+    private int calcPayloadSize()
+    {
+        return data.length + DataConstants.NUM_BYTES_IN_INT;
     }
 }

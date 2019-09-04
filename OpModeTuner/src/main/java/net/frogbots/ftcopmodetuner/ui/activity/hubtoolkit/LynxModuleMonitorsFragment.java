@@ -1,23 +1,13 @@
 package net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import net.frogbots.ftcopmodetuner.R;
-import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitDatagram;
-
-import top.defaults.colorpicker.ColorPickerPopup;
+import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
 
 public class LynxModuleMonitorsFragment extends LynxControlFragment
 {
@@ -48,7 +38,7 @@ public class LynxModuleMonitorsFragment extends LynxControlFragment
     }
 
     @Override
-    void onDataUpdate(HubToolkitDatagram datagram)
+    void onDataUpdate(HubToolkitReadDatagram datagram)
     {
         if(viewCreated)
         {

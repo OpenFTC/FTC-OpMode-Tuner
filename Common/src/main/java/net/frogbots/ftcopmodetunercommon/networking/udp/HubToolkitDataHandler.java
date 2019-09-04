@@ -1,5 +1,6 @@
 package net.frogbots.ftcopmodetunercommon.networking.udp;
 
-public interface HubToolkitDataHandler {
-    void handleHubToolkitData(HubToolkitDataMsg hubToolkitDataMsg);
+public interface HubToolkitDataHandler
+{
+    void handleHubToolkitReadData(HubToolkitReadDataMsg hubToolkitReadDataMsg);
 }

@@ -25,7 +25,7 @@ import net.frogbots.ftcopmodetunercommon.misc.DataConstants;
 
 import java.nio.ByteBuffer;
 
-public class HubToolkitDatagram
+public class HubToolkitReadDatagram
 {
     private static final int NUM_SHORTS = 17;
     private static final int NUM_INTS = 4;
