@@ -47,4 +47,11 @@ public class AnalogPortFragment extends Fragment
     {
         this.num.setText("Analog " + num);
     }
+
+    public void setMillivolts(int mv)
+    {
+        graphicalVoltage.setProgress(mv);
+        rawVoltage.setText(mv + "mv");
+        javaVoltage.setText(mv/1000f + "v");
+    }
 }

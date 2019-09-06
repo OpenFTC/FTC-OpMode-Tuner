@@ -62,8 +62,6 @@ public class LynxModuleAnalogControlFragment extends LynxControlFragment
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -86,7 +84,14 @@ public class LynxModuleAnalogControlFragment extends LynxControlFragment
     }
 
     @Override
-    void onDataUpdate(HubToolkitReadDatagram datagram) {
-
+    void onDataUpdate(HubToolkitReadDatagram datagram)
+    {
+        if(isVisible())
+        {
+            a0.setMillivolts(datagram.analog0_mV);
+            a1.setMillivolts(datagram.analog1_mV);
+            a2.setMillivolts(datagram.analog2_mV);
+            a3.setMillivolts(datagram.analog3_mV);
+        }
     }
 }
