@@ -10,6 +10,7 @@
         android:id="@+id/detectingHubsProgressBar"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
+        android:indeterminateTint="@color/hub_toolkit_actionbar_color"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 

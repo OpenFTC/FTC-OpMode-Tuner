@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.activity.hubtoolkit.LynxModuleMotorControlFragment">
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <fragment
+            android:id="@+id/motor0"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.MotorFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_motor"/>
+
+        <fragment
+            android:id="@+id/motor1"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.MotorFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_motor"/>
+
+        <fragment
+            android:id="@+id/motor2"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.MotorFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_motor"/>
+
+        <fragment
+            android:id="@+id/motor3"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.MotorFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_motor"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

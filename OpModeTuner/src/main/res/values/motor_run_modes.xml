@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="motorRunModes">
+        <item>RUN_WITHOUT_ENCODER</item>
+        <item>RUN_USING_ENCODER</item>
+        <item>RUN_TO_POSITION</item>
+    </string-array>
+</resources>
