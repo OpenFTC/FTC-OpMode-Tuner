@@ -94,7 +94,23 @@ public class LynxModuleDigitalControlFragment extends LynxControlFragment
     }
 
     @Override
-    void onDataUpdate(HubToolkitReadDatagram datagram) {
+    void onDataUpdate(HubToolkitReadDatagram datagram)
+    {
+        if(isVisible())
+        {
+            p0.setInputState(getBit(datagram.digitalInputs, 0));
+            p1.setInputState(getBit(datagram.digitalInputs, 1));
+            p2.setInputState(getBit(datagram.digitalInputs, 2));
+            p3.setInputState(getBit(datagram.digitalInputs, 3));
+            p4.setInputState(getBit(datagram.digitalInputs, 4));
+            p5.setInputState(getBit(datagram.digitalInputs, 5));
+            p6.setInputState(getBit(datagram.digitalInputs, 6));
+            p7.setInputState(getBit(datagram.digitalInputs, 7));
+        }
+    }
 
+    byte getBit(byte b, int position)
+    {
+        return (byte) ((b >> position) & 1);
     }
 }

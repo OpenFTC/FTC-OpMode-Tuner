@@ -254,6 +254,7 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
             {
                 monitorsFragment.onDataUpdate(hubToolkitReadDatagram);
                 analogControlFragment.onDataUpdate(hubToolkitReadDatagram);
+                digitalControlFragment.onDataUpdate(hubToolkitReadDatagram);
             }
         });
     }

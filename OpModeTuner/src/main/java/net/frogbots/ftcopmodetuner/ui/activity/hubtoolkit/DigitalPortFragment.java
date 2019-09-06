@@ -24,6 +24,8 @@ public class DigitalPortFragment extends Fragment implements View.OnClickListene
     TextView rwTxtView;
     ToggleButton highLowToggleButton;
 
+    private final Object modeLock = new Object();
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -59,37 +61,40 @@ public class DigitalPortFragment extends Fragment implements View.OnClickListene
 
     public void setMode(Mode mode)
     {
-        this.mode = mode;
-
-        if(mode == Mode.INPUT)
+        synchronized (modeLock)
         {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            this.mode = mode;
+
+            if(mode == Mode.INPUT)
             {
-                rwTxtView.setText("READ:");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    rwTxtView.setText("READ:");
 
-                inModeBtn.setTextColor(getResources().getColor(R.color.white));
-                inModeBtn.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorPrimary));
+                    inModeBtn.setTextColor(getResources().getColor(R.color.white));
+                    inModeBtn.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorPrimary));
 
-                outModeBtn.setTextColor(Color.BLACK);
-                outModeBtn.setBackgroundTintList(null);
+                    outModeBtn.setTextColor(Color.BLACK);
+                    outModeBtn.setBackgroundTintList(null);
 
-                highLowToggleButton.setChecked(false);
-                highLowToggleButton.setEnabled(false);
+                    highLowToggleButton.setChecked(false);
+                    highLowToggleButton.setEnabled(false);
+                }
             }
-        }
-        else if(mode == Mode.OUTPUT)
-        {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            else if(mode == Mode.OUTPUT)
             {
-                rwTxtView.setText("WRITE:");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    rwTxtView.setText("WRITE:");
 
-                inModeBtn.setTextColor(Color.BLACK);
-                inModeBtn.setBackgroundTintList(null);
+                    inModeBtn.setTextColor(Color.BLACK);
+                    inModeBtn.setBackgroundTintList(null);
 
-                outModeBtn.setTextColor(getResources().getColor(R.color.white));
-                outModeBtn.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorPrimary));
+                    outModeBtn.setTextColor(getResources().getColor(R.color.white));
+                    outModeBtn.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorPrimary));
 
-                highLowToggleButton.setEnabled(true);
+                    highLowToggleButton.setEnabled(true);
+                }
             }
         }
     }
@@ -113,6 +118,24 @@ public class DigitalPortFragment extends Fragment implements View.OnClickListene
         else if(v == highLowToggleButton)
         {
 
+        }
+    }
+
+    public void setInputState(byte state)
+    {
+        synchronized (modeLock)
+        {
+            if(mode == Mode.INPUT)
+            {
+                if(state == 0)
+                {
+                    highLowToggleButton.setChecked(false);
+                }
+                else
+                {
+                    highLowToggleButton.setChecked(true);
+                }
+            }
         }
     }
 }

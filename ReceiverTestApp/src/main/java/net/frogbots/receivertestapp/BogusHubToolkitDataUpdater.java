@@ -2,6 +2,8 @@ package net.frogbots.receivertestapp;
 
 import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
 
+import java.util.Random;
+
 public class BogusHubToolkitDataUpdater
 {
     private HubToolkitReadDatagram datagram;
@@ -13,6 +15,8 @@ public class BogusHubToolkitDataUpdater
     private MovingBogusValue a1 = new MovingBogusValue(1000, 1500);
     private MovingBogusValue a2 = new MovingBogusValue(2000, 2500);
     private MovingBogusValue a3 = new MovingBogusValue(3000, 3300);
+
+    private Random random = new Random();
 
     public BogusHubToolkitDataUpdater(HubToolkitReadDatagram datagram)
     {
@@ -28,5 +32,7 @@ public class BogusHubToolkitDataUpdater
         datagram.analog1_mV = (short) a1.next();
         datagram.analog2_mV = (short) a2.next();
         datagram.analog3_mV = (short) a3.next();
+
+        datagram.digitalInputs = (byte) random.nextInt(256);
     }
 }
