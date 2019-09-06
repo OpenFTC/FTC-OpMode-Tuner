@@ -51,13 +51,13 @@ public class LynxModuleMonitorsFragment extends LynxControlFragment
     {
         if(isVisible())
         {
-            motor_0_currentDraw.setText("Motor 0: " + datagram.motor0currentDraw + "A");
-            motor_1_currentDraw.setText("Motor 1: " + datagram.motor1currentDraw + "A");
-            motor_2_currentDraw.setText("Motor 2: " + datagram.motor2currentDraw + "A");
-            motor_3_currentDraw.setText("Motor 3: " + datagram.motor3currentDraw + "A");
-            totalCurrentDraw.setText("Total: " + datagram.totalCurrentDraw + "A");
-            gpioCurrentDraw.setText("GPIO: " + datagram.gpioCurrentDraw + "A");
-            i2cCurrentDraw.setText("I2C: " + datagram.i2cCurrentDraw + "A");
+            motor_0_currentDraw.setText("Motor 0: " + datagram.motor0currentDraw/1000f + "A");
+            motor_1_currentDraw.setText("Motor 1: " + datagram.motor1currentDraw/1000f + "A");
+            motor_2_currentDraw.setText("Motor 2: " + datagram.motor2currentDraw/1000f + "A");
+            motor_3_currentDraw.setText("Motor 3: " + datagram.motor3currentDraw/1000f + "A");
+            totalCurrentDraw.setText("Total: " + datagram.totalCurrentDraw/1000f + "A");
+            gpioCurrentDraw.setText("GPIO: " + datagram.gpioCurrentDraw + "mA");
+            i2cCurrentDraw.setText("I2C: " + datagram.i2cCurrentDraw + "mA");
             monitor_12v.setText("12v monitor: " + datagram.monitor_12v/1000f + "v");
             monitor_5v.setText("5v monitor: " + datagram.monitor_5v/1000f + "v");
 

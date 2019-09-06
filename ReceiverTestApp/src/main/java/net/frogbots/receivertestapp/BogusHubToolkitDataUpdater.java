@@ -16,6 +16,14 @@ public class BogusHubToolkitDataUpdater
     private MovingBogusValue a2 = new MovingBogusValue(2000, 2500);
     private MovingBogusValue a3 = new MovingBogusValue(3000, 3300);
 
+    private MovingBogusValue m0_current = new MovingBogusValue(0, 1000);
+    private MovingBogusValue m1_current = new MovingBogusValue(1000, 2000);
+    private MovingBogusValue m2_current = new MovingBogusValue(2000, 3000);
+    private MovingBogusValue m3_current = new MovingBogusValue(3000, 4000);
+    private MovingBogusValue gpio_current = new MovingBogusValue(0, 250);
+    private MovingBogusValue i2c_current = new MovingBogusValue(250, 500);
+    private MovingBogusValue total_current = new MovingBogusValue(5000, 6000);
+
     private Random random = new Random();
 
     public BogusHubToolkitDataUpdater(HubToolkitReadDatagram datagram)
@@ -34,5 +42,14 @@ public class BogusHubToolkitDataUpdater
         datagram.analog3_mV = (short) a3.next();
 
         datagram.digitalInputs = (byte) random.nextInt(256);
+
+        datagram.motor0currentDraw = (short) m0_current.next();
+        datagram.motor1currentDraw = (short) m1_current.next();
+        datagram.motor2currentDraw = (short) m2_current.next();
+        datagram.motor3currentDraw = (short) m3_current.next();
+
+        datagram.gpioCurrentDraw = (short) gpio_current.next();
+        datagram.i2cCurrentDraw = (short) i2c_current.next();
+        datagram.totalCurrentDraw = (short) total_current.next();
     }
 }
