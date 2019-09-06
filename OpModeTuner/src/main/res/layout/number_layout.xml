@@ -35,6 +35,7 @@
 
         <SeekBar
             android:id="@+id/seekBar"
+            style="@android:style/Widget.Holo.SeekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

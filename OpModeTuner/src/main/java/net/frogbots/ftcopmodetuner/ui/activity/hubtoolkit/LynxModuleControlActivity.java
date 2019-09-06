@@ -45,7 +45,7 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
     private ViewPager mViewPager;
 
     private LynxModuleMotorControlFragment motorControlFragment;
-    private LynxModuleMotorControlFragment servoControlFragment;
+    private LynxModuleServoControlFragment servoControlFragment;
     private LynxModuleDigitalControlFragment digitalControlFragment;
     private LynxModuleAnalogControlFragment analogControlFragment;
     private LynxModuleMonitorsFragment monitorsFragment;
@@ -68,7 +68,7 @@ public class LynxModuleControlActivity extends UdpConnectionActivity implements 
         setSupportActionBar(toolbar);
 
         motorControlFragment = LynxModuleMotorControlFragment.newInstance("p2", "p2");
-        servoControlFragment = LynxModuleMotorControlFragment.newInstance("p2", "p2");
+        servoControlFragment = LynxModuleServoControlFragment.newInstance();
         digitalControlFragment = LynxModuleDigitalControlFragment.newInstance("p2", "p2");
         analogControlFragment = LynxModuleAnalogControlFragment.newInstance("p2", "p2");
         monitorsFragment = new LynxModuleMonitorsFragment();

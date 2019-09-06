@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/scrollView"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/things"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <fragment
+            android:layout_marginBottom="2dp"
+            android:id="@+id/servo0"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.ServoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_servo"/>
+
+        <fragment
+            android:layout_marginBottom="2dp"
+            android:id="@+id/servo1"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.ServoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_servo"/>
+
+        <fragment
+            android:layout_marginBottom="2dp"
+            android:id="@+id/servo2"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.ServoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_servo"/>
+
+        <fragment
+            android:layout_marginBottom="2dp"
+            android:id="@+id/servo3"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.ServoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_servo"/>
+
+        <fragment
+            android:layout_marginBottom="2dp"
+            android:id="@+id/servo4"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.ServoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_servo"/>
+
+        <fragment
+            android:layout_marginBottom="2dp"
+            android:id="@+id/servo5"
+            android:name="net.frogbots.ftcopmodetuner.ui.activity.hubtoolkit.ServoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_servo"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
