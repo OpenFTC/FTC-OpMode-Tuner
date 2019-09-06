@@ -81,12 +81,20 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/total_current_draw"
                     android:text="Total: 2.0A"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/gpio_current_draw"
                     android:text="GPIO bus: 120mA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/i2c_current_draw"
+                    android:text="I2C bus: 120mA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -97,16 +105,19 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/motor_1_current_draw"
                     android:text="Motor 1: 1.8A"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/motor_2_current_draw"
                     android:text="Motor 2: 1.9A"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/motor_3_current_draw"
                     android:text="Motor 3: 2.1A"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
