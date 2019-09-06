@@ -78,7 +78,8 @@ public class DigitalPortFragment extends Fragment implements View.OnClickListene
                     outModeBtn.setBackgroundTintList(null);
 
                     highLowToggleButton.setChecked(false);
-                    highLowToggleButton.setEnabled(false);
+                    highLowToggleButton.setClickable(false);
+                    //highLowToggleButton.setEnabled(false);
                 }
             }
             else if(mode == Mode.OUTPUT)
@@ -93,7 +94,8 @@ public class DigitalPortFragment extends Fragment implements View.OnClickListene
                     outModeBtn.setTextColor(getResources().getColor(R.color.white));
                     outModeBtn.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.colorPrimary));
 
-                    highLowToggleButton.setEnabled(true);
+                    //highLowToggleButton.setEnabled(true);
+                    highLowToggleButton.setClickable(true);
                 }
             }
         }

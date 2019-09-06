@@ -26,6 +26,8 @@ public class BogusHubToolkitDataUpdater
 
     private Random random = new Random();
 
+    long lastDigitalUpdateTime;
+
     public BogusHubToolkitDataUpdater(HubToolkitReadDatagram datagram)
     {
         this.datagram = datagram;
@@ -41,7 +43,11 @@ public class BogusHubToolkitDataUpdater
         datagram.analog2_mV = (short) a2.next();
         datagram.analog3_mV = (short) a3.next();
 
-        datagram.digitalInputs = (byte) random.nextInt(256);
+        if(System.currentTimeMillis() - lastDigitalUpdateTime > 1000)
+        {
+            datagram.digitalInputs = (byte) random.nextInt(256);
+            lastDigitalUpdateTime = System.currentTimeMillis();
+        }
 
         datagram.motor0currentDraw = (short) m0_current.next();
         datagram.motor1currentDraw = (short) m1_current.next();
