@@ -24,6 +24,16 @@ public class BogusHubToolkitDataUpdater
     private MovingBogusValue i2c_current = new MovingBogusValue(250, 500);
     private MovingBogusValue total_current = new MovingBogusValue(5000, 6000);
 
+    private MovingBogusValue m0_enc = new MovingBogusValue(0, 1000);
+    private MovingBogusValue m1_enc = new MovingBogusValue(1000, 2000);
+    private MovingBogusValue m2_enc = new MovingBogusValue(2000, 3000);
+    private MovingBogusValue m3_enc = new MovingBogusValue(3000, 4000);
+
+    private MovingBogusValue m0_vel = new MovingBogusValue(0, 100);
+    private MovingBogusValue m1_vel = new MovingBogusValue(100, 200);
+    private MovingBogusValue m2_vel = new MovingBogusValue(200, 300);
+    private MovingBogusValue m3_vel = new MovingBogusValue(300, 400);
+
     private Random random = new Random();
 
     long lastDigitalUpdateTime;
@@ -57,5 +67,15 @@ public class BogusHubToolkitDataUpdater
         datagram.gpioCurrentDraw = (short) gpio_current.next();
         datagram.i2cCurrentDraw = (short) i2c_current.next();
         datagram.totalCurrentDraw = (short) total_current.next();
+
+        datagram.motor0position_enc = m0_enc.next();
+        datagram.motor1position_enc = m1_enc.next();
+        datagram.motor2position_enc = m2_enc.next();
+        datagram.motor3position_enc = m3_enc.next();
+
+        datagram.motor0velocity_cps = (short) m0_vel.next();
+        datagram.motor1velocity_cps = (short) m1_vel.next();
+        datagram.motor2velocity_cps = (short) m2_vel.next();
+        datagram.motor3velocity_cps = (short) m3_vel.next();
     }
 }

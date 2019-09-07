@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import net.frogbots.ftcopmodetuner.R;
 
@@ -20,6 +21,9 @@ import net.frogbots.ftcopmodetuner.R;
 public class MotorFragment extends Fragment
 {
     private Spinner runModesSpinner;
+    private TextView encoder;
+    private TextView velocity;
+    private TextView current;
 
     public MotorFragment()
     {
@@ -49,6 +53,25 @@ public class MotorFragment extends Fragment
         modesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         runModesSpinner.setAdapter(modesAdapter);
 
+        encoder = view.findViewById(R.id.encoder);
+        velocity = view.findViewById(R.id.velocity);
+        current = view.findViewById(R.id.current);
+
         return view;
+    }
+
+    public void setEncoder(int enc)
+    {
+        encoder.setText("Encoder: " + enc);
+    }
+
+    public void setVelocity(int vel)
+    {
+        velocity.setText("Velocity: " + vel);
+    }
+
+    public void setCurrentDraw(int ma)
+    {
+        current.setText("Current: " + ma/1000f + "A");
     }
 }
