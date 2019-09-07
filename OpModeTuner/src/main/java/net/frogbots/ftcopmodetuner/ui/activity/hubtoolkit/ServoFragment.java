@@ -18,11 +18,14 @@ import android.widget.ToggleButton;
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetuner.ui.field.util.FloatingPointSignedSeekBar;
 
+import java.text.DecimalFormat;
+
 public class ServoFragment extends Fragment implements FloatingPointSignedSeekBar.OnFloatingPointSeekBarChangeListener
 {
     private FloatingPointSignedSeekBar floatingPointSignedSeekBar;
     private TextView name;
     private TextView posTextView;
+    private DecimalFormat decimalFormat = new DecimalFormat("0.000");
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -53,6 +56,6 @@ public class ServoFragment extends Fragment implements FloatingPointSignedSeekBa
     @Override
     public void onProgressChanged(FloatingPointSignedSeekBar seekBar, double progress, boolean fromUser)
     {
-        posTextView.setText("Position: " + progress);
+        posTextView.setText("Position: " + decimalFormat.format(progress));
     }
 }
