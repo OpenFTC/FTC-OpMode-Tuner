@@ -9,6 +9,8 @@ import android.widget.TextView;
 import net.frogbots.ftcopmodetuner.R;
 import net.frogbots.ftcopmodetunercommon.networking.datagram.hubtoolkit.HubToolkitReadDatagram;
 
+import java.text.DecimalFormat;
+
 public class LynxModuleMonitorsFragment extends LynxControlFragment
 {
     TextView motor_0_currentDraw;
@@ -20,6 +22,8 @@ public class LynxModuleMonitorsFragment extends LynxControlFragment
     TextView totalCurrentDraw;
     TextView monitor_12v;
     TextView monitor_5v;
+
+    DecimalFormat twoDecimalDigits = new DecimalFormat("0.00");
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -51,15 +55,15 @@ public class LynxModuleMonitorsFragment extends LynxControlFragment
     {
         if(isVisible())
         {
-            motor_0_currentDraw.setText("Motor 0: " + datagram.motor0currentDraw/1000f + "A");
-            motor_1_currentDraw.setText("Motor 1: " + datagram.motor1currentDraw/1000f + "A");
-            motor_2_currentDraw.setText("Motor 2: " + datagram.motor2currentDraw/1000f + "A");
-            motor_3_currentDraw.setText("Motor 3: " + datagram.motor3currentDraw/1000f + "A");
-            totalCurrentDraw.setText("Total: " + datagram.totalCurrentDraw/1000f + "A");
+            motor_0_currentDraw.setText("Motor 0: " + twoDecimalDigits.format(datagram.motor0currentDraw/1000f) + "A");
+            motor_1_currentDraw.setText("Motor 1: " + twoDecimalDigits.format(datagram.motor1currentDraw/1000f) + "A");
+            motor_2_currentDraw.setText("Motor 2: " + twoDecimalDigits.format(datagram.motor2currentDraw/1000f) + "A");
+            motor_3_currentDraw.setText("Motor 3: " + twoDecimalDigits.format(datagram.motor3currentDraw/1000f) + "A");
+            totalCurrentDraw.setText("Total: " + twoDecimalDigits.format(datagram.totalCurrentDraw/1000f) + "A");
             gpioCurrentDraw.setText("GPIO: " + datagram.gpioCurrentDraw + "mA");
             i2cCurrentDraw.setText("I2C: " + datagram.i2cCurrentDraw + "mA");
-            monitor_12v.setText("12v monitor: " + datagram.monitor_12v/1000f + "v");
-            monitor_5v.setText("5v monitor: " + datagram.monitor_5v/1000f + "v");
+            monitor_12v.setText("12v monitor: " + twoDecimalDigits.format(datagram.monitor_12v/1000f) + "v");
+            monitor_5v.setText("5v monitor: " + twoDecimalDigits.format(datagram.monitor_5v/1000f) + "v");
 
         }
     }
